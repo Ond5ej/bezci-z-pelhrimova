@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" width="720" height="540" role="img" aria-label="start na namesti">
-<defs><linearGradient id="sky24" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4a55"/><stop offset="1" stop-color="#243038"/></linearGradient><linearGradient id="gl24" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A319" stop-opacity="0.9"/><stop offset="1" stop-color="#E9A319" stop-opacity="0"/></linearGradient></defs>
+<defs><linearGradient id="sky24" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f4d70"/><stop offset="1" stop-color="#1c3050"/></linearGradient><linearGradient id="gl24" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E9BE6" stop-opacity="0.9"/><stop offset="1" stop-color="#2E9BE6" stop-opacity="0"/></linearGradient></defs>
 <rect width="720" height="540" fill="url(#sky24)"/>
-<path d="M 0 243 L 0 200 L 120 248 L 240 279 L 360 305 L 480 239 L 600 203 L 720 183 L 720 540 L 0 540 Z" fill="#4a5b52"/>
-<path d="M 0 313 L 0 276 L 120 325 L 240 361 L 360 298 L 480 276 L 600 332 L 720 365 L 720 540 L 0 540 Z" fill="#1F3A2B"/>
-<path d="M 0 383 L 0 356 L 120 409 L 240 387 L 360 356 L 480 422 L 600 386 L 720 342 L 720 540 L 0 540 Z" fill="#14231B"/>
-<path d="M 0 432 Q 360 418 720 432" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
-<path d="M 0 459 Q 360 445 720 459" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
-<path d="M 0 486 Q 360 472 720 486" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
-<path d="M -10 540 Q 252 486 396 421 T 730 324" fill="none" stroke="#F3EFE4" stroke-opacity="0.22" stroke-width="11" stroke-linecap="round"/>
-<g transform="translate(201.60000000000002,356.40000000000003) scale(4.5)"><line x1="1" y1="-3" x2="-2.5" y2="7" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="8" y2="-3" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="-6" y2="1.5" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><path d="M -2.5 7 L 5 9 L 7 16" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M -2.5 7 L -7 11 L -5.5 17" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="2.6" cy="-7.5" r="3.2" fill="#F3EFE4"/></g>
-<rect x="0" y="514" width="720" height="26" fill="#14231B" opacity="0.28"/>
-<text x="14" y="531" font-family="Space Mono, monospace" font-size="12" fill="#F3EFE4" opacity="0.85">start na namesti</text>
+<path d="M 0 243 L 0 200 L 120 248 L 240 279 L 360 305 L 480 239 L 600 203 L 720 183 L 720 540 L 0 540 Z" fill="#3f5c82"/>
+<path d="M 0 313 L 0 276 L 120 325 L 240 361 L 360 298 L 480 276 L 600 332 L 720 365 L 720 540 L 0 540 Z" fill="#14386F"/>
+<path d="M 0 383 L 0 356 L 120 409 L 240 387 L 360 356 L 480 422 L 600 386 L 720 342 L 720 540 L 0 540 Z" fill="#0E2C5A"/>
+<path d="M 0 432 Q 360 418 720 432" fill="none" stroke="#F5F9FE" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 459 Q 360 445 720 459" fill="none" stroke="#F5F9FE" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 486 Q 360 472 720 486" fill="none" stroke="#F5F9FE" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M -10 540 Q 252 486 396 421 T 730 324" fill="none" stroke="#F5F9FE" stroke-opacity="0.22" stroke-width="11" stroke-linecap="round"/>
+<g transform="translate(201.60000000000002,356.40000000000003) scale(4.5)"><line x1="1" y1="-3" x2="-2.5" y2="7" stroke="#F5F9FE" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="8" y2="-3" stroke="#F5F9FE" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="-6" y2="1.5" stroke="#F5F9FE" stroke-width="3.4" stroke-linecap="round"/><path d="M -2.5 7 L 5 9 L 7 16" fill="none" stroke="#F5F9FE" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M -2.5 7 L -7 11 L -5.5 17" fill="none" stroke="#F5F9FE" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="2.6" cy="-7.5" r="3.2" fill="#F5F9FE"/></g>
+<rect x="0" y="514" width="720" height="26" fill="#0E2C5A" opacity="0.28"/>
+<text x="14" y="531" font-family="Space Mono, monospace" font-size="12" fill="#F5F9FE" opacity="0.85">start na namesti</text>
 </svg>

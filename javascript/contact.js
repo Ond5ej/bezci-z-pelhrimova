@@ -9,7 +9,7 @@ export function initContact(sel) {
   const form = document.querySelector(sel.form);
   if (!form) return;
   const status = form.querySelector('.form-status');
-  const to = sel.email || 'ahoj@bezcizpelhrimova.cz';
+  const to = sel.email || 'bezcizpelhrimova@seznam.cz';
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();

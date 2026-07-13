@@ -5,20 +5,20 @@
 const routes = [
   {
     name: 'Městský okruh',
-    desc: 'Rovinatý okruh centrem a parky. Ideální na rozběhání a pro úplné začátečníky.',
-    km: '5,2', elev: '45 m', time: '30–40 min', diff: 'easy', diffLabel: 'Lehká',
+    desc: 'Nenáročný okruh centrem a parky. Ideální na rozběhání a pro úplné začátečníky.',
+    km: '5,2', elev: '45 m', teren: 'asfalt', diff: 'easy', diffLabel: 'Pro každého',
     profile: [3, 4, 3, 5, 4, 6, 4, 3, 4, 3],
   },
   {
     name: 'Křemešník',
     desc: 'Táhlé stoupání lesem až k rozhledně. Odměnou je výhled na celou Vysočinu.',
-    km: '11,8', elev: '260 m', time: '60–75 min', diff: 'medium', diffLabel: 'Střední',
+    km: '11,8', elev: '260 m', teren: 'les', diff: 'medium', diffLabel: 'Kopcovitá',
     profile: [2, 3, 5, 7, 9, 10, 8, 6, 4, 3],
   },
   {
-    name: 'Řečický long run',
-    desc: 'Dlouhá nedělní trasa přes kopce k Červené Řečici a zpět. Pro trénované nohy.',
-    km: '21,1', elev: '410 m', time: '110–130 min', diff: 'hard', diffLabel: 'Náročná',
+    name: 'Nedělní vejšlap',
+    desc: 'Delší pohodová trasa přes kopce a zpět. Pomalé tempo, hlavně si to užít.',
+    km: '18,0', elev: '340 m', teren: 'smíšený', diff: 'hard', diffLabel: 'Delší',
     profile: [3, 6, 4, 8, 6, 10, 7, 9, 5, 3],
   },
 ];
@@ -71,7 +71,7 @@ export function initRoutes(sel) {
       <div class="route-meta">
         <div class="m"><span class="v">${r.km}</span><span class="k">km</span></div>
         <div class="m"><span class="v">${r.elev}</span><span class="k">převýšení</span></div>
-        <div class="m"><span class="v">${r.time.split('–')[0]}′</span><span class="k">tempo</span></div>
+        <div class="m"><span class="v">${r.teren}</span><span class="k">povrch</span></div>
       </div>
     </article>
   `).join('');

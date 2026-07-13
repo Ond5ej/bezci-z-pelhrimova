@@ -1,54 +1,38 @@
 /* =========================================================
-   HLAVIČKA + NAVIGACE
+   HLAVIČKA + NAVIGACE  (světlá, modrobílá)
    ========================================================= */
 header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(20, 35, 27, 0.72);
+  background: rgba(255, 255, 255, 0.85);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(143, 176, 162, 0.12);
-  transition: background .3s var(--ease), border-color .3s var(--ease);
+  border-bottom: 1px solid var(--line-soft);
+  transition: background .3s var(--ease), box-shadow .3s var(--ease);
 }
 header.scrolled {
-  background: rgba(15, 26, 19, 0.94);
-  border-bottom-color: rgba(143, 176, 162, 0.2);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 6px 22px -14px rgba(14,44,90,.35);
 }
 
 .navbar {
   max-width: var(--container);
   margin: 0 auto;
-  padding: .7rem 1.5rem;
+  padding: .55rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
 
-/* ---- Značka ---- */
+/* ---- Značka (logo) ---- */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: .65rem;
   text-decoration: none;
-  color: var(--paper-text);
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1;
 }
-.brand img { width: 40px; height: 40px; }
-.brand-name { font-size: 1.05rem; }
-.brand-name small {
-  display: block;
-  font-family: var(--font-data);
-  font-weight: 400;
-  font-size: .62rem;
-  letter-spacing: .22em;
-  color: var(--amber);
-  margin-top: 3px;
-}
+.brand img { height: 46px; width: auto; display: block; }
 
 /* ---- Desktop navigace ---- */
 .nav-desktop ul {
@@ -63,22 +47,22 @@ header.scrolled {
   display: inline-block;
   padding: .5rem .85rem;
   font-size: .9rem;
-  font-weight: 500;
-  letter-spacing: .02em;
-  color: var(--paper-soft);
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--ink-soft);
   text-decoration: none;
   border-radius: var(--r-pill);
   transition: color .2s var(--ease), background .2s var(--ease);
 }
 .nav-desktop a:hover,
-.nav-desktop a.active { color: var(--paper-text); background: rgba(255,255,255,.06); }
+.nav-desktop a.active { color: var(--ink-text); background: var(--sand); }
 .nav-desktop a.nav-cta {
   margin-left: .4rem;
   background: var(--amber);
-  color: var(--ink);
-  font-weight: 600;
+  color: #fff;
+  font-weight: 700;
 }
-.nav-desktop a.nav-cta:hover { background: var(--amber-soft); }
+.nav-desktop a.nav-cta:hover { background: var(--amber-deep); color: #fff; }
 
 /* ---- Hamburger ---- */
 .navbar-toggle {
@@ -89,13 +73,13 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid rgba(143,176,162,.25);
+  border: 1px solid var(--line-soft);
   border-radius: var(--r-sm);
   cursor: pointer;
 }
 .navbar-toggle .bar {
   width: 22px; height: 2px;
-  background: var(--paper-text);
+  background: var(--ink-text);
   transition: transform .3s var(--ease), opacity .3s var(--ease);
 }
 body.menu-open .navbar-toggle .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -106,7 +90,7 @@ body.menu-open .navbar-toggle .bar:nth-child(3) { transform: translateY(-7px) ro
 .menu-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15,26,19,.55);
+  background: rgba(10,33,72,.45);
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s var(--ease);
@@ -121,8 +105,9 @@ body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
     top: 0; right: 0;
     height: 100dvh;
     width: min(78vw, 320px);
-    background: var(--forest);
-    border-left: 1px solid rgba(143,176,162,.15);
+    background: #fff;
+    border-left: 1px solid var(--line-soft);
+    box-shadow: -20px 0 50px -30px rgba(14,44,90,.5);
     transform: translateX(100%);
     transition: transform .35s var(--ease);
     z-index: 95;

@@ -14,7 +14,7 @@
   display: flex;
   gap: 1rem;
   padding: 1rem 0;
-  border-bottom: 1px dashed rgba(143,176,162,.25);
+  border-bottom: 1px dashed rgba(127,168,216,.25);
 }
 .meet-list li:last-child { border-bottom: none; }
 .meet-list .day {
@@ -23,7 +23,8 @@
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--amber);
-  min-width: 92px;
+  min-width: 30px;
+  font-size: 1.15rem;
   padding-top: 2px;
 }
 .meet-list .info strong { display: block; color: var(--paper-text); font-weight: 600; }
@@ -35,7 +36,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid rgba(143,176,162,.3);
+  border: 1px solid rgba(127,168,216,.3);
   color: var(--paper-text);
   font-size: 1.2rem;
   text-decoration: none;
@@ -46,7 +47,7 @@
 /* pravý sloupec – formulář */
 .contact-form {
   background: var(--forest);
-  border: 1px solid rgba(143,176,162,.15);
+  border: 1px solid rgba(127,168,216,.15);
   border-radius: var(--r-lg);
   padding: clamp(1.6rem, 4vw, 2.2rem);
 }
@@ -66,8 +67,8 @@
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--paper-text);
-  background: rgba(15,26,19,.5);
-  border: 1px solid rgba(143,176,162,.22);
+  background: rgba(10,33,72,.5);
+  border: 1px solid rgba(127,168,216,.22);
   border-radius: var(--r-sm);
   padding: .8rem .9rem;
   transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
@@ -76,7 +77,7 @@
 .form-row textarea:focus {
   outline: none;
   border-color: var(--amber);
-  box-shadow: 0 0 0 3px rgba(233,163,25,.18);
+  box-shadow: 0 0 0 3px rgba(28,111,212,.18);
 }
 .form-row textarea { resize: vertical; min-height: 120px; }
 .contact-form .btn { width: 100%; justify-content: center; }
@@ -88,7 +89,7 @@
   text-align: center;
 }
 .form-status.ok  { color: var(--amber-soft); }
-.form-status.err { color: #e9a08e; }
+.form-status.err { color: #E58B7B; }
 
 /* ---- Patička ---- */
 .site-footer {
@@ -121,8 +122,33 @@
   font-family: var(--font-data);
   font-size: .74rem;
   letter-spacing: .04em;
-  color: #7a8b7f;
+  color: #6E86A8;
 }
 .site-footer .fine a { color: var(--amber); text-decoration: none; }
 
 @media (max-width: 780px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* ---- QR kódy na sítě ---- */
+.qr-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.6rem;
+  flex-wrap: wrap;
+}
+.qr-card {
+  background: #fff;
+  border-radius: var(--r);
+  padding: .7rem;
+  text-align: center;
+  box-shadow: var(--sh-sm);
+  width: 132px;
+}
+.qr-card img { width: 116px; height: 116px; border-radius: 8px; display: block; }
+.qr-card span {
+  display: block;
+  font-family: var(--font-data);
+  font-size: .66rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  margin-top: .5rem;
+}

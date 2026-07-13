@@ -1,33 +1,33 @@
 /* =========================================================
    ZÁKLADNÍ TOKENY – Běžci z Pelhřimova
-   Paleta: smrkové lesy Vysočiny + svítání nad kopci
+   Modrobílá identita dle značky (navy + azurová + bílá)
    ========================================================= */
 :root {
-  /* ---- Tmavé (les / noc před ranním výběhem) ---- */
-  --ink:        #14231B;   /* hlavní tmavé pozadí */
-  --forest:     #1F3A2B;   /* panely na tmavém */
-  --forest-2:   #2A4B38;   /* světlejší panel / hover */
-  --off-black:  #0F1A13;
+  /* ---- Tmavé (navy) ---- */
+  --ink:        #0E2C5A;   /* hlavní tmavá navy (tmavé sekce, hero) */
+  --forest:     #14386F;   /* panel na navy */
+  --forest-2:   #1E4C86;   /* světlejší panel / hover */
+  --off-black:  #0A2148;   /* patička – nejhlubší navy */
 
-  /* ---- Světlé (papír / mlha / písek cesty) ---- */
-  --paper:      #F3EFE4;   /* hlavní světlé pozadí */
-  --paper-2:    #FBF9F2;
-  --sand:       #E9E2D1;   /* jemné panely na světlém */
-  --line-soft:  #DCD3BE;   /* okraje na světlém */
+  /* ---- Světlé (bílá / světle modrá) ---- */
+  --paper:      #FFFFFF;   /* hlavní světlé pozadí */
+  --paper-2:    #F5F9FE;   /* karty na světlém */
+  --sand:       #EAF3FC;   /* světle modré panely / sekce */
+  --line-soft:  #D3E4F7;   /* okraje na světlém */
 
   /* ---- Akcenty ---- */
-  --amber:      #E9A319;   /* svítání – hlavní akcent */
-  --amber-deep: #C9820A;   /* tmavší pro hover/okraje */
-  --amber-soft: #F2C566;
-  --grass:      #5C8A3A;   /* čerstvá zeleň – sekundární */
-  --grass-deep: #47702C;
-  --sage:       #8FB0A2;   /* mlžná šalvěj – decentní */
+  --amber:      #1C6FD4;   /* hlavní modrá (tlačítka, akcenty) */
+  --amber-deep: #12539F;   /* sytější pro hover/okraje */
+  --amber-soft: #5AB0EE;   /* světlá azurová */
+  --grass:      #2E9BE6;   /* jasná azurová – sekundární */
+  --grass-deep: #1C6FD4;
+  --sage:       #7FA8D8;   /* tlumená modrá – decentní */
 
   /* ---- Text ---- */
-  --ink-text:      #1B2C22;   /* text na světlém */
-  --ink-soft:      #4C5A50;   /* sekundární text na světlém */
-  --paper-text:    #EDE7D6;   /* text na tmavém */
-  --paper-soft:    #C4CBBE;   /* sekundární text na tmavém */
+  --ink-text:      #12233D;   /* text na světlém */
+  --ink-soft:      #4A5A73;   /* sekundární text na světlém */
+  --paper-text:    #EAF2FB;   /* text na navy */
+  --paper-soft:    #AFC7E4;   /* sekundární text na navy */
 
   /* ---- Fonty ---- */
   --font-display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
@@ -41,10 +41,10 @@
   --r-pill: 999px;
 
   /* ---- Stíny ---- */
-  --sh-sm: 0 2px 10px rgba(15, 26, 19, 0.08);
-  --sh:    0 14px 34px -16px rgba(15, 26, 19, 0.30);
-  --sh-lg: 0 30px 70px -28px rgba(15, 26, 19, 0.45);
-  --sh-amber: 0 16px 44px -18px rgba(201, 130, 10, 0.5);
+  --sh-sm: 0 2px 10px rgba(14, 44, 90, 0.08);
+  --sh:    0 14px 34px -16px rgba(14, 44, 90, 0.28);
+  --sh-lg: 0 30px 70px -28px rgba(14, 44, 90, 0.40);
+  --sh-amber: 0 16px 44px -18px rgba(28, 111, 212, 0.5);
 
   /* ---- Pohyb ---- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

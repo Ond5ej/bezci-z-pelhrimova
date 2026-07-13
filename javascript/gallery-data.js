@@ -5,14 +5,13 @@
    1) Nahraj soubor do složky  img/gallery/
    2) Přidej položku:  { src: 'img/gallery/tvuj-soubor.jpg', alt: 'Popisek' }
    Podporované formáty: .jpg .jpeg .png .webp .svg
+   Tip: nejlepší fotky najdeš na svém Instagramu/Facebooku.
    ========================================================= */
 export const galleryPhotos = [
-  { src: 'img/gallery/foto-01.svg', alt: 'Svítání nad Křemešníkem' },
-  { src: 'img/gallery/foto-02.svg', alt: 'Lesní okruh k Batovskému rybníku' },
-  { src: 'img/gallery/foto-03.svg', alt: 'Ranní mlha nad Bělou' },
-  { src: 'img/gallery/foto-04.svg', alt: 'Start na Masarykově náměstí' },
-  { src: 'img/gallery/foto-05.svg', alt: 'Večerní výběh do kopců' },
-  { src: 'img/gallery/foto-06.svg', alt: 'Zimní běh Pelhřimovem' },
-  { src: 'img/gallery/foto-07.svg', alt: 'Kopce u Červené Řečice' },
-  { src: 'img/gallery/foto-08.svg', alt: 'Společný nedělní long run' },
+  { src: 'img/gallery/real-01.jpg', alt: 'Společný výběh partou' },
+  { src: 'img/gallery/real-03.jpg', alt: 'Naše parta po tréninku' },
+  { src: 'img/gallery/real-02.jpg', alt: 'Trénink na atletickém stadionu' },
+  { src: 'img/gallery/foto-01.svg', alt: 'Ráno nad Pelhřimovem' },
+  { src: 'img/gallery/foto-02.svg', alt: 'Lesní okruh' },
+  { src: 'img/gallery/foto-05.svg', alt: 'Večerní výběh' },
 ];

@@ -10,16 +10,16 @@ GAL = os.path.join(OUT, "img", "gallery")
 IMG = os.path.join(OUT, "img")
 os.makedirs(GAL, exist_ok=True)
 
-# ---- Paleta ------------------------------------------------------------
-INK      = "#14231B"
-FOREST   = "#1F3A2B"
-FOREST2  = "#2A4B38"
-PAPER    = "#F3EFE4"
-SAND     = "#E9E2D1"
-AMBER    = "#E9A319"
-AMBER_D  = "#C9820A"
-GRASS    = "#5C8A3A"
-SAGE     = "#8FB0A2"
+# ---- Paleta (modrobílá – dle značky Běžci z Pelhřimova) -----------------
+INK      = "#0E2C5A"   # hluboká navy
+FOREST   = "#14386F"   # panel na navy
+FOREST2  = "#1E4C86"
+PAPER    = "#F5F9FE"
+SAND     = "#EAF3FC"
+AMBER    = "#2E9BE6"   # jasná azurová (hlavní akcent)
+AMBER_D  = "#1C6FD4"   # sytější modrá
+GRASS    = "#5AB0EE"   # světlá azurová (sekundární)
+SAGE     = "#A9C2E0"
 
 
 def write(path, svg):
@@ -102,12 +102,12 @@ def landscape(w, h, seed, title, palette, sun=True, with_runner=True):
     return "\n".join(p)
 
 
-PAL_DAWN   = (("#243b46", "#3d5a54"), [FOREST2, FOREST, INK], AMBER)
-PAL_FOREST = (("#2b4736", "#1c3226"), ["#365a41", FOREST, INK], GRASS)
-PAL_MIST   = (("#4a5c58", "#6d817a"), [SAGE, "#5f7168", FOREST], "#f0e4c8")
-PAL_TOWN   = (("#3a4a55", "#243038"), ["#4a5b52", FOREST, INK], AMBER)
-PAL_SUNSET = (("#553a2e", "#2e2320"), ["#7a4a2e", "#3a2a22", INK], AMBER)
-PAL_WINTER = (("#8a9aa5", "#c3ccd0"), ["#aeb9bd", "#8f9ea2", "#6f7d80"], "#f7efdc")
+PAL_DAWN   = (("#1b3a63", "#2a5488"), [FOREST2, FOREST, INK], AMBER)
+PAL_FOREST = (("#22456f", "#152f52"), ["#2f5688", FOREST, INK], GRASS)
+PAL_MIST   = (("#3a5a7e", "#6d87a6"), [SAGE, "#5f7a9e", FOREST], "#cfe4f8")
+PAL_TOWN   = (("#2f4d70", "#1c3050"), ["#3f5c82", FOREST, INK], AMBER)
+PAL_SUNSET = (("#2a4a78", "#14263f"), ["#356093", "#22345a", INK], AMBER)
+PAL_WINTER = (("#8aa0bd", "#c3d2e0"), ["#aec1d6", "#8f9fb8", "#6f7f96"], "#eef5fd")
 
 photos = [
     ("foto-01.svg", PAL_DAWN,   "svitani nad Krivem",       True,  True),

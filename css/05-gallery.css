@@ -36,7 +36,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15,26,19,.55), transparent 55%);
+  background: linear-gradient(to top, rgba(10,33,72,.55), transparent 55%);
   opacity: 0;
   transition: opacity .3s var(--ease);
 }
@@ -65,7 +65,7 @@
   width: 30px; height: 30px;
   border: none;
   border-radius: 50%;
-  background: rgba(15,26,19,.75);
+  background: rgba(10,33,72,.75);
   color: var(--paper-text);
   font-size: 1rem;
   cursor: pointer;
@@ -74,7 +74,7 @@
   transition: background .2s var(--ease);
 }
 .gallery-item.user .del { display: grid; }
-.gallery-item .del:hover { background: #b5432f; }
+.gallery-item .del:hover { background: #D24545; }
 
 .gallery-item .badge {
   position: absolute;
@@ -97,7 +97,7 @@
   gap: .5rem;
   aspect-ratio: 4 / 3;
   border-radius: var(--r);
-  border: 2px dashed rgba(143,176,162,.4);
+  border: 2px dashed rgba(127,168,216,.4);
   background: rgba(255,255,255,.02);
   color: var(--paper-soft);
   cursor: pointer;
@@ -106,7 +106,7 @@
 .gallery-add:hover {
   border-color: var(--amber);
   color: var(--paper-text);
-  background: rgba(233,163,25,.06);
+  background: rgba(28,111,212,.06);
 }
 .gallery-add .plus { font-size: 1.8rem; line-height: 1; color: var(--amber); }
 .gallery-add span { font-size: .82rem; padding: 0 1rem; }

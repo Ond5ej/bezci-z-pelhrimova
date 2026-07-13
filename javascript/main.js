@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initContact({
     form: '#contact-form',
-    email: 'ahoj@bezcizpelhrimova.cz',
+    email: 'bezcizpelhrimova@seznam.cz',
   });
 
   initReveal('.reveal');
