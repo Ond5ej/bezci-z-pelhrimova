@@ -1,0 +1,136 @@
+/* =========================================================
+   HLAVIČKA + NAVIGACE
+   ========================================================= */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(20, 35, 27, 0.72);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(143, 176, 162, 0.12);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+header.scrolled {
+  background: rgba(15, 26, 19, 0.94);
+  border-bottom-color: rgba(143, 176, 162, 0.2);
+}
+
+.navbar {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: .7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ---- Značka ---- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  text-decoration: none;
+  color: var(--paper-text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.brand img { width: 40px; height: 40px; }
+.brand-name { font-size: 1.05rem; }
+.brand-name small {
+  display: block;
+  font-family: var(--font-data);
+  font-weight: 400;
+  font-size: .62rem;
+  letter-spacing: .22em;
+  color: var(--amber);
+  margin-top: 3px;
+}
+
+/* ---- Desktop navigace ---- */
+.nav-desktop ul {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-desktop a {
+  display: inline-block;
+  padding: .5rem .85rem;
+  font-size: .9rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: var(--paper-soft);
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  transition: color .2s var(--ease), background .2s var(--ease);
+}
+.nav-desktop a:hover,
+.nav-desktop a.active { color: var(--paper-text); background: rgba(255,255,255,.06); }
+.nav-desktop a.nav-cta {
+  margin-left: .4rem;
+  background: var(--amber);
+  color: var(--ink);
+  font-weight: 600;
+}
+.nav-desktop a.nav-cta:hover { background: var(--amber-soft); }
+
+/* ---- Hamburger ---- */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 44px; height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(143,176,162,.25);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.navbar-toggle .bar {
+  width: 22px; height: 2px;
+  background: var(--paper-text);
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+body.menu-open .navbar-toggle .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body.menu-open .navbar-toggle .bar:nth-child(2) { opacity: 0; }
+body.menu-open .navbar-toggle .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- Mobilní off-canvas ---- */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,26,19,.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s var(--ease);
+  z-index: 90;
+}
+body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 860px) {
+  .navbar-toggle { display: flex; }
+  .nav-desktop {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100dvh;
+    width: min(78vw, 320px);
+    background: var(--forest);
+    border-left: 1px solid rgba(143,176,162,.15);
+    transform: translateX(100%);
+    transition: transform .35s var(--ease);
+    z-index: 95;
+    padding: 5rem 1.5rem 2rem;
+    overflow-y: auto;
+  }
+  body.menu-open .nav-desktop { transform: translateX(0); }
+  .nav-desktop ul { flex-direction: column; align-items: stretch; gap: .2rem; }
+  .nav-desktop a { padding: .85rem 1rem; font-size: 1.05rem; }
+  .nav-desktop a.nav-cta { margin: .6rem 0 0; text-align: center; }
+}

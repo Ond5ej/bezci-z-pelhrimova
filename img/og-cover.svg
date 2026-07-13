@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Bezci z Pelhrimova  |  bezcizpelhrimova.cz">
+<defs><linearGradient id="sky99" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#243b46"/><stop offset="1" stop-color="#3d5a54"/></linearGradient><linearGradient id="gl99" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A319" stop-opacity="0.9"/><stop offset="1" stop-color="#E9A319" stop-opacity="0"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#sky99)"/>
+<circle cx="864" cy="189" r="82" fill="#E9A319" opacity="0.92"/>
+<circle cx="864" cy="189" r="156" fill="#E9A319" opacity="0.12"/>
+<path d="M 0 284 L 0 218 L 200 245 L 400 307 L 600 339 L 800 321 L 1000 242 L 1200 217 L 1200 630 L 0 630 Z" fill="#2A4B38"/>
+<path d="M 0 365 L 0 315 L 200 369 L 400 433 L 600 363 L 800 308 L 1000 371 L 1200 413 L 1200 630 L 0 630 Z" fill="#1F3A2B"/>
+<path d="M 0 447 L 0 409 L 200 470 L 400 467 L 600 404 L 800 465 L 1000 473 L 1200 408 L 1200 630 L 0 630 Z" fill="#14231B"/>
+<path d="M 0 504 Q 600 490 1200 504" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 536 Q 600 522 1200 536" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 567 Q 600 553 1200 567" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M -10 630 Q 420 567 660 491 T 1210 378" fill="none" stroke="#F3EFE4" stroke-opacity="0.22" stroke-width="13" stroke-linecap="round"/>
+<g transform="translate(336.00000000000006,415.8) scale(5.25)"><line x1="1" y1="-3" x2="-2.5" y2="7" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="8" y2="-3" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="-6" y2="1.5" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><path d="M -2.5 7 L 5 9 L 7 16" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M -2.5 7 L -7 11 L -5.5 17" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="2.6" cy="-7.5" r="3.2" fill="#F3EFE4"/></g>
+<rect x="0" y="604" width="1200" height="26" fill="#14231B" opacity="0.28"/>
+<text x="14" y="621" font-family="Space Mono, monospace" font-size="12" fill="#F3EFE4" opacity="0.85">Bezci z Pelhrimova  |  bezcizpelhrimova.cz</text>
+</svg>

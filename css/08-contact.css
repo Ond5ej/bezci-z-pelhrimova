@@ -1,0 +1,128 @@
+/* =========================================================
+   KONTAKT + PATIČKA
+   ========================================================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+
+/* levý sloupec – kdy a kde */
+.meet-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.meet-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px dashed rgba(143,176,162,.25);
+}
+.meet-list li:last-child { border-bottom: none; }
+.meet-list .day {
+  font-family: var(--font-data);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--amber);
+  min-width: 92px;
+  padding-top: 2px;
+}
+.meet-list .info strong { display: block; color: var(--paper-text); font-weight: 600; }
+.meet-list .info span { font-size: .9rem; color: var(--paper-soft); }
+
+.contact-social { display: flex; gap: .8rem; margin-top: 1.8rem; }
+.contact-social a {
+  width: 46px; height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(143,176,162,.3);
+  color: var(--paper-text);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+}
+.contact-social a:hover { background: var(--amber); color: var(--ink); transform: translateY(-3px); }
+
+/* pravý sloupec – formulář */
+.contact-form {
+  background: var(--forest);
+  border: 1px solid rgba(143,176,162,.15);
+  border-radius: var(--r-lg);
+  padding: clamp(1.6rem, 4vw, 2.2rem);
+}
+.form-row { margin-bottom: 1.1rem; }
+.form-row label {
+  display: block;
+  font-family: var(--font-data);
+  font-size: .74rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--paper-soft);
+  margin-bottom: .45rem;
+}
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--paper-text);
+  background: rgba(15,26,19,.5);
+  border: 1px solid rgba(143,176,162,.22);
+  border-radius: var(--r-sm);
+  padding: .8rem .9rem;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(233,163,25,.18);
+}
+.form-row textarea { resize: vertical; min-height: 120px; }
+.contact-form .btn { width: 100%; justify-content: center; }
+
+.form-status {
+  margin-top: 1rem;
+  font-size: .9rem;
+  min-height: 1.4em;
+  text-align: center;
+}
+.form-status.ok  { color: var(--amber-soft); }
+.form-status.err { color: #e9a08e; }
+
+/* ---- Patička ---- */
+.site-footer {
+  background: var(--off-black);
+  color: var(--paper-soft);
+  padding: 2.6rem 1.5rem 2rem;
+  text-align: center;
+}
+.site-footer .foot-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--paper-text);
+  margin-bottom: .8rem;
+}
+.site-footer .foot-brand img { width: 34px; height: 34px; }
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.4rem;
+  margin: 1rem 0 1.4rem;
+  font-size: .9rem;
+}
+.site-footer nav a { color: var(--paper-soft); text-decoration: none; }
+.site-footer nav a:hover { color: var(--amber); }
+.site-footer .fine {
+  font-family: var(--font-data);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: #7a8b7f;
+}
+.site-footer .fine a { color: var(--amber); text-decoration: none; }
+
+@media (max-width: 780px) { .contact-grid { grid-template-columns: 1fr; } }

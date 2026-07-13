@@ -1,0 +1,127 @@
+/* =========================================================
+   FOTOGALERIE
+   ========================================================= */
+.gallery-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.2rem;
+}
+.gallery-head .btn { flex: 0 0 auto; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.gallery-item {
+  position: relative;
+  margin: 0;
+  border-radius: var(--r);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  background: var(--forest);
+  box-shadow: var(--sh-sm);
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease), filter .4s var(--ease);
+}
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,26,19,.55), transparent 55%);
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item:hover::after { opacity: 1; }
+.gallery-item:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+.gallery-item .cap {
+  position: absolute;
+  left: 12px; bottom: 10px;
+  z-index: 2;
+  font-family: var(--font-data);
+  font-size: .72rem;
+  color: var(--paper-text);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.gallery-item:hover .cap { opacity: 1; transform: none; }
+
+/* smazání vlastní nahrané fotky */
+.gallery-item .del {
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 3;
+  width: 30px; height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15,26,19,.75);
+  color: var(--paper-text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: none;
+  place-items: center;
+  transition: background .2s var(--ease);
+}
+.gallery-item.user .del { display: grid; }
+.gallery-item .del:hover { background: #b5432f; }
+
+.gallery-item .badge {
+  position: absolute;
+  top: 8px; left: 8px;
+  z-index: 2;
+  font-family: var(--font-data);
+  font-size: .6rem;
+  letter-spacing: .08em;
+  padding: 3px 7px;
+  border-radius: var(--r-pill);
+  background: var(--amber);
+  color: var(--ink);
+}
+
+/* dlaždice „přidat fotku" */
+.gallery-add {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: .5rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r);
+  border: 2px dashed rgba(143,176,162,.4);
+  background: rgba(255,255,255,.02);
+  color: var(--paper-soft);
+  cursor: pointer;
+  transition: border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+}
+.gallery-add:hover {
+  border-color: var(--amber);
+  color: var(--paper-text);
+  background: rgba(233,163,25,.06);
+}
+.gallery-add .plus { font-size: 1.8rem; line-height: 1; color: var(--amber); }
+.gallery-add span { font-size: .82rem; padding: 0 1rem; }
+.gallery-add input { display: none; }
+
+.gallery-note {
+  margin-top: 1.4rem;
+  font-family: var(--font-data);
+  font-size: .78rem;
+  color: var(--paper-soft);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.gallery-note i { color: var(--amber); }
+
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 620px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }

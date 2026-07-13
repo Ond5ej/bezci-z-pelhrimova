@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Běžci z Pelhřimova – běháme spolu a poznáváme město</title>
+
+  <link rel="canonical" href="https://bezcizpelhrimova.cz/">
+  <meta name="description"
+    content="Běžci z Pelhřimova – otevřená komunita lidí, které baví běh. Společné výběhy, trasy po Vysočině, začátečníci i vytrvalci vítáni. Přidej se a poznej město během.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="Běžci z Pelhřimova">
+  <meta name="theme-color" content="#14231B">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:site_name" content="Běžci z Pelhřimova">
+  <meta property="og:title" content="Běžci z Pelhřimova – běháme spolu a poznáváme město">
+  <meta property="og:description"
+    content="Otevřená běžecká komunita v Pelhřimově. Společné výběhy, trasy po Vysočině, začátečníci i vytrvalci vítáni.">
+  <meta property="og:url" content="https://bezcizpelhrimova.cz/">
+  <meta property="og:image" content="https://bezcizpelhrimova.cz/img/og-cover.svg">
+
+  <!-- Fonty -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Ikony -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Styly -->
+  <link rel="stylesheet" href="./css/00-variables.css">
+  <link rel="stylesheet" href="./css/01-base.css">
+  <link rel="stylesheet" href="./css/02-header-nav.css">
+  <link rel="stylesheet" href="./css/03-hero.css">
+  <link rel="stylesheet" href="./css/04-about.css">
+  <link rel="stylesheet" href="./css/05-gallery.css">
+  <link rel="stylesheet" href="./css/06-routes.css">
+  <link rel="stylesheet" href="./css/07-runners.css">
+  <link rel="stylesheet" href="./css/08-contact.css">
+  <link rel="stylesheet" href="./css/09-lightbox.css">
+
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <script type="module" src="./javascript/main.js"></script>
+
+  <!-- Strukturovaná data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    "name": "Běžci z Pelhřimova",
+    "sport": "Running",
+    "url": "https://bezcizpelhrimova.cz/",
+    "areaServed": "Pelhřimov, Kraj Vysočina, CZ",
+    "email": "ahoj@bezcizpelhrimova.cz"
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ===================== HLAVIČKA ===================== -->
+  <header>
+    <div class="navbar">
+      <a href="#uvod" class="brand" aria-label="Běžci z Pelhřimova – domů">
+        <img src="./img/logo.svg" alt="">
+        <span class="brand-name">Běžci z&nbsp;Pelhřimova
+          <small>KOMUNITA · VYSOČINA</small>
+        </span>
+      </a>
+
+      <button class="navbar-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+
+      <nav class="nav-desktop" aria-label="Hlavní navigace">
+        <ul>
+          <li><a href="#o-nas">O nás</a></li>
+          <li><a href="#fotogalerie">Fotogalerie</a></li>
+          <li><a href="#trasy">Trasy</a></li>
+          <li><a href="#bezci">Běžci</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="#kontakt" class="nav-cta">Přidej se</a></li>
+        </ul>
+      </nav>
+
+      <div class="menu-backdrop"></div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="uvod" class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy reveal">
+        <p class="hero-eyebrow"><span class="dot"></span> PELHŘIMOV · KAŽDÝ TÝDEN</p>
+        <h1 class="hero-title">
+          Běháme <span class="accent">spolu.</span><br>
+          Poznáváme <span class="stroke">město.</span>
+        </h1>
+        <p>
+          Jsme otevřená parta lidí, které spojuje běh a Pelhřimov. Nezáleží,
+          jestli jdeš na svůj první kilometr, nebo trénuješ na maraton –
+          scházíme se, vybíháme do kopců Vysočiny a poznáváme se za běhu.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn"><i class="bi bi-lightning-charge-fill"></i> Přidej se k výběhu</a>
+          <a href="#trasy" class="btn btn--ghost"><span class="btn-label">Prohlédni trasy</span></a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">60+</div><div class="lbl">běžců v partě</div></div>
+          <div class="hero-stat"><div class="num">3×</div><div class="lbl">výběhy týdně</div></div>
+          <div class="hero-stat"><div class="num">0 Kč</div><div class="lbl">členství zdarma</div></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" data-delay="2">
+        <img src="./img/hero-route.svg" alt="Mapa běžecké trasy s vyznačenými kilometry od startu do cíle">
+        <span class="hero-tag"><i class="bi bi-geo-alt-fill"></i> Nedělní long run · 11 km</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="trace-divider">
+
+  <!-- ===================== O NÁS ===================== -->
+  <section id="o-nas" class="section section--paper">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="eyebrow">01 — Kdo jsme</p>
+          <h2 class="section-title">Parta, co se potkala u&nbsp;běhu</h2>
+          <p>Začalo to před pár lety pár lidmi, co se scházeli na náměstí a vybíhali společně,
+            aby se jim lépe vstávalo. Dnes je nás přes šedesát – od studentů po babičky s vnoučaty.</p>
+          <p>Nejsme klub s příspěvky ani závodní tým. Jsme komunita. Běháme kvůli tomu,
+            jak se po výběhu cítíme, kvůli ránům nad mlhou a hlavně kvůli lidem, které
+            bychom jinak nepotkali.</p>
+          <p>U nás nikdo neběží sám. Pomalejší mají svou skupinku, rychlí svou –
+            a na startu i v cíli jsme vždycky spolu.</p>
+          <div class="about-chips">
+            <span class="stat-chip">Tempo <b>od 4:30 do 7:30</b></span>
+            <span class="stat-chip">Věk <b>15 – 70</b></span>
+            <span class="stat-chip">Vstup <b>zdarma</b></span>
+          </div>
+        </div>
+
+        <div class="about-values reveal" data-delay="2">
+          <div class="value-card">
+            <div class="ico"><i class="bi bi-people-fill"></i></div>
+            <h3>Spolu, ne proti sobě</h3>
+            <p>Žádné závodění o to, kdo je lepší. Držíme se pohromadě a čekáme na sebe.</p>
+          </div>
+          <div class="value-card">
+            <div class="ico"><i class="bi bi-signpost-split-fill"></i></div>
+            <h3>Znáš každou cestu</h3>
+            <p>Lesní pěšiny, polňačky i městské okruhy – ukážeme ti Pelhřimov z běžecké strany.</p>
+          </div>
+          <div class="value-card">
+            <div class="ico"><i class="bi bi-emoji-smile-fill"></i></div>
+            <h3>Bez ostychu</h3>
+            <p>První výběh je vždycky nejtěžší. Vezmeme tě mezi sebe a půjde to samo.</p>
+          </div>
+          <div class="value-card">
+            <div class="ico"><i class="bi bi-cup-hot-fill"></i></div>
+            <h3>A pak kafe</h3>
+            <p>Nejlepší část výběhu bývá to, co přijde po něm – posezení a povídání.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOTOGALERIE ===================== -->
+  <section id="fotogalerie" class="section section--dark">
+    <div class="section-inner">
+      <div class="gallery-head">
+        <div class="reveal">
+          <p class="eyebrow">02 — Fotogalerie</p>
+          <h2 class="section-title">Momenty z&nbsp;výběhů</h2>
+          <p class="section-lead">Svítání, bláto, úsměvy v cíli. Přidej i své fotky z výběhů –
+            zobrazí se rovnou tady.</p>
+        </div>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- fotky vloží javascript/gallery.js; poslední dlaždice je pro přidání -->
+        <label class="gallery-add" id="gallery-add" role="button" tabindex="0"
+          aria-label="Přidat vlastní fotku">
+          <span class="plus">＋</span>
+          <span>Přidat fotku z tvého zařízení</span>
+          <input type="file" id="gallery-file" accept="image/*" multiple>
+        </label>
+      </div>
+
+      <p class="gallery-note">
+        <i class="bi bi-info-circle-fill"></i>
+        Fotky, které přidáš, se uloží jen v tomto prohlížeči a zařízení –
+        slouží jako tvoje soukromá nástěnka. Pro sdílenou galerii viz README.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== TRASY ===================== -->
+  <section id="trasy" class="section section--dark" style="padding-top:0">
+    <div class="section-inner">
+      <div class="reveal" style="margin-bottom:2.4rem">
+        <p class="eyebrow">03 — Trasy</p>
+        <h2 class="section-title">Kudy s&nbsp;námi poběžíš</h2>
+        <p class="section-lead">Tři oblíbené okruhy, které střídáme podle nálady a počasí.
+          Od rovinatého rozběhání po pořádný kopcovitý long run.</p>
+      </div>
+
+      <div class="routes-grid" id="routes-grid">
+        <!-- karty vloží javascript/routes.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BĚŽCI ===================== -->
+  <section id="bezci" class="section section--sand">
+    <div class="section-inner">
+      <div class="reveal" style="margin-bottom:2.4rem">
+        <p class="eyebrow">04 — Běžci</p>
+        <h2 class="section-title">Lidé, se&nbsp;kterými poběžíš</h2>
+        <p class="section-lead">Pár tváří z party. U nás nejsou trenéři a svěřenci –
+          jen lidi, co si navzájem drží tempo.</p>
+      </div>
+
+      <div class="runners-grid">
+        <article class="runner-card reveal" data-delay="1">
+          <img src="./img/avatar-1.svg" alt="">
+          <div>
+            <p class="r-name">Martin K.</p>
+            <p class="r-role">SPOLUZAKLADATEL</p>
+            <p class="r-pace">tempo <b>4:45/km</b> · maraton 3:28</p>
+          </div>
+        </article>
+        <article class="runner-card reveal" data-delay="2">
+          <img src="./img/avatar-2.svg" alt="">
+          <div>
+            <p class="r-name">Jana N.</p>
+            <p class="r-role">SKUPINKA ZAČÁTEČNÍKŮ</p>
+            <p class="r-pace">tempo <b>6:30/km</b> · první 10 km ✓</p>
+          </div>
+        </article>
+        <article class="runner-card reveal" data-delay="3">
+          <img src="./img/avatar-3.svg" alt="">
+          <div>
+            <p class="r-name">Petr L.</p>
+            <p class="r-role">LONG RUN NADŠENEC</p>
+            <p class="r-pace">tempo <b>5:10/km</b> · nejraději 20+ km</p>
+          </div>
+        </article>
+        <article class="runner-card reveal" data-delay="1">
+          <img src="./img/avatar-4.svg" alt="">
+          <div>
+            <p class="r-name">Tereza D.</p>
+            <p class="r-role">RANNÍ PTÁČE</p>
+            <p class="r-pace">tempo <b>5:40/km</b> · výběhy před prací</p>
+          </div>
+        </article>
+        <article class="runner-card reveal" data-delay="2">
+          <img src="./img/avatar-5.svg" alt="">
+          <div>
+            <p class="r-name">Eva V.</p>
+            <p class="r-role">TRAILAŘKA</p>
+            <p class="r-pace">tempo <b>5:55/km</b> · miluje bláto</p>
+          </div>
+        </article>
+        <article class="runner-card reveal" data-delay="3">
+          <img src="./img/avatar-6.svg" alt="">
+          <div>
+            <p class="r-name">Radek B.</p>
+            <p class="r-role">FOTOGRAF PARTY</p>
+            <p class="r-pace">tempo <b>7:00/km</b> · a spousta fotek</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="join-band reveal">
+        <div>
+          <h3>Chybíš tu jen ty</h3>
+          <p>Přidej se na nejbližší výběh. Stačí přijít – boty, chuť a nic víc.
+            O zbytek se postaráme.</p>
+        </div>
+        <div class="join-actions">
+          <a href="#kontakt" class="btn"><i class="bi bi-arrow-right-circle-fill"></i> Chci běžet s vámi</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KONTAKT ===================== -->
+  <section id="kontakt" class="section section--dark">
+    <div class="section-inner">
+      <div class="reveal" style="margin-bottom:2.4rem">
+        <p class="eyebrow">05 — Kontakt</p>
+        <h2 class="section-title">Kdy a&nbsp;kde se&nbsp;potkáme</h2>
+        <p class="section-lead">Sraz je vždy na Masarykově náměstí u kašny. Přijď o pár minut dřív,
+          ať se stihneme pozdravit.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <ul class="meet-list">
+            <li>
+              <span class="day">Úterý</span>
+              <span class="info"><strong>Intervaly na stadionu</strong>
+                <span>18:00 · Městský atletický stadion · pro všechny úrovně</span></span>
+            </li>
+            <li>
+              <span class="day">Čtvrtek</span>
+              <span class="info"><strong>Klidný výběh do kopců</strong>
+                <span>18:00 · sraz náměstí · 6–10 km podle skupinky</span></span>
+            </li>
+            <li>
+              <span class="day">Neděle</span>
+              <span class="info"><strong>Long run &amp; kafe</strong>
+                <span>9:00 · sraz náměstí · delší trasa, pomalé tempo</span></span>
+            </li>
+          </ul>
+
+          <div class="contact-social">
+            <a href="#" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Strava" title="Strava"><i class="bi bi-strava"></i></a>
+            <a href="mailto:ahoj@bezcizpelhrimova.cz" aria-label="E-mail" title="E-mail"><i class="bi bi-envelope-fill"></i></a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" data-delay="2" id="contact-form" novalidate>
+          <div class="form-row">
+            <label for="cf-name">Jméno</label>
+            <input type="text" id="cf-name" name="name" placeholder="Jak ti máme říkat?" autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label for="cf-email">E-mail</label>
+            <input type="email" id="cf-email" name="email" placeholder="tvuj@email.cz" autocomplete="email">
+          </div>
+          <div class="form-row">
+            <label for="cf-msg">Zpráva</label>
+            <textarea id="cf-msg" name="message" placeholder="Rád/a bych přišel/přišla na výběh…"></textarea>
+          </div>
+          <button type="submit" class="btn"><i class="bi bi-send-fill"></i> Odeslat zprávu</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PATIČKA ===================== -->
+  <footer class="site-footer">
+    <span class="foot-brand"><img src="./img/logo.svg" alt=""> Běžci z Pelhřimova</span>
+    <nav aria-label="Patičkové menu">
+      <a href="#o-nas">O nás</a>
+      <a href="#fotogalerie">Fotogalerie</a>
+      <a href="#trasy">Trasy</a>
+      <a href="#bezci">Běžci</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <p class="fine">
+      © <span id="year">2026</span> Běžci z Pelhřimova ·
+      <a href="https://bezcizpelhrimova.cz">bezcizpelhrimova.cz</a> ·
+      běháme spolu od úsvitu
+    </p>
+  </footer>
+
+  <!-- ===================== LIGHTBOX ===================== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Prohlížeč fotek">
+    <button class="lb-close" aria-label="Zavřít">&times;</button>
+    <div class="lb-stage">
+      <button class="lb-btn lb-prev" aria-label="Předchozí fotka"><i class="bi bi-chevron-left"></i></button>
+      <img src="" alt="">
+      <button class="lb-btn lb-next" aria-label="Další fotka"><i class="bi bi-chevron-right"></i></button>
+      <span class="lb-caption"></span>
+    </div>
+    <div class="lb-thumbs"></div>
+  </div>
+
+</body>
+</html>

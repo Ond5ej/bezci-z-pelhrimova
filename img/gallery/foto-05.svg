@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" width="720" height="540" role="img" aria-label="vecerni vybeh">
+<defs><linearGradient id="sky31" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#553a2e"/><stop offset="1" stop-color="#2e2320"/></linearGradient><linearGradient id="gl31" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A319" stop-opacity="0.9"/><stop offset="1" stop-color="#E9A319" stop-opacity="0"/></linearGradient></defs>
+<rect width="720" height="540" fill="url(#sky31)"/>
+<circle cx="518" cy="162" r="70" fill="#E9A319" opacity="0.92"/>
+<circle cx="518" cy="162" r="133" fill="#E9A319" opacity="0.12"/>
+<path d="M 0 243 L 0 208 L 120 264 L 240 294 L 360 270 L 480 201 L 600 179 L 720 214 L 720 540 L 0 540 Z" fill="#7a4a2e"/>
+<path d="M 0 313 L 0 300 L 120 348 L 240 338 L 360 274 L 480 285 L 600 358 L 720 331 L 720 540 L 0 540 Z" fill="#3a2a22"/>
+<path d="M 0 383 L 0 365 L 120 434 L 240 351 L 360 357 L 480 433 L 600 357 L 720 361 L 720 540 L 0 540 Z" fill="#14231B"/>
+<path d="M 0 432 Q 360 418 720 432" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 459 Q 360 445 720 459" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M 0 486 Q 360 472 720 486" fill="none" stroke="#F3EFE4" stroke-opacity="0.10" stroke-dasharray="2 6" stroke-width="1.5"/>
+<path d="M -10 540 Q 252 486 396 421 T 730 324" fill="none" stroke="#F3EFE4" stroke-opacity="0.22" stroke-width="11" stroke-linecap="round"/>
+<g transform="translate(201.60000000000002,356.40000000000003) scale(4.5)"><line x1="1" y1="-3" x2="-2.5" y2="7" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="8" y2="-3" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="-6" y2="1.5" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round"/><path d="M -2.5 7 L 5 9 L 7 16" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M -2.5 7 L -7 11 L -5.5 17" fill="none" stroke="#F3EFE4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="2.6" cy="-7.5" r="3.2" fill="#F3EFE4"/></g>
+<rect x="0" y="514" width="720" height="26" fill="#14231B" opacity="0.28"/>
+<text x="14" y="531" font-family="Space Mono, monospace" font-size="12" fill="#F3EFE4" opacity="0.85">vecerni vybeh</text>
+</svg>

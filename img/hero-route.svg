@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 620" width="760" height="620" fill="none" aria-hidden="true">
+<defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A4B38"/><stop offset="1" stop-color="#14231B"/></linearGradient><radialGradient id="glow" cx="70%" cy="28%" r="55%"><stop offset="0" stop-color="#E9A319" stop-opacity="0.35"/><stop offset="1" stop-color="#E9A319" stop-opacity="0"/></radialGradient></defs>
+<rect width="760" height="620" rx="26" fill="url(#hg)"/>
+<rect width="760" height="620" rx="26" fill="url(#glow)"/>
+<ellipse cx="471" cy="124" rx="120" ry="72" stroke="#8FB0A2" stroke-opacity="0.10" stroke-width="1.4"/>
+<ellipse cx="471" cy="170" rx="156" ry="94" stroke="#8FB0A2" stroke-opacity="0.12" stroke-width="1.4"/>
+<ellipse cx="471" cy="216" rx="192" ry="115" stroke="#8FB0A2" stroke-opacity="0.13" stroke-width="1.4"/>
+<ellipse cx="471" cy="262" rx="228" ry="137" stroke="#8FB0A2" stroke-opacity="0.15" stroke-width="1.4"/>
+<ellipse cx="471" cy="308" rx="264" ry="158" stroke="#8FB0A2" stroke-opacity="0.16" stroke-width="1.4"/>
+<ellipse cx="471" cy="354" rx="300" ry="180" stroke="#8FB0A2" stroke-opacity="0.17" stroke-width="1.4"/>
+<ellipse cx="471" cy="400" rx="336" ry="202" stroke="#8FB0A2" stroke-opacity="0.19" stroke-width="1.4"/>
+<ellipse cx="471" cy="446" rx="372" ry="223" stroke="#8FB0A2" stroke-opacity="0.21" stroke-width="1.4"/>
+<ellipse cx="471" cy="492" rx="408" ry="245" stroke="#8FB0A2" stroke-opacity="0.22" stroke-width="1.4"/>
+<path id="hero-route" d="M 60 540 C 150 520 180 430 250 420 S 360 470 420 400 S 470 300 560 300 S 660 240 700 150" stroke="#E9A319" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 13" opacity="0.95"/>
+<circle cx="60" cy="540" r="8" fill="#14231B" stroke="#5C8A3A" stroke-width="3"/>
+<text x="74" y="544" font-family="Space Mono, monospace" font-size="14" fill="#F3EFE4" opacity="0.9">START</text>
+<circle cx="250" cy="420" r="8" fill="#14231B" stroke="#F3EFE4" stroke-width="3"/>
+<text x="264" y="424" font-family="Space Mono, monospace" font-size="14" fill="#F3EFE4" opacity="0.9">3 km</text>
+<circle cx="420" cy="400" r="8" fill="#14231B" stroke="#F3EFE4" stroke-width="3"/>
+<text x="434" y="404" font-family="Space Mono, monospace" font-size="14" fill="#F3EFE4" opacity="0.9">6 km</text>
+<circle cx="560" cy="300" r="8" fill="#14231B" stroke="#F3EFE4" stroke-width="3"/>
+<text x="574" y="304" font-family="Space Mono, monospace" font-size="14" fill="#F3EFE4" opacity="0.9">9 km</text>
+<circle cx="700" cy="150" r="8" fill="#14231B" stroke="#E9A319" stroke-width="3"/>
+<text x="714" y="154" font-family="Space Mono, monospace" font-size="14" fill="#F3EFE4" opacity="0.9">CÍL</text>
+<g transform="translate(380.0,93.0) scale(2.6)"><line x1="1" y1="-3" x2="-2.5" y2="7" stroke="#E9A319" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="8" y2="-3" stroke="#E9A319" stroke-width="3.4" stroke-linecap="round"/><line x1="0.5" y1="-1" x2="-6" y2="1.5" stroke="#E9A319" stroke-width="3.4" stroke-linecap="round"/><path d="M -2.5 7 L 5 9 L 7 16" fill="none" stroke="#E9A319" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M -2.5 7 L -7 11 L -5.5 17" fill="none" stroke="#E9A319" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="2.6" cy="-7.5" r="3.2" fill="#E9A319"/></g>
+</svg>
