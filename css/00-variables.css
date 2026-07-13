@@ -16,9 +16,9 @@
   --line-soft:  #D3E4F7;   /* okraje na světlém */
 
   /* ---- Akcenty ---- */
-  --amber:      #1C6FD4;   /* hlavní modrá (tlačítka, akcenty) */
-  --amber-deep: #12539F;   /* sytější pro hover/okraje */
-  --amber-soft: #5AB0EE;   /* světlá azurová */
+  --amber:      #A3D93C;   /* limetková – hlavní akcent (kontrast k navy) */
+  --amber-deep: #6E9A1E;   /* tmavší olivově-limetková (text na světlém, hover) */
+  --amber-soft: #C8EE6E;   /* světlá limetková (na navy) */
   --grass:      #2E9BE6;   /* jasná azurová – sekundární */
   --grass-deep: #1C6FD4;
   --sage:       #7FA8D8;   /* tlumená modrá – decentní */

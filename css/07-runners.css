@@ -16,27 +16,62 @@
   aspect-ratio: 4 / 3.2;
 }
 .community-photo img { width: 100%; height: 100%; object-fit: cover; }
-.community-photo .count {
+
+/* modrý panel se statistikou (místo fotky) */
+.community-stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .4rem;
+  border-radius: var(--r-lg);
+  padding: clamp(2rem, 5vw, 3.2rem);
+  background: var(--ink);
+  color: var(--paper-text);
+  box-shadow: var(--sh-lg);
+  overflow: hidden;
+  min-height: 260px;
+}
+.community-stat::before {
+  content: "";
   position: absolute;
-  right: 14px; bottom: 14px;
-  background: var(--amber);
-  color: #fff;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(127,168,216,.18) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  opacity: .5;
+}
+.community-stat .cs-big {
+  position: relative;
   font-family: var(--font-display);
   font-weight: 800;
-  padding: .5rem .95rem;
-  border-radius: var(--r-pill);
-  box-shadow: var(--sh);
+  font-size: clamp(3.6rem, 9vw, 6rem);
   line-height: 1;
+  color: var(--amber-soft);
 }
-.community-photo .count small {
-  display: block;
+.community-stat .cs-lbl {
+  position: relative;
   font-family: var(--font-data);
-  font-weight: 400;
-  font-size: .58rem;
   letter-spacing: .12em;
-  margin-top: 3px;
-  opacity: .9;
+  text-transform: uppercase;
+  font-size: .8rem;
+  color: var(--paper-soft);
+  margin-bottom: 1.2rem;
 }
+.community-stat .cs-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.community-stat .cs-row span {
+  font-family: var(--font-data);
+  font-size: .82rem;
+  padding: .45rem .8rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(127,168,216,.3);
+  color: var(--paper-soft);
+}
+.community-stat .cs-row b { color: var(--amber-soft); }
 
 .community-copy p { color: var(--ink-soft); margin: 0 0 1.1rem; }
 .community-copy p:first-of-type { color: var(--ink-text); font-size: 1.12rem; }

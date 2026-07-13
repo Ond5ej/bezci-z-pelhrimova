@@ -81,14 +81,7 @@
 
 /* ---- Vizuál: mapa trasy ---- */
 .hero-visual { position: relative; }
-.hero-visual img {
-  width: 100%;
-  aspect-ratio: 4 / 3.4;
-  object-fit: cover;
-  border-radius: var(--r-lg);
-  box-shadow: var(--sh-lg);
-  border: 3px solid rgba(255,255,255,.12);
-}
+.hero-visual img { width: 100%; height: auto; filter: drop-shadow(var(--sh-lg)); }
 
 /* animace kreslení trasy (JS přidá třídu .draw na #hero-route uvnitř SVG,
    ale protože je obrázek externí, animujeme jemný „puls" rámu) */

@@ -17,22 +17,32 @@ header.scrolled {
 }
 
 .navbar {
+  position: relative;              /* kotva pro absolutně umístěné logo */
   max-width: var(--container);
   margin: 0 auto;
-  padding: .55rem 1.5rem;
+  min-height: 64px;                /* výška hlavičky (logo je mimo tok) */
+  padding: .3rem 1.25rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;       /* menu vpravo, logo drží levý roh */
   gap: 1rem;
 }
 
 /* ---- Značka (logo) ---- */
 .brand {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   text-decoration: none;
 }
-.brand img { height: 46px; width: auto; display: block; }
+.brand img { height: 60px; width: auto; display: block; }
+
+@media (max-width: 860px) {
+  .brand img { height: 48px; }     /* na mobilu menší, ať se nebije s menu */
+}
 
 /* ---- Desktop navigace ---- */
 .nav-desktop ul {
@@ -57,12 +67,12 @@ header.scrolled {
 .nav-desktop a:hover,
 .nav-desktop a.active { color: var(--ink-text); background: var(--sand); }
 .nav-desktop a.nav-cta {
+  color: var(--ink-text);
   margin-left: .4rem;
   background: var(--amber);
-  color: #fff;
   font-weight: 700;
 }
-.nav-desktop a.nav-cta:hover { background: var(--amber-deep); color: #fff; }
+.nav-desktop a.nav-cta:hover { background: var(--amber-deep); color: var(--ink-text); }
 
 /* ---- Hamburger ---- */
 .navbar-toggle {
