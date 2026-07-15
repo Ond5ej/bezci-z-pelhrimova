@@ -73,6 +73,14 @@ Nemusíš být závodník. Stačí chuť vyběhnout. 🏃
 **Sítě** – odkazy v sekci Kontakt v `index.html` (a v JSON-LD `sameAs` v hlavičce).
 Facebook = skupina `facebook.com/groups/4313081512346383`, Instagram `@bezci_z_pelhrimova`.
 
+**Administrace** – na `/admin/`. Odkaz na ni na webu záměrně není,
+zadej adresu ručně. Přístup hlídá přihlášení přes Supabase.
+
+**SEO** – `robots.txt` a `sitemap.xml` v kořeni. Náhled pro sítě a Google
+je `img/og-cover.jpg` (1200×630). Musí to být JPG nebo PNG – SVG sítě
+v náhledech nezobrazí. Po změně náhledu si ho Facebook drží v mezipaměti;
+protlač ho přes developers.facebook.com/tools/debug.
+
 **Trasy** – spravují se na `/admin/` (záložka Trasy). Před prvním použitím
 pusť v Supabase `supabase-routes.sql`. Trasy v `javascript/routes.js` jsou
 už jen záloha pro případ, že by Supabase nebylo dostupné.

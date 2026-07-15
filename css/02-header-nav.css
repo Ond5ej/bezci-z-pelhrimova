@@ -17,31 +17,15 @@ header.scrolled {
 }
 
 .navbar {
-  position: relative;              /* kotva pro absolutně umístěné logo */
+  position: relative;              /* kotva pro hamburger na mobilu */
   max-width: var(--container);
   margin: 0 auto;
-  min-height: 64px;                /* výška hlavičky (logo je mimo tok) */
+  min-height: 64px;
   padding: .3rem 1.25rem;
   display: flex;
   align-items: center;
-  justify-content: flex-end;       /* menu vpravo, logo drží levý roh */
+  justify-content: center;         /* menu na střed – logo je teď v hero */
   gap: 1rem;
-}
-
-/* ---- Značka (logo) ---- */
-.brand {
-  position: absolute;
-  left: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-.brand img { height: 60px; width: auto; display: block; }
-
-@media (max-width: 860px) {
-  .brand img { height: 48px; }     /* na mobilu menší, ať se nebije s menu */
 }
 
 /* ---- Desktop navigace ---- */
@@ -109,6 +93,8 @@ body.menu-open .navbar-toggle .bar:nth-child(3) { transform: translateY(-7px) ro
 body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
 
 @media (max-width: 860px) {
+  /* navbar má justify-content:center, hamburger by tím skončil uprostřed */
+  .navbar { justify-content: flex-end; }
   .navbar-toggle { display: flex; }
   .nav-desktop {
     position: fixed;

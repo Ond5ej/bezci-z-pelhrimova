@@ -400,3 +400,38 @@
   .hero-copy { padding-top: 0; }
   .qr-card img { width: 118px; height: 118px; }
 }
+
+/* =========================================================
+   Logo v hero sekci
+   ---------------------------------------------------------
+   Přesunuté z lišty. Průhledné PNG, takže sedí na světlém
+   pozadí hera bez podkladu.
+
+   Šířku držíme na clamp a ne napevno: logo má poměr 1,73:1,
+   takže každých 100 px šířky přidá 58 px výšky. V hero už je
+   nadpis, text, tlačítka, statistiky i QR kódy – na nižších
+   obrazovkách je o místo nouze a logo musí umět ustoupit.
+   ========================================================= */
+.hero-logo {
+  display: block;
+  align-self: flex-start;   /* jinak by ho flex-column roztáhl na celý sloupec */
+  width: clamp(13rem, 26vw, 21rem);
+  margin-bottom: clamp(.6rem, 1.6vh, 1.4rem);
+  transition: transform .3s var(--ease);
+}
+.hero-logo:hover { transform: translateY(-2px); }
+.hero-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Na nízkých obrazovkách (např. notebook 1366×768) je hero našlapané.
+   Logo ustoupí jako první – nese stejnou informaci jako nadpis pod ním. */
+@media (max-height: 820px) and (min-width: 861px) {
+  .hero-logo { width: clamp(11rem, 20vw, 16rem); }
+}
+
+@media (max-width: 860px) {
+  .hero-logo { width: min(15rem, 60%); }
+}

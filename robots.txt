@@ -1,0 +1,14 @@
+# Běžci z Pelhřimova – pravidla pro vyhledávače
+# https://bezcizpelhrimova.cz
+
+User-agent: *
+Allow: /
+
+# Poznámka k administraci:
+# Schválně tu NENÍ "Disallow: /admin/". Tenhle soubor je veřejný –
+# kdokoli si ho může otevřít – takže by to bylo přesně naopak:
+# cesta k přihlášení by se tím vyvěsila na plakát.
+# Administrace je řešená jinak: má vlastní <meta name="robots"
+# content="noindex, nofollow"> a hlavně přihlášení přes Supabase.
+
+Sitemap: https://bezcizpelhrimova.cz/sitemap.xml

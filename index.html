@@ -20,7 +20,21 @@
   <meta property="og:description"
     content="Otevřená běžecká parta v Pelhřimově a okolí. Pravidelné společné běhy, přátelská atmosféra, žádný tlak. Nemusíš být závodník, stačí chuť vyběhnout.">
   <meta property="og:url" content="https://bezcizpelhrimova.cz/">
-  <meta property="og:image" content="https://bezcizpelhrimova.cz/img/og-cover.svg">
+  <!-- POZOR: musí být JPG nebo PNG. Facebook, LinkedIn ani Twitter
+       obrázky ve formátu SVG v náhledech nezobrazí – dřív tu bylo SVG
+       a náhled byl proto prázdný. Rozměr 1200x630 je standard, na který
+       všechny sítě počítají. Adresa musí být absolutní. -->
+  <meta property="og:image" content="https://bezcizpelhrimova.cz/img/og-cover.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Běžci z Pelhřimova s běžící postavou">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Běžci z Pelhřimova – běžecká parta pro každého">
+  <meta name="twitter:description"
+    content="Otevřená běžecká parta v Pelhřimově a okolí. Pravidelné společné běhy, přátelská atmosféra, žádný tlak.">
+  <meta name="twitter:image" content="https://bezcizpelhrimova.cz/img/og-cover.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,10 +80,6 @@
   <!-- ===================== HLAVIČKA ===================== -->
   <header>
     <div class="navbar">
-      <a href="#uvod" class="brand" aria-label="Běžci z Pelhřimova – domů">
-        <img src="./img/logo-dark.png" alt="Běžci z Pelhřimova">
-      </a>
-
       <button class="navbar-toggle" aria-label="Otevřít menu" aria-expanded="false">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
@@ -93,6 +103,10 @@
   <section id="uvod" class="hero">
     <div class="hero-inner">
       <div class="hero-copy reveal">
+        <a href="#uvod" class="hero-logo" aria-label="Běžci z Pelhřimova – nahoru">
+          <img src="./img/logo-dark.png" width="634" height="367"
+               alt="Běžci z Pelhřimova">
+        </a>
         <p class="hero-eyebrow"><span class="dot"></span> PELHŘIMOV A OKOLÍ · PRAVIDELNÉ SPOLEČNÉ BĚHY</p>
         <h1 class="hero-title">
           Nemusíš být <span class="stroke">závodník.</span><br>
@@ -349,8 +363,7 @@
     <p class="fine">
       © <span id="year">2026</span> Běžci z Pelhřimova ·
       <a href="https://bezcizpelhrimova.cz">bezcizpelhrimova.cz</a> ·
-      nemusíš být závodník, stačí chuť vyběhnout ·
-      <a href="./admin/" class="admin-link">Správa</a>
+      nemusíš být závodník, stačí chuť vyběhnout
     </p>
   </footer>
 

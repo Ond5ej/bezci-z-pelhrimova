@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mapa webu pro vyhledávače.
+
+  Web je jednostránkový – sekce (#o-nas, #fotogalerie, …) nejsou
+  samostatné adresy, jsou to kotvy na téhle jediné stránce. Do mapy
+  proto patří jen jedna položka. Kdyby se sem někdy přidaly kotvy
+  jako zvláštní <url>, Google to bere jako duplicitu a škodí to.
+
+  lastmod aktualizuj při větší změně obsahu (nové sekce, přepsané
+  texty). Kvůli nové novince to nemá smysl – Google si to zjistí sám.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://bezcizpelhrimova.cz/</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://bezcizpelhrimova.cz/img/og-cover.jpg</image:loc>
+      <image:title>Běžci z Pelhřimova</image:title>
+    </image:image>
+  </url>
+</urlset>

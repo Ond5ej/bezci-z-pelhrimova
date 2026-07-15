@@ -153,9 +153,6 @@
   margin-top: .5rem;
 }
 
-/* nenápadný odkaz do administrace */
-.site-footer .fine .admin-link { color: #6E86A8; }
-.site-footer .fine .admin-link:hover { color: var(--amber); }
 
 /* Past na roboty – pole musí být z pohledu prohlížeče "skutečné",
    proto ho odsouváme pryč místo display:none, který roboti poznají. */
