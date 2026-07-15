@@ -44,7 +44,9 @@ function render(list, items) {
 
   list.innerHTML = items.map(n => `
     <li class="news-item">
-      ${n.image_url ? `<img class="news-banner" src="${escapeHtml(n.image_url)}" alt="" loading="lazy">` : ''}
+      ${n.image_url ? `<img class="news-banner" src="${escapeHtml(n.image_url)}"
+        alt="${escapeHtml(n.title)}" loading="lazy" tabindex="0"
+        role="button" aria-label="Zvětšit banner: ${escapeHtml(n.title)}">` : ''}
       <div class="news-meta">
         <time datetime="${escapeHtml(n.date)}">${formatDate(n.date)}</time>
         ${n.tag ? `<span class="news-tag">${escapeHtml(n.tag)}</span>` : ''}
@@ -53,6 +55,46 @@ function render(list, items) {
       ${n.text ? `<p>${escapeHtml(n.text)}</p>` : ''}
     </li>
   `).join('');
+
+  bindBanners(list);
+}
+
+/* ---- banner na celou stránku ---- */
+function bindBanners(list) {
+  const overlay = document.getElementById('banner-overlay');
+  if (!overlay) return;
+  const img = overlay.querySelector('img');
+  const closeBtn = overlay.querySelector('.bo-close');
+
+  const open = (src, alt) => {
+    img.src = src;
+    img.alt = alt || '';
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  };
+  const close = () => {
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    img.removeAttribute('src');
+  };
+
+  list.querySelectorAll('.news-banner').forEach(b => {
+    b.addEventListener('click', () => open(b.src, b.alt));
+    b.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(b.src, b.alt); }
+    });
+  });
+
+  if (!overlay.dataset.bound) {
+    overlay.dataset.bound = '1';
+    closeBtn.addEventListener('click', close);
+    // klik mimo obrázek zavře
+    overlay.addEventListener('click', (e) => { if (e.target !== img) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') close();
+    });
+  }
 }
 
 export async function initNews(sel) {

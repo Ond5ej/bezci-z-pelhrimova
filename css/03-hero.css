@@ -30,11 +30,10 @@
 
 .hero-inner {
   width: 100%;
-  max-width: var(--container);
+  max-width: 1340px;              /* hero je širší než zbytek webu */
   margin: 0 auto;
   display: grid;
-  /*grid-template-columns: 1.05fr 0.95fr;*/
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.95fr 1.15fr;   /* pravá část je větší */
   align-items: center;
   gap: clamp(2rem, 4vw, 3.5rem);
   position: relative;
@@ -116,16 +115,15 @@
   min-width: 0;
 }
 
-
 /* ---- Panel AKTUÁLNĚ ---- */
 .news-panel {
-  background: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.94);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border: 1px solid var(--line-soft);
   border-radius: var(--r-lg);
   box-shadow: var(--sh);
-  padding: 1.1rem 1.2rem 1.2rem;
+  padding: 1.4rem 1.6rem 1.5rem;
 }
 .news-head {
   display: flex;
@@ -139,7 +137,7 @@
 .news-head h2 {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.35rem;
+  font-size: 1.6rem;
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--ink-text);
@@ -169,7 +167,7 @@
 
 .news-list { list-style: none; margin: 0; padding: 0; }
 .news-item {
-  padding: .8rem 0 .8rem .9rem;
+  padding: 1rem 0 1rem 1.1rem;
   border-left: 3px solid var(--amber);
   border-bottom: 1px dashed var(--line-soft);
   margin-left: 2px;
@@ -183,7 +181,7 @@
 }
 .news-meta time {
   font-family: var(--font-data);
-  font-size: .7rem;
+  font-size: .78rem;
   letter-spacing: .06em;
   color: var(--ink-soft);
 }
@@ -199,14 +197,14 @@
 .news-item h3 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1rem;
-  margin: 0 0 .15rem;
+  font-size: 1.2rem;
+  margin: 0 0 .25rem;
   color: var(--ink-text);
 }
 .news-item p {
   margin: 0;
-  font-size: .88rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.55;
   color: var(--ink-soft);
 }
 .news-empty {
@@ -230,16 +228,64 @@
   }
   .hero-inner { grid-template-columns: 1fr; gap: 2.2rem; }
   .hero-side { order: 2; }         /* na mobilu text první, pak mapa + novinky */
-  .hero-visual img { max-height: none; }
 }
 
 /* ---- Banner u novinky ---- */
 .news-banner {
   width: 100%;
   height: auto;
-  max-height: 300px;
-  object-fit: contain;      /* celý banner, nic se neořízne */
+  max-height: 320px;
+  object-fit: contain;         /* celý banner, nic se neořízne */
   background: var(--sand);
   border-radius: var(--r-sm);
-  margin-bottom: .6rem;
+  margin-bottom: .7rem;
+  cursor: zoom-in;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
+.news-banner:hover { transform: scale(1.01); box-shadow: var(--sh); }
+
+/* =========================================================
+   BANNER PŘES CELOU STRÁNKU (po kliknutí)
+   ========================================================= */
+.banner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+  background: rgba(10, 33, 72, 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: zoom-out;
+}
+.banner-overlay[aria-hidden="false"] { display: flex; animation: boIn .25s var(--ease); }
+@keyframes boIn { from { opacity: 0; } to { opacity: 1; } }
+
+.banner-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  cursor: default;
+}
+.bo-close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 20px;
+  width: 48px; height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform .25s var(--ease), background .2s var(--ease);
+}
+.bo-close:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
