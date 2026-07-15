@@ -34,13 +34,22 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0.95fr 1.15fr;   /* pravá část je větší */
-  align-items: center;
+  /* stretch, ne center: panel novinek se tím roztáhne na výšku hera
+     a text vlevo začíná nahoře, ne uprostřed */
+  align-items: stretch;
   gap: clamp(2rem, 4vw, 3.5rem);
   position: relative;
   z-index: 1;
 }
 
-.hero-copy { max-width: 34rem; }
+.hero-copy {
+  max-width: 34rem;
+  /* text drží u horního okraje, pod ním zbude místo na QR kódy */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: clamp(1rem, 3vh, 2.5rem);
+}
 
 /* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
 .hero-eyebrow {
@@ -297,7 +306,10 @@
    bez ohledu na to, kolik toho kdo do novinky napíše.
    ========================================================= */
 .news-list {
-  max-height: min(24rem, 48vh);
+  /* vyplní zbytek panelu; min-height:0 je nutné, jinak se flex prvek
+     odmítne zmenšit pod obsah a posuvník se nikdy neobjeví */
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   /* místo pro posuvník, ať na něm nelepí text */
   padding-right: .6rem;
@@ -315,3 +327,71 @@
   border-radius: 999px;
 }
 .news-list::-webkit-scrollbar-thumb:hover { background: var(--amber-deep); }
+
+/* =========================================================
+   Panel novinek na plnou výšku hera
+   ---------------------------------------------------------
+   .hero-inner má align-items:stretch, takže .hero-side dostane
+   celou výšku. Panel se do ní roztáhne a seznam novinek vyplní
+   všechno, co zbude pod hlavičkou – a teprve tam se roluje.
+   ========================================================= */
+.hero-side { display: flex; }
+.news-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.news-head { flex: 0 0 auto; }
+
+/* =========================================================
+   QR kódy pod textem
+   ========================================================= */
+.hero-qr {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+.qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem .7rem .6rem;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.qr-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh);
+}
+.qr-card img {
+  /* bílý podklad je součást QR: čtečka potřebuje kontrast a klidovou zónu */
+  width: 108px;
+  height: 108px;
+  display: block;
+  background: #fff;
+  border-radius: 6px;
+}
+.qr-card span {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--font-data);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  /* na mobilu je hero jednosloupcové a nenatahuje se – panel novinek
+     by se neměl do čeho roztáhnout, tak mu vrátíme pevný strop */
+  .news-list { max-height: 60vh; }
+  .hero-copy { padding-top: 0; }
+  .qr-card img { width: 92px; height: 92px; }
+}
