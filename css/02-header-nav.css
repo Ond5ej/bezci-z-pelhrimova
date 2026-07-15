@@ -24,7 +24,7 @@ header.scrolled {
   padding: .3rem 1.25rem;
   display: flex;
   align-items: center;
-  justify-content: center;         /* menu na střed – logo je teď v hero */
+  justify-content: space-between;   /* menu vlevo, sítě vpravo */
   gap: 1rem;
 }
 
@@ -93,9 +93,12 @@ body.menu-open .navbar-toggle .bar:nth-child(3) { transform: translateY(-7px) ro
 body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
 
 @media (max-width: 860px) {
-  /* navbar má justify-content:center, hamburger by tím skončil uprostřed */
-  .navbar { justify-content: flex-end; }
   .navbar-toggle { display: flex; }
+  /* na mobilu je menu mimo tok a ikony skryté – bez tohohle by
+     space-between nechalo hamburger viset vlevo */
+  .navbar { justify-content: flex-end; }
+  /* sítě jsou na mobilu v Kontaktu i v hero, v liště by se tísnily */
+  .nav-social { display: none; }
   .nav-desktop {
     position: fixed;
     top: 0; right: 0;
@@ -115,4 +118,26 @@ body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
   .nav-desktop a { padding: .85rem 1rem; font-size: 1.05rem; }
   .nav-desktop a.nav-cta {
   color: var(--ink-text); margin: .6rem 0 0; text-align: center; }
+}
+
+/* ---- Sítě v pravém rohu lišty ---- */
+.nav-social {
+  display: flex;
+  gap: .35rem;
+  /* navbar je space-between: menu drží levý roh, tohle pravý */
+}
+.nav-social a {
+  width: 34px; height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+}
+.nav-social a:hover {
+  background: var(--sand);
+  color: var(--ink);
+  transform: translateY(-2px);
 }

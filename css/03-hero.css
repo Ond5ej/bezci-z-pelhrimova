@@ -36,6 +36,8 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0.95fr 1.15fr;   /* pravá část je větší */
+  /* první řádek = eyebrow přes celou šířku, druhý = text + novinky */
+  grid-template-rows: auto 1fr;
   /* stretch, ne center: panel novinek se tím roztáhne na výšku hera
      a text vlevo začíná nahoře, ne uprostřed */
   align-items: stretch;
@@ -55,6 +57,9 @@
 
 /* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
 .hero-eyebrow {
+  grid-column: 1 / -1;      /* přes levou i pravou část */
+  justify-self: center;
+  margin-bottom: clamp(1rem, 2.5vh, 2rem);
   display: inline-flex;
   align-items: center;
   gap: .6rem;
@@ -343,62 +348,15 @@
   flex-direction: column;
   width: 100%;
   /* 72px hlavička + odsazení hera; přes tohle panel nesmí přerůst */
-  max-height: calc(100svh - 72px - clamp(5rem, 10vw, 7.5rem));
+  max-height: calc(100svh - 72px - clamp(8rem, 14vw, 11rem));
 }
 .news-head { flex: 0 0 auto; }
-
-/* =========================================================
-   QR kódy pod textem
-   ========================================================= */
-.hero-qr {
-  display: flex;
-  justify-content: center;
-  gap: 1.4rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-.qr-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .5rem;
-  padding: .7rem .7rem .6rem;
-  background: rgba(255, 255, 255, .78);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--r-sm);
-  text-decoration: none;
-  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
-}
-.qr-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--sh);
-}
-.qr-card img {
-  /* bílý podklad je součást QR: čtečka potřebuje kontrast a klidovou zónu */
-  width: 150px;
-  height: 150px;
-  display: block;
-  background: #fff;
-  border-radius: 6px;
-}
-.qr-card span {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  font-family: var(--font-data);
-  font-size: .74rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
 
 @media (max-width: 860px) {
   /* na mobilu je hero jednosloupcové a nenatahuje se – panel novinek
      by se neměl do čeho roztáhnout, tak mu vrátíme pevný strop */
   .news-list { max-height: 60vh; }
   .hero-copy { padding-top: 0; }
-  .qr-card img { width: 118px; height: 118px; }
 }
 
 /* =========================================================

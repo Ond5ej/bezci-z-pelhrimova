@@ -163,3 +163,58 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* =========================================================
+   QR kódy v Kontaktu
+   ---------------------------------------------------------
+   Přesunuté z hero. Tady dávají smysl: kdo je na téhle sekci,
+   hledá způsob, jak se ozvat. Míří na případ "sedím u počítače
+   a chci si je přidat do telefonu" – jinak stačí kliknout
+   na ikony sítí nad nimi.
+   ========================================================= */
+.contact-qr { margin-top: 2rem; }
+.qr-hint {
+  margin: 0 0 .9rem;
+  font-size: .88rem;
+  color: var(--paper-soft);
+}
+.qr-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem .7rem .6rem;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(127, 168, 216, .22);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: transform .25s var(--ease), border-color .25s var(--ease);
+}
+.qr-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--amber);
+}
+.qr-card img {
+  /* bílý podklad je součást QR – čtečka potřebuje kontrast a klidovou zónu */
+  width: 128px;
+  height: 128px;
+  display: block;
+  background: #fff;
+  border-radius: 6px;
+}
+.qr-card span {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--font-data);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--paper-soft);
+}
