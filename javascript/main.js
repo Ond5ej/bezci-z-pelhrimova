@@ -26,9 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initGallery({
     grid: '#gallery-grid',
-    addTile: '#gallery-add',
     filters: '#gallery-filters',
-    fileInput: '#gallery-file',
     lightbox: '#lightbox',
   });
 

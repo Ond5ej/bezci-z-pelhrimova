@@ -42,9 +42,8 @@ Už běží na GitHub Pages. Po každé změně stačí `git add . && git commit
 
 ## Nejčastější úpravy
 
-**Fotky v galerii** – `javascript/gallery-data.js`. Nahraj obrázek do `img/gallery/`
-a přidej řádek `{ src: 'img/gallery/soubor.jpg', alt: 'Popisek' },`.
-Tlačítko „Přidat fotku" na webu ukládá fotky jen do prohlížeče daného návštěvníka.
+**Fotky v galerii** – normálně přes administraci na `/admin/` (záložky Alba a Fotky).
+Placeholdery v `javascript/gallery-data.js` se ukážou jen když Supabase není dostupné.
 
 
 **Trasy** – `javascript/routes.js`, pole `routes` (název, popis, km, převýšení, povrch,
@@ -67,7 +66,8 @@ feed z Instagramu/Facebooku, sdílená Google tabulka, nebo Git-based CMS (Svelt
 ---
 Nemusíš být závodník. Stačí chuť vyběhnout. 🏃
 
-**Sítě** – odkazy v sekci Kontakt v `index.html`. Doplň přesnou adresu vašeho Facebooku.
+**Sítě** – odkazy v sekci Kontakt v `index.html` (a v JSON-LD `sameAs` v hlavičce).
+Facebook = skupina `facebook.com/groups/4313081512346383`, Instagram `@bezci_z_pelhrimova`.
 
 ---
 
