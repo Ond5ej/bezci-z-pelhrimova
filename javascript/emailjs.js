@@ -42,6 +42,7 @@ export const EMAILJS_PUBLIC_KEY  = 'xGakMf7erbmCHBBEa';
 export const EMAILJS_SERVICE_ID  = 'service_6vtzgwt';
 export const EMAILJS_TEMPLATE_ID = 'template_j4bwkn4';
 
+
 let _emailjs = null;
 
 /** Je EmailJS vyplněné? Když ne, formulář spadne zpátky na mailto. */

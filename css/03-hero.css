@@ -49,12 +49,11 @@
   /* text drží u horního okraje, pod ním zbude místo na QR kódy */
   display: flex;
   flex-direction: column;
-  /* space-between rozpustí zbylou výšku rovnoměrně mezi prvky.
-     Na nízkých obrazovkách žádná zbylá výška není, takže se to
-     samo chová jako flex-start a nic se nerozbije. */
-  justify-content: space-between;
+  /* Prvky drží u sebe podle vlastních rozestupů. Zbylou výšku
+     NErozdělujeme mezi ně (space-between je od sebe odtrhne) –
+     sebere ji odsazení pod statistikami. */
+  justify-content: flex-start;
   padding-top: clamp(0rem, 1vh, .6rem);
-  padding-bottom: clamp(0rem, 2vh, 1.5rem);
 }
 
 /* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
@@ -64,7 +63,7 @@
   font-size: clamp(2.4rem, 5.2vw, 4rem);
   line-height: 0.98;
   letter-spacing: -0.02em;
-  margin: 0 0 clamp(1.4rem, 2.5vh, 2rem);
+  margin: 0 0 1.5rem;
   color: var(--ink-text);
 }
 .hero-title .accent { color: var(--amber-deep); }
@@ -77,10 +76,10 @@
 .hero-copy p {
   font-size: clamp(1rem, 1.3vw, 1.1rem);
   color: var(--ink-soft);
-  margin: 0 0 clamp(2rem, 3.5vh, 2.8rem);
+  margin: 0 0 2.2rem;
 }
 
-.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: clamp(2rem, 4vh, 3rem); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2rem; }
 
 /* světlý hero → ghost tlačítko tmavě modré */
 .hero .btn--ghost { color: var(--ink-text); border-color: var(--ink-text); }
@@ -91,6 +90,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
+  /* jediné místo, kde se zbylá výška sbírá – statistiky tím sjedou
+     dolů, ale text nad nimi zůstane pohromadě */
+  margin-top: auto;
   padding-top: clamp(1.4rem, 2.5vh, 2rem);
   border-top: 1px solid rgba(14,44,90,.16);
 }
@@ -229,7 +231,36 @@
       rgba(255,255,255,0) 100%);
   }
   .hero-inner { grid-template-columns: 1fr; gap: 2.2rem; }
-  .hero-side { order: 2; }         /* na mobilu text první, pak mapa + novinky */
+  .hero-side { order: 2; }         /* na mobilu text první, pak novinky */
+
+  /* Levý sloupec na mobilu: všechno na střed. Logo vlevo a text vlevo
+     v úzkém sloupci působí useknutě – na střed to drží pohromadě. */
+  .hero-copy {
+    align-items: center;
+    text-align: center;
+    padding-top: 0;
+    max-width: none;
+  }
+  .hero-logo { align-self: center; }
+
+  /* nadpis na úzké obrazovce nesmí přetéct */
+  .hero-title { font-size: clamp(2.1rem, 9vw, 3rem); }
+
+  /* zalomení psané pro desktop tady jen tříští řádky */
+  .hero-title br { display: none; }
+
+  .hero-copy p { max-width: 32rem; }
+
+  .hero-actions { justify-content: center; }
+  /* tlačítka přes celou šířku – na úzkém displeji se palcem trefí líp */
+  .hero-actions .btn { flex: 1 1 14rem; justify-content: center; }
+
+  .hero-stats {
+    justify-content: center;
+    gap: 1.2rem 1.8rem;
+    margin-top: 0;               /* mobilní hero se nenatahuje, auto by nic nedělalo */
+  }
+  .hero-stat { text-align: center; }
 }
 
 /* ---- Banner u novinky ---- */
@@ -377,5 +408,5 @@
 }
 
 @media (max-width: 860px) {
-  .hero-logo { width: min(15rem, 60%); }
+  .hero-logo { width: min(17rem, 72%); }
 }

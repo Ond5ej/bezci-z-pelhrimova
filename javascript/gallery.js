@@ -232,6 +232,25 @@ export function initGallery(sel) {
     if (e.key === 'ArrowLeft') show(current - 1);
   });
 
+  /* ---- švihání prstem ---- */
+  // Na mobilu lidi čekají, že mezi fotkami přejedou prstem. Bez toho
+  // působí prohlížeč rozbitě, i když šipky fungují.
+  let touchX = null, touchY = null;
+  lb?.addEventListener('touchstart', (e) => {
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+  }, { passive: true });
+
+  lb?.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    touchX = touchY = null;
+    // jen vodorovné tahy delší než 50 px – ať se to nepere s rolováním
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    show(dx < 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
   /* ---- start: nejdřív placeholdery, pak živá data ---- */
   render();
   loadRemote();

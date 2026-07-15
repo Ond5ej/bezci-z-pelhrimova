@@ -48,9 +48,15 @@
   gap: 8px;
   overflow-x: auto;
   padding: 6px 2px;
-  justify-content: center;
+  justify-content: flex-start;
   scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
+/* Vycentruje řádek jen když se vejde. Při přetečení se auto-okraje
+   zahodí a náhledy zůstanou dostupné od prvního. */
+.lb-thumbs img:first-child { margin-left: auto; }
+.lb-thumbs img:last-child { margin-right: auto; }
 .lb-thumbs img {
   width: 74px; height: 56px;
   object-fit: cover;
@@ -59,6 +65,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   flex: 0 0 auto;
+  scroll-snap-align: center;
   transition: opacity .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
 }
 .lb-thumbs img:hover { opacity: .85; transform: translateY(-2px); }
@@ -103,6 +110,20 @@
 .lb-close:hover { background: rgba(28,111,212,.18); transform: rotate(90deg); }
 
 @media (max-width: 600px) {
-  .lb-btn { width: 40px; height: 40px; }
-  .lb-thumbs img { width: 60px; height: 46px; }
+  /* Šipky seděly na fotce a překážely. Dole vedle sebe jsou palcem
+     dosažitelné a nic nezakrývají – navíc jde mezi fotkami švihat. */
+  .lb-btn {
+    width: 44px; height: 44px;
+    top: auto;
+    bottom: 4px;
+    transform: none;
+  }
+  .lb-prev { left: 50%; margin-left: -52px; }
+  .lb-next { right: 50%; margin-right: -52px; }
+
+  .lb-stage { padding-bottom: 56px; }
+  .lb-caption { bottom: 60px; font-size: .78rem; max-width: 86%; text-align: center; }
+
+  .lb-thumbs img { width: 54px; height: 42px; }
+  .lb-close { width: 42px; height: 42px; font-size: 1.25rem; }
 }
