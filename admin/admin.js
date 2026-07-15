@@ -3,12 +3,16 @@
    Přihlášení + správa novinek, alb a fotek přes Supabase.
    ========================================================= */
 import { getSupabase, isConfigured, BUCKET } from '../javascript/supabase.js';
+// stejné kreslítko, jaké používá web – náhled tak ukazuje přesně to,
+// co uvidí návštěvník, a nemůže se to rozejít
+import { profileSVG } from '../javascript/routes.js';
 
 const $ = (s) => document.querySelector(s);
 let sb = null;
 let albums = [];
 let editingNewsId = null;
 let editingAlbumId = null;
+let editingRouteId = null;
 let pendingBanner = null;   // { file } nebo { url } u úprav
 
 /* ---------- pomocné ---------- */
@@ -78,6 +82,7 @@ async function showAdmin(session) {
   await loadAlbums();
   await loadNews();
   await loadPhotos();
+  await loadRoutes();
   await loadSettings();
 }
 
@@ -421,6 +426,140 @@ async function delPhoto(id, path) {
   await loadPhotos();
   await loadAlbums();
 }
+
+/* =========================================================
+   TRASY
+   ---------------------------------------------------------
+   Profil převýšení se zadává jako čísla oddělená čárkou.
+   Náhled se kreslí stejnou funkcí jako web (profileSVG),
+   takže se nemůže rozejít s tím, co uvidí návštěvník.
+   ========================================================= */
+
+/** "2, 3, 5" -> [2,3,5]. Ignoruje mezery a prázdné kousky. */
+function parseProfile(text) {
+  return String(text || '')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(Number)
+    .filter(n => !isNaN(n) && n >= 0);
+}
+
+function drawPreview() {
+  const box = $('#r-preview');
+  if (!box) return;
+  const pts = parseProfile($('#r-profile').value);
+  box.innerHTML = pts.length >= 2
+    ? profileSVG(pts)
+    : '<span class="hint">Napiš aspoň dvě čísla a uvidíš náhled křivky.</span>';
+}
+$('#r-profile')?.addEventListener('input', drawPreview);
+
+function resetRouteForm() {
+  editingRouteId = null;
+  $('#route-form').reset();
+  $('#r-order').value = 0;
+  $('#route-form-title').textContent = 'Nová trasa';
+  $('#route-cancel').hidden = true;
+  drawPreview();
+  msg('#route-msg', '');
+}
+$('#route-cancel')?.addEventListener('click', resetRouteForm);
+
+$('#route-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const profile = parseProfile($('#r-profile').value);
+  if (profile.length < 2) {
+    msg('#route-msg', 'Profil potřebuje aspoň dvě čísla oddělená čárkou.', 'err');
+    return;
+  }
+
+  msg('#route-msg', 'Ukládám…');
+  const row = {
+    name: $('#r-name').value.trim(),
+    description: $('#r-desc').value.trim() || null,
+    km: $('#r-km').value.trim() || null,
+    elev: $('#r-elev').value.trim() || null,
+    teren: $('#r-teren').value.trim() || null,
+    diff: $('#r-diff').value,
+    diff_label: $('#r-diff-label').value.trim() || null,
+    profile,
+    sort_order: Number($('#r-order').value) || 0,
+  };
+
+  const { error } = editingRouteId
+    ? await sb.from('routes').update(row).eq('id', editingRouteId)
+    : await sb.from('routes').insert(row);
+
+  if (error) { msg('#route-msg', 'Nepovedlo se uložit: ' + error.message, 'err'); return; }
+
+  msg('#route-msg', 'Uloženo ✓', 'ok');
+  resetRouteForm();
+  await loadRoutes();
+});
+
+async function loadRoutes() {
+  const box = $('#route-list');
+  if (!box) return;
+  box.innerHTML = '<p class="empty">Načítám…</p>';
+
+  const { data, error } = await sb.from('routes').select('*')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true });
+
+  if (error) { box.innerHTML = `<p class="empty">Chyba: ${esc(error.message)}</p>`; return; }
+  if (!data.length) { box.innerHTML = '<p class="empty">Zatím tu není žádná trasa.</p>'; return; }
+
+  box.innerHTML = data.map(r => `
+    <div class="row">
+      <div class="row-main">
+        <strong>${esc(r.name)}</strong>
+        <div class="row-meta">
+          <span class="pill">${r.sort_order}</span>
+          ${r.km ? `<span>${esc(r.km)} km</span>` : ''}
+          ${r.elev ? `<span>${esc(r.elev)}</span>` : ''}
+          ${r.diff_label ? `<span class="pill">${esc(r.diff_label)}</span>` : ''}
+        </div>
+      </div>
+      <div class="row-actions">
+        <button class="icon-btn" data-redit="${r.id}" title="Upravit"><i class="bi bi-pencil"></i></button>
+        <button class="icon-btn danger" data-rdel="${r.id}" title="Smazat"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+
+  box.querySelectorAll('[data-redit]').forEach(b =>
+    b.addEventListener('click', () => editRoute(data.find(x => x.id === b.dataset.redit))));
+  box.querySelectorAll('[data-rdel]').forEach(b =>
+    b.addEventListener('click', () => delRoute(b.dataset.rdel)));
+}
+
+function editRoute(r) {
+  if (!r) return;
+  editingRouteId = r.id;
+  $('#r-name').value = r.name || '';
+  $('#r-desc').value = r.description || '';
+  $('#r-km').value = r.km || '';
+  $('#r-elev').value = r.elev || '';
+  $('#r-teren').value = r.teren || '';
+  $('#r-diff').value = ['easy', 'medium', 'hard'].includes(r.diff) ? r.diff : 'easy';
+  $('#r-diff-label').value = r.diff_label || '';
+  $('#r-profile').value = (r.profile || []).join(', ');
+  $('#r-order').value = r.sort_order ?? 0;
+  drawPreview();
+  $('#route-form-title').textContent = 'Úprava trasy';
+  $('#route-cancel').hidden = false;
+  $('#route-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+async function delRoute(id) {
+  if (!confirm('Opravdu smazat tuto trasu?')) return;
+  const { error } = await sb.from('routes').delete().eq('id', id);
+  if (error) { alert('Nepovedlo se smazat: ' + error.message); return; }
+  await loadRoutes();
+}
+
 
 /* =========================================================
    OSTATNÍ (nastavení – počty členů apod.)

@@ -73,6 +73,15 @@ Nemusíš být závodník. Stačí chuť vyběhnout. 🏃
 **Sítě** – odkazy v sekci Kontakt v `index.html` (a v JSON-LD `sameAs` v hlavičce).
 Facebook = skupina `facebook.com/groups/4313081512346383`, Instagram `@bezci_z_pelhrimova`.
 
+**Trasy** – spravují se na `/admin/` (záložka Trasy). Před prvním použitím
+pusť v Supabase `supabase-routes.sql`. Trasy v `javascript/routes.js` jsou
+už jen záloha pro případ, že by Supabase nebylo dostupné.
+
+**Kontaktní formulář** – odesílá přes EmailJS. Nastavení a podrobný návod
+je v `javascript/emailjs.js`. Adresa, kam zprávy chodí, se nastavuje
+v šabloně na emailjs.com (pole „To Email"), ne v kódu.
+Dokud klíče nevyplníš, formulář otevírá poštovní program (mailto).
+
 ---
 
 ## Administrace (/admin/)

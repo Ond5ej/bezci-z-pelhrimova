@@ -85,3 +85,59 @@
   border-color: var(--amber);
   color: var(--ink-text);
 }
+
+/* Název alba na fotce – naskočí po najetí myší.
+   Na dotykových zařízeních (kde hover neexistuje) svítí trvale,
+   viz @media níže. */
+.gallery-item .alb-badge {
+  position: absolute;
+  top: .55rem;
+  left: .55rem;
+  z-index: 2;
+  max-width: calc(100% - 1.1rem);
+  padding: .22rem .6rem;
+  border-radius: 999px;
+  background: rgba(10, 33, 72, .82);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: var(--amber);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity .22s var(--ease), transform .22s var(--ease);
+}
+.gallery-item:hover .alb-badge,
+.gallery-item:focus-visible .alb-badge {
+  opacity: 1;
+  transform: none;
+}
+
+/* Dotykové displeje hover neumí – ať odznak není nedostupný. */
+@media (hover: none) {
+  .gallery-item .alb-badge { opacity: 1; transform: none; }
+}
+
+/* Mřížka se rolováním – strop výšky nastavuje gallery.js podle toho,
+   kolik fotek se má vejít (výška řádku závisí na šířce sloupce,
+   takže se to v čistém CSS spočítat nedá).
+   Třída naskočí jen tehdy, když je fotek víc, než se vejde. */
+.gallery-grid.is-scrollable {
+  overflow-y: auto;
+  padding-right: .6rem;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--amber) transparent;
+}
+.gallery-grid.is-scrollable::-webkit-scrollbar { width: 6px; }
+.gallery-grid.is-scrollable::-webkit-scrollbar-track { background: transparent; }
+.gallery-grid.is-scrollable::-webkit-scrollbar-thumb {
+  background: var(--amber);
+  border-radius: 999px;
+}
+.gallery-grid.is-scrollable::-webkit-scrollbar-thumb:hover { background: var(--amber-deep); }

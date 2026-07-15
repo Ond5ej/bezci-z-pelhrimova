@@ -8,6 +8,44 @@
 import { galleryPhotos } from './gallery-data.js';
 import { getSupabase } from './supabase.js';
 
+/** Kolik fotek je vidět, než se začne rolovat. Zbytek je dostupný posuvníkem. */
+const VISIBLE_PHOTOS = 20;
+
+/** Zamíchá kopii pole (Fisher–Yates). */
+function shuffle(list) {
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Promíchá fotky tak, aby se alba střídala – bere po jedné z každého
+ * dokola. Album s 200 fotkami tak nezavalí začátek mřížky a na album
+ * s pěti se taky dostane.
+ */
+function spreadAcrossAlbums(list) {
+  const byAlbum = new Map();
+  for (const p of list) {
+    const key = p.album_id || '_';
+    if (!byAlbum.has(key)) byAlbum.set(key, []);
+    byAlbum.get(key).push(p);
+  }
+  // uvnitř alba náhodně, ať se pořád netočí ty samé
+  const buckets = [...byAlbum.values()].map(shuffle);
+
+  const out = [];
+  let i = 0;
+  while (buckets.some(b => b.length)) {
+    const b = buckets[i % buckets.length];
+    if (b.length) out.push(b.shift());
+    i++;
+  }
+  return out;
+}
+
 export function initGallery(sel) {
   const grid = document.querySelector(sel.grid);
   const filterBox = document.querySelector(sel.filters || '#gallery-filters');
@@ -23,6 +61,7 @@ export function initGallery(sel) {
 
   let remotePhotos = [];   // ze Supabase
   let albums = [];
+  let albumTitles = new Map(); // id alba -> název (pro odznak na fotce)
   let activeAlbum = 'all';
   let photos = [];         // aktuálně zobrazené
   let current = 0;
@@ -30,12 +69,16 @@ export function initGallery(sel) {
   /* ---- co se má zobrazit ---- */
   function currentSet() {
     // základ: fotky ze Supabase, jinak placeholdery
-    let base = remotePhotos.length
+    const base = remotePhotos.length
       ? remotePhotos.map(p => ({ src: p.url, alt: p.alt || '', album_id: p.album_id }))
       : galleryPhotos.map(p => ({ ...p, album_id: null }));
 
-    if (activeAlbum !== 'all') base = base.filter(p => p.album_id === activeAlbum);
-    return base;
+    // konkrétní album: pořadí od nejnovějších
+    if (activeAlbum !== 'all') {
+      return base.filter(p => p.album_id === activeAlbum);
+    }
+    // pohled "Vše": promícháme napříč alby
+    return spreadAcrossAlbums(base);
   }
 
   /* ---- filtr alb ---- */
@@ -56,6 +99,36 @@ export function initGallery(sel) {
     });
   }
 
+  /**
+   * Nastaví mřížce strop výšky přesně na VISIBLE_PHOTOS fotek.
+   * Počet sloupců čteme z CSS (mění se na 4/3/2 podle šířky okna),
+   * výšku řádku měříme z první dlaždice – ta ji má z aspect-ratio,
+   * takže je známá hned a nečeká se na stažení obrázků.
+   */
+  function applyScrollHeight() {
+    const first = grid.querySelector('.gallery-item');
+    if (!first) { grid.style.maxHeight = ''; grid.classList.remove('is-scrollable'); return; }
+
+    const cs = getComputedStyle(grid);
+    const cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length;
+    if (!cols) return;
+
+    const rows = Math.max(1, Math.ceil(VISIBLE_PHOTOS / cols));
+    const fits = rows * cols;
+
+    // rolovat má smysl, jen když se fotky nevejdou
+    if (photos.length <= fits) {
+      grid.style.maxHeight = '';
+      grid.classList.remove('is-scrollable');
+      return;
+    }
+
+    const gap = parseFloat(cs.rowGap) || 0;
+    const rowH = first.getBoundingClientRect().height;
+    grid.style.maxHeight = `${Math.round(rows * rowH + (rows - 1) * gap)}px`;
+    grid.classList.add('is-scrollable');
+  }
+
   /* ---- vykreslení mřížky ---- */
   function render() {
     photos = currentSet();
@@ -74,6 +147,15 @@ export function initGallery(sel) {
       img.loading = 'lazy';
       fig.appendChild(img);
 
+      // název alba – ukáže se až po najetí myší (CSS)
+      const albName = p.album_id ? albumTitles.get(p.album_id) : null;
+      if (albName) {
+        const badge = document.createElement('span');
+        badge.className = 'alb-badge';
+        badge.textContent = albName;
+        fig.appendChild(badge);
+      }
+
       if (p.alt) {
         const cap = document.createElement('figcaption');
         cap.className = 'cap';
@@ -89,7 +171,16 @@ export function initGallery(sel) {
 
       grid.appendChild(fig);
     });
+
+    applyScrollHeight();
   }
+
+  // po změně šířky okna se mění počet sloupců → přepočítat
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(applyScrollHeight, 150);
+  });
 
   /* ---- lightbox ---- */
   function buildThumbs() {
@@ -157,6 +248,7 @@ export function initGallery(sel) {
     if (error) { console.warn('Fotky se nepodařilo načíst:', error.message); return; }
 
     remotePhotos = ph || [];
+    albumTitles = new Map((al || []).map(a => [a.id, a.title]));
     // ukážeme jen alba, která mají aspoň jednu fotku
     const used = new Set(remotePhotos.map(p => p.album_id));
     albums = (al || []).filter(a => used.has(a.id));

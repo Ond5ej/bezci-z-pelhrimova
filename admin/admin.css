@@ -312,3 +312,22 @@ input[type="file"] {
   .panel-grid { grid-template-columns: 1fr; }
   .upload-row { grid-template-columns: 1fr; }
 }
+
+/* Náhled profilu převýšení ve formuláři tras.
+   Tmavé pozadí proto, že křivka je limetková a na světlém by zanikla –
+   na webu je karta trasy taky tmavá, takže náhled odpovídá skutečnosti. */
+.route-preview {
+  margin: -.4rem 0 1rem;
+  padding: .5rem .6rem;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  background: #0A2148;
+  border-radius: 10px;
+}
+.route-preview .route-profile {
+  width: 100%;
+  height: 52px;
+  display: block;
+}
+.route-preview .hint { margin: 0; color: #7E97BC; font-size: .78rem; }

@@ -289,3 +289,29 @@
   transition: transform .25s var(--ease), background .2s var(--ease);
 }
 .bo-close:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
+/* =========================================================
+   Aktuality – pevný strop výšky + rolování
+   ---------------------------------------------------------
+   Bez tohohle roste panel s délkou příspěvků a roztahuje
+   celou úvodní sekci. Takhle má hero předvídatelnou výšku
+   bez ohledu na to, kolik toho kdo do novinky napíše.
+   ========================================================= */
+.news-list {
+  max-height: min(24rem, 48vh);
+  overflow-y: auto;
+  /* místo pro posuvník, ať na něm nelepí text */
+  padding-right: .6rem;
+  /* posuvník v barvách webu (Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--amber) transparent;
+  /* ať rolování nepřeskakuje na okolní stránku, když dojedeš na konec */
+  overscroll-behavior: contain;
+}
+/* posuvník v barvách webu (Chrome, Safari, Edge) */
+.news-list::-webkit-scrollbar { width: 6px; }
+.news-list::-webkit-scrollbar-track { background: transparent; }
+.news-list::-webkit-scrollbar-thumb {
+  background: var(--amber);
+  border-radius: 999px;
+}
+.news-list::-webkit-scrollbar-thumb:hover { background: var(--amber-deep); }

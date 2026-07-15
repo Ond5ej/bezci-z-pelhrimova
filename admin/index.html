@@ -74,6 +74,7 @@
       <button class="tab is-active" data-tab="news"><i class="bi bi-megaphone-fill"></i> Aktuálně</button>
       <button class="tab" data-tab="albums"><i class="bi bi-collection-fill"></i> Alba</button>
       <button class="tab" data-tab="photos"><i class="bi bi-images"></i> Fotky</button>
+      <button class="tab" data-tab="routes"><i class="bi bi-signpost-split-fill"></i> Trasy</button>
       <button class="tab" data-tab="settings"><i class="bi bi-sliders"></i> Ostatní</button>
     </nav>
 
@@ -179,6 +180,62 @@
             <select id="p-filter"></select>
           </div>
           <div class="photo-grid" id="photo-grid"></div>
+        </div>
+      </section>
+
+      <!-- ---------- TRASY ---------- -->
+      <section class="panel" id="panel-routes">
+        <div class="panel-grid">
+          <form class="card form" id="route-form">
+            <h2 id="route-form-title">Nová trasa</h2>
+
+            <label for="r-name">Název</label>
+            <input type="text" id="r-name" placeholder="Křemešník" required maxlength="80">
+
+            <label for="r-desc">Popis <small>(nepovinné)</small></label>
+            <textarea id="r-desc" rows="3" maxlength="300"
+              placeholder="Táhlé stoupání lesem až k rozhledně…"></textarea>
+
+            <label for="r-km">Délka <small>(s čárkou, bez jednotky)</small></label>
+            <input type="text" id="r-km" placeholder="11,8" maxlength="12">
+
+            <label for="r-elev">Převýšení <small>(včetně jednotky)</small></label>
+            <input type="text" id="r-elev" placeholder="260 m" maxlength="20">
+
+            <label for="r-teren">Povrch</label>
+            <input type="text" id="r-teren" placeholder="les" maxlength="30">
+
+            <label for="r-diff">Náročnost <small>(určuje barvu štítku)</small></label>
+            <select id="r-diff">
+              <option value="easy">Lehká – modrý štítek</option>
+              <option value="medium">Střední – limetkový štítek</option>
+              <option value="hard">Náročná – bílý štítek</option>
+            </select>
+
+            <label for="r-diff-label">Text na štítku</label>
+            <input type="text" id="r-diff-label" placeholder="Kopcovitá" maxlength="24">
+
+            <label for="r-profile">Profil převýšení</label>
+            <p class="hint">Čísla oddělená čárkou – kreslí se z nich křivka na kartě.
+              Nejsou to metry, jen relativní výška: napiš, kde je rovina a kde kopec
+              (třeba <code>2, 3, 5, 7, 9, 10, 8, 6, 4, 3</code>). Nejmíň dvě čísla.</p>
+            <input type="text" id="r-profile" placeholder="2, 3, 5, 7, 9, 10, 8, 6, 4, 3">
+            <div class="route-preview" id="r-preview" aria-hidden="true"></div>
+
+            <label for="r-order">Pořadí <small>(menší číslo = dřív na webu)</small></label>
+            <input type="number" id="r-order" value="0" min="0" max="99">
+
+            <div class="form-actions">
+              <button type="submit" class="btn-a"><i class="bi bi-check-lg"></i> Uložit</button>
+              <button type="button" class="btn-a btn-ghost" id="route-cancel" hidden>Zrušit úpravy</button>
+            </div>
+            <p class="msg" id="route-msg" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="card">
+            <h2>Trasy na webu</h2>
+            <div class="list" id="route-list"></div>
+          </div>
         </div>
       </section>
 

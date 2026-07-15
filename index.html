@@ -305,6 +305,15 @@
             <label for="cf-msg">Zpráva</label>
             <textarea id="cf-msg" name="message" placeholder="Rád/a bych vyrazil/a na společný výběh…"></textarea>
           </div>
+
+          <!-- Past na roboty. Člověk toto pole nevidí (schová ho CSS),
+               takže když přijde vyplněné, píše nám robot a zprávu zahodíme.
+               Nemazat, ani nedávat type="hidden" – to by roboti prokoukli. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-web">Toto pole nevyplňuj</label>
+            <input type="text" id="cf-web" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
           <button type="submit" class="btn"><i class="bi bi-send-fill"></i> Odeslat zprávu</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
