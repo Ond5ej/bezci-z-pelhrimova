@@ -49,8 +49,12 @@
   /* text drží u horního okraje, pod ním zbude místo na QR kódy */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* space-between rozpustí zbylou výšku rovnoměrně mezi prvky.
+     Na nízkých obrazovkách žádná zbylá výška není, takže se to
+     samo chová jako flex-start a nic se nerozbije. */
+  justify-content: space-between;
   padding-top: clamp(0rem, 1vh, .6rem);
+  padding-bottom: clamp(0rem, 2vh, 1.5rem);
 }
 
 /* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
@@ -60,7 +64,7 @@
   font-size: clamp(2.4rem, 5.2vw, 4rem);
   line-height: 0.98;
   letter-spacing: -0.02em;
-  margin: 0 0 1.4rem;
+  margin: 0 0 clamp(1.4rem, 2.5vh, 2rem);
   color: var(--ink-text);
 }
 .hero-title .accent { color: var(--amber-deep); }
@@ -73,10 +77,10 @@
 .hero-copy p {
   font-size: clamp(1rem, 1.3vw, 1.1rem);
   color: var(--ink-soft);
-  margin: 0 0 2rem;
+  margin: 0 0 clamp(2rem, 3.5vh, 2.8rem);
 }
 
-.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: clamp(2rem, 4vh, 3rem); }
 
 /* světlý hero → ghost tlačítko tmavě modré */
 .hero .btn--ghost { color: var(--ink-text); border-color: var(--ink-text); }
@@ -87,7 +91,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
-  padding-top: 1.4rem;
+  padding-top: clamp(1.4rem, 2.5vh, 2rem);
   border-top: 1px solid rgba(14,44,90,.16);
 }
 .hero-stat { line-height: 1.1; }
