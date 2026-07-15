@@ -141,3 +141,20 @@
   border-radius: 999px;
 }
 .gallery-grid.is-scrollable::-webkit-scrollbar-thumb:hover { background: var(--amber-deep); }
+
+/* =========================================================
+   Filtr alb na světlé sekci
+   ---------------------------------------------------------
+   Čipy byly stavěné na tmavou galerii (průsvitně bílý podklad).
+   Na světlém pozadí by z nich zbyla skoro neviditelná skvrna.
+   ========================================================= */
+.section--paper .gal-chip {
+  background: var(--paper-2);
+  border-color: var(--line-soft);
+  color: var(--ink-soft);
+}
+.section--paper .gal-chip:hover {
+  color: var(--ink-text);
+  border-color: var(--amber);
+}
+/* aktivní čip zůstává limetkový s tmavým textem – funguje na obojím */

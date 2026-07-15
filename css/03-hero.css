@@ -7,7 +7,9 @@
   /* přes celý monitor (mínus výška hlavičky) */
   min-height: calc(100svh - 72px);
   display: flex;
-  align-items: center;
+  /* stretch, ne center: bez toho je .hero-inner vysoký jen jako obsah
+     a panel novinek nemá strop, o který by se opřel – roste místo rolování */
+  align-items: stretch;
   background:
     url('../img/hero-bg.svg') center / 100% 100% no-repeat,
     linear-gradient(135deg, #F5FAFF 0%, #D9ECFC 60%, #C4E1FA 100%);
@@ -340,6 +342,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* 72px hlavička + odsazení hera; přes tohle panel nesmí přerůst */
+  max-height: calc(100svh - 72px - clamp(5rem, 10vw, 7.5rem));
 }
 .news-head { flex: 0 0 auto; }
 
@@ -348,8 +352,9 @@
    ========================================================= */
 .hero-qr {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.8rem;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 2rem;
   flex-wrap: wrap;
 }
 .qr-card {
@@ -370,8 +375,8 @@
 }
 .qr-card img {
   /* bílý podklad je součást QR: čtečka potřebuje kontrast a klidovou zónu */
-  width: 108px;
-  height: 108px;
+  width: 150px;
+  height: 150px;
   display: block;
   background: #fff;
   border-radius: 6px;
@@ -393,5 +398,5 @@
      by se neměl do čeho roztáhnout, tak mu vrátíme pevný strop */
   .news-list { max-height: 60vh; }
   .hero-copy { padding-top: 0; }
-  .qr-card img { width: 92px; height: 92px; }
+  .qr-card img { width: 118px; height: 118px; }
 }

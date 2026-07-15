@@ -39,10 +39,6 @@ section[id] { scroll-margin-top: 92px; }
 .section--paper { background: var(--paper); color: var(--ink-text); }
 .section--dark  { background: var(--ink);   color: var(--paper-text); }
 .section--sand  { background: var(--sand);  color: var(--ink-text); }
-/* Hlubší navy než --dark. Vzniklo kvůli trasám, které stály hned pod
-   galerií ve stejné barvě a splývaly s ní v jeden blok. Karty tras
-   (--forest) na tomhle podkladu navíc vyniknou víc než na --ink. */
-.section--deep  { background: var(--off-black); color: var(--paper-text); }
 
 /* ---- Eyebrow (nadřazený štítek s číslem trasy) ---- */
 .eyebrow {
@@ -56,8 +52,7 @@ section[id] { scroll-margin-top: 92px; }
   color: var(--amber-deep);
   margin: 0 0 1rem;
 }
-.section--dark .eyebrow,
-.section--deep .eyebrow { color: var(--amber); }
+.section--dark .eyebrow { color: var(--amber); }
 .eyebrow::before {
   content: "";
   width: 26px; height: 2px;
@@ -81,8 +76,7 @@ section[id] { scroll-margin-top: 92px; }
   color: var(--ink-soft);
   margin: 0 0 2.5rem;
 }
-.section--dark .section-lead,
-.section--deep .section-lead { color: var(--paper-soft); }
+.section--dark .section-lead { color: var(--paper-soft); }
 
 /* ---- Tlačítka ---- */
 .btn {
@@ -164,3 +158,11 @@ section[id] { scroll-margin-top: 92px; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Datové čipy na tmavé sekci (O nás) */
+.section--dark .stat-chip {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(127, 168, 216, .22);
+  color: var(--paper-soft);
+}
+.section--dark .stat-chip b { color: var(--amber-soft); }

@@ -58,3 +58,24 @@
 @media (max-width: 460px) {
   .about-values { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   O NÁS na tmavém pozadí
+   ---------------------------------------------------------
+   Sekce byla původně světlá, takže všechno výše počítá s tmavým
+   textem na světlém podkladu. Tady to obracíme. Necháváme to jako
+   override místo přepsání výchozích hodnot – kdyby se sekce někdy
+   vrátila na světlo, stačí sundat třídu.
+   ========================================================= */
+.section--dark .value-card {
+  background: var(--forest);
+  border-color: rgba(127, 168, 216, .22);
+}
+.section--dark .value-card .ico {
+  /* --ink by na tmavé sekci splynul, tak ikonu obracíme */
+  background: var(--amber);
+  color: var(--ink);
+}
+.section--dark .value-card p { color: var(--paper-soft); }
+.section--dark .about-copy p { color: var(--paper-soft); }
+.section--dark .about-copy p:first-of-type { color: var(--paper-text); }
