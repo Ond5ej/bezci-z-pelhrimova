@@ -194,7 +194,9 @@ function resetNewsForm() {
 async function loadNews() {
   const box = $('#news-list');
   box.innerHTML = '<p class="empty">Načítám…</p>';
-  const { data, error } = await sb.from('news').select('*').order('date', { ascending: false });
+  const { data, error } = await sb.from('news').select('*')
+    .order('date', { ascending: false })
+    .order('created_at', { ascending: false });
 
   if (error) { box.innerHTML = `<p class="empty">Chyba: ${esc(error.message)}</p>`; return; }
   if (!data.length) { box.innerHTML = '<p class="empty">Zatím tu není žádná novinka.</p>'; return; }
@@ -464,10 +466,16 @@ $('#settings-form').addEventListener('submit', async (e) => {
   try {
     // upsert po jednom, ať nepřepíšeme label/hint prázdnou hodnotou
     for (const r of rows) {
-      const { error } = await sb.from('settings')
+      const { data, error } = await sb.from('settings')
         .update({ value: r.value, updated_at: new Date().toISOString() })
-        .eq('key', r.key);
+        .eq('key', r.key)
+        .select();
       if (error) throw error;
+      // update, který netrefí žádný řádek, NEVRACÍ chybu – musíme si ověřit sami
+      if (!data?.length) {
+        throw new Error(`klíč „${r.key}" se neuložil – řádek v tabulce neexistuje `
+          + `nebo zápis blokuje RLS`);
+      }
     }
     msg('#settings-msg', 'Uloženo ✓ Web už ukazuje nové hodnoty.', 'ok');
   } catch (err) {

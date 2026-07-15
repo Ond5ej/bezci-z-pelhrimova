@@ -103,7 +103,7 @@ export async function initNews(sel) {
   const limit = sel.limit || 3;
 
   // 1) hned ukážeme zálohu, ať panel není prázdný
-  const sorted = [...fallbackNews].sort((a, b) => (a.date < b.date ? 1 : -1));
+  const sorted = [...fallbackNews].sort((a, b) => b.date.localeCompare(a.date));
   render(list, sorted.slice(0, limit));
 
   // 2) zkusíme načíst živá data ze Supabase
@@ -115,6 +115,9 @@ export async function initNews(sel) {
     .select('date, tag, title, text, image_url')
     .eq('published', true)
     .order('date', { ascending: false })
+    // `date` je bez času – když má víc novinek stejný den, rozhodne čas vložení,
+    // jinak by databáze vracela jejich pořadí náhodně
+    .order('created_at', { ascending: false })
     .limit(limit);
 
   if (error) { console.warn('Novinky se nepodařilo načíst:', error.message); return; }
