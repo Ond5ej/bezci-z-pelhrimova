@@ -155,30 +155,34 @@ def hero_map(w=760, h=620):
     p.append(f'<defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">'
              f'<stop offset="0" stop-color="{FOREST2}"/>'
              f'<stop offset="1" stop-color="{INK}"/></linearGradient>'
-             f'<radialGradient id="glow" cx="70%" cy="28%" r="55%">'
-             f'<stop offset="0" stop-color="{AMBER}" stop-opacity="0.35"/>'
-             f'<stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></radialGradient></defs>')
+             f'<radialGradient id="glow" cx="72%" cy="24%" r="60%">'
+             f'<stop offset="0" stop-color="{AMBER}" stop-opacity="0.16"/>'
+             f'<stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></radialGradient>'
+             f'<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">'
+             f'<circle cx="2" cy="2" r="1.4" fill="{SAGE}" fill-opacity="0.16"/></pattern></defs>')
     p.append(f'<rect width="{w}" height="{h}" rx="26" fill="url(#hg)"/>')
+    p.append(f'<rect width="{w}" height="{h}" rx="26" fill="url(#dots)"/>')
     p.append(f'<rect width="{w}" height="{h}" rx="26" fill="url(#glow)"/>')
-    # vrstevnice
-    for k in range(9):
-        cy = h*0.2 + k*46
-        rr = 120 + k*36
-        p.append(f'<ellipse cx="{w*0.62:.0f}" cy="{cy:.0f}" rx="{rr}" ry="{rr*0.6:.0f}" '
-                 f'stroke="{SAGE}" stroke-opacity="{0.10+0.015*k:.2f}" stroke-width="1.4"/>')
-    # trasa (bude animovaná v CSS)
-    route = "M 60 540 C 150 520 180 430 250 420 S 360 470 420 400 " \
-            "S 470 300 560 300 S 660 240 700 150"
-    p.append(f'<path id="hero-route" d="{route}" stroke="{AMBER}" stroke-width="5" '
+
+    # trasa (dole vlevo START -> nahoru vpravo CÍL)
+    route = "M 70 540 C 150 525 185 445 255 430 S 360 470 425 410 " \
+            "S 480 315 560 305 S 665 250 700 160"
+    p.append(f'<path d="{route}" stroke="{AMBER}" stroke-width="5" '
              f'stroke-linecap="round" stroke-dasharray="0.1 13" opacity="0.95"/>')
-    # body zastavek
-    dots = [(60,540,GRASS),(250,420,PAPER),(420,400,PAPER),(560,300,PAPER),(700,150,AMBER)]
-    labels = ["START","3 km","6 km","9 km","CÍL"]
-    for (dx,dy,c),lab in zip(dots,labels):
+
+    # body zastávek s popiskem km
+    dots = [(70,540,GRASS,"START"),(255,430,PAPER,"3 km"),(425,410,PAPER,"6 km"),
+            (560,305,PAPER,"9 km"),(700,160,AMBER,"CÍL")]
+    for dx,dy,c,lab in dots:
         p.append(f'<circle cx="{dx}" cy="{dy}" r="8" fill="{INK}" stroke="{c}" stroke-width="3"/>')
         p.append(f'<text x="{dx+14}" y="{dy+4}" font-family="Space Mono, monospace" '
                  f'font-size="14" fill="{PAPER}" opacity="0.9">{lab}</text>')
-    p.append(runner(w*0.5, h*0.15, s=2.6, fill=AMBER))
+
+    # běžec PŘÍMO NA TRASE (u 6 km), nohama na čáře, směřuje k cíli
+    p.append('<g opacity="0.35">'
+             + runner(396, 380, s=2.0, fill=INK) + '</g>')   # jemný stín
+    p.append(runner(402, 374, s=2.2, fill=AMBER))
+
     p.append('</svg>')
     return "\n".join(p)
 

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f2f5fa"/>
+      <stop offset="55%" stop-color="#fbfcfe"/>
+      <stop offset="100%" stop-color="#eef4fb"/>
+    </linearGradient>
+
+    <linearGradient id="darkBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#002a86"/>
+      <stop offset="100%" stop-color="#0a73db"/>
+    </linearGradient>
+
+    <linearGradient id="midBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#58b7f6"/>
+      <stop offset="100%" stop-color="#005fd0"/>
+    </linearGradient>
+
+    <linearGradient id="lightBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d9efff"/>
+      <stop offset="100%" stop-color="#97d0fb"/>
+    </linearGradient>
+
+    <linearGradient id="paleBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#eef8ff"/>
+      <stop offset="100%" stop-color="#cfe8fb"/>
+    </linearGradient>
+
+    <radialGradient id="softWhite" cx="48%" cy="38%" r="72%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.94"/>
+      <stop offset="100%" stop-color="#edf5fc" stop-opacity="0.75"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <ellipse cx="740" cy="420" rx="980" ry="520" fill="url(#softWhite)"/>
+
+  <!-- broad pale sweep like the original lower background -->
+  <path d="M-120 610
+           C 220 665, 500 675, 810 610
+           C 1085 553, 1320 470, 1660 345
+           L 1660 900 L -120 900 Z"
+        fill="#f3f8fd"/>
+
+  <!-- very light lower band -->
+  <path d="M-130 740
+           C 180 740, 470 680, 780 555
+           C 1080 433, 1360 325, 1660 250
+           L 1660 900 L -130 900 Z"
+        fill="url(#paleBlue)"/>
+
+  <!-- main dark bottom ribbon -->
+  <path d="M-100 892
+           C 230 805, 500 715, 810 605
+           C 1095 505, 1350 418, 1660 312
+           L 1660 900 L -100 900 Z"
+        fill="url(#darkBlue)"/>
+
+  <!-- white separator ribbon as filled band (no visible ends) -->
+  <path d="M-110 845
+           C 245 760, 535 663, 835 554
+           C 1120 450, 1380 368, 1660 280
+           L 1660 323
+           C 1380 410, 1120 495, 842 596
+           C 545 704, 255 800, -110 885 Z"
+        fill="#ffffff" opacity="0.97"/>
+
+  <!-- medium blue ribbon -->
+  <path d="M-80 900
+           C 230 840, 520 750, 830 635
+           C 1125 526, 1380 443, 1660 365
+           L 1660 900 Z"
+        fill="url(#midBlue)" opacity="0.96"/>
+
+  <!-- narrow white slash as filled ribbon -->
+  <path d="M275 900
+           C 560 806, 795 712, 1045 603
+           C 1260 510, 1465 438, 1660 390
+           L 1660 429
+           C 1465 478, 1262 549, 1053 639
+           C 804 748, 570 841, 294 931 Z"
+        fill="#ffffff" opacity="0.98"/>
+
+  <!-- light blue ribbon -->
+  <path d="M-80 900
+           C 240 860, 555 767, 905 632
+           C 1188 523, 1428 465, 1660 430
+           L 1660 900 Z"
+        fill="url(#lightBlue)" opacity="0.96"/>
+
+  <!-- pale diagonal strip -->
+  <path d="M540 900
+           C 785 835, 1000 757, 1215 675
+           C 1390 609, 1530 569, 1660 549
+           L 1660 900 Z"
+        fill="#dceffc"/>
+
+  <!-- medium blue thin strip -->
+  <path d="M730 900
+           C 950 850, 1155 789, 1355 728
+           C 1470 694, 1565 675, 1660 667
+           L 1660 900 Z"
+        fill="#0c8fe1"/>
+
+  <!-- soft diagonal highlight as filled band -->
+  <path d="M790 900
+           C 1025 812, 1258 729, 1548 641
+           L 1578 654
+           C 1287 742, 1051 827, 808 918 Z"
+        fill="#ebf7ff" opacity="0.9"/>
+</svg>

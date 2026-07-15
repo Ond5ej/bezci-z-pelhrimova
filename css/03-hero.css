@@ -1,25 +1,48 @@
 /* =========================================================
-   HERO – teze stránky: komunitní běh + mapa trasy
+   HERO – světlý (modrobílé vlny dle značky)
+   levý sloupec: text · pravý sloupec: mapa trasy + Aktuálně
    ========================================================= */
 .hero {
   position: relative;
+  /* přes celý monitor (mínus výška hlavičky) */
+  min-height: calc(100svh - 72px);
+  display: flex;
+  align-items: center;
   background:
-    radial-gradient(120% 90% at 85% 0%, #1E4C86 0%, var(--ink) 55%);
+    url('../img/hero-bg.svg') center / 100% 100% no-repeat,
+    linear-gradient(135deg, #F5FAFF 0%, #D9ECFC 60%, #C4E1FA 100%);
   overflow: hidden;
-  padding: clamp(3rem, 7vw, 5rem) 1.5rem clamp(3.5rem, 8vw, 6rem);
+  padding: clamp(2rem, 4vw, 3rem) 1.5rem clamp(3rem, 6vw, 4.5rem);
+}
+
+/* jemný bílý závoj → text je vždy čitelný, vlnky zůstávají vidět */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg,
+    rgba(255,255,255,0.94) 0%,
+    rgba(255,255,255,0.82) 40%,
+    rgba(255,255,255,0.30) 62%,
+    rgba(255,255,255,0) 78%);
+  pointer-events: none;
 }
 
 .hero-inner {
+  width: 100%;
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy { max-width: 34rem; }
 
+/* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -28,84 +51,92 @@
   font-size: .82rem;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--amber-deep);
   margin: 0 0 1.3rem;
 }
-.hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--grass); }
+.hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
 
 .hero-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.5rem, 6.6vw, 4.6rem);
+  font-size: clamp(2.4rem, 5.2vw, 4rem);
   line-height: 0.98;
   letter-spacing: -0.02em;
   margin: 0 0 1.4rem;
-  color: var(--paper-text);
+  color: var(--ink-text);
 }
-.hero-title .accent { color: var(--amber); }
+.hero-title .accent { color: var(--amber-deep); }
 .hero-title .stroke {
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--sage);
-  text-stroke: 1.5px var(--sage);
+  -webkit-text-stroke: 1.6px var(--grass);
+  text-stroke: 1.6px var(--grass);
 }
 
 .hero-copy p {
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  color: var(--paper-soft);
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  color: var(--ink-soft);
   margin: 0 0 2rem;
 }
 
-.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2.2rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2rem; }
+
+/* světlý hero → ghost tlačítko tmavě modré */
+.hero .btn--ghost { color: var(--ink-text); border-color: var(--ink-text); }
+.hero .btn--ghost:hover { background: var(--ink-text); }
+.hero .btn--ghost:hover .btn-label { color: #fff; }
 
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid rgba(127,168,216,.18);
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(14,44,90,.16);
 }
 .hero-stat { line-height: 1.1; }
 .hero-stat .num {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.9rem;
-  color: var(--paper-text);
+  font-size: 1.8rem;
+  color: var(--ink-text);
 }
 .hero-stat .lbl {
   font-family: var(--font-data);
-  font-size: .72rem;
+  font-size: .7rem;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--paper-soft);
+  color: var(--ink-soft);
 }
 
-/* ---- Vizuál: mapa trasy ---- */
-.hero-visual { position: relative; }
-.hero-visual img { width: 100%; height: auto; filter: drop-shadow(var(--sh-lg)); }
+/* ---- Pravý sloupec ---- */
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
 
-/* animace kreslení trasy (JS přidá třídu .draw na #hero-route uvnitř SVG,
-   ale protože je obrázek externí, animujeme jemný „puls" rámu) */
-.hero-visual::after {
-  content: "";
-  position: absolute;
-  inset: -6%;
-  border-radius: 30px;
-  background: radial-gradient(circle at 70% 25%, rgba(28,111,212,.16), transparent 60%);
-  z-index: -1;
+/* mapa trasy */
+.hero-visual { position: relative; }
+.hero-visual img {
+  width: 100%;
+  height: auto;
+  max-height: 30vh;
+  object-fit: contain;
+  filter: drop-shadow(var(--sh-lg));
 }
 
 /* plovoucí popisek u mapy */
 .hero-tag {
   position: absolute;
-  left: 4%;
-  bottom: 6%;
+  left: 5%;
+  bottom: 8%;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
   font-family: var(--font-data);
-  font-size: .78rem;
+  font-size: .74rem;
   letter-spacing: .05em;
-  padding: .5rem .85rem;
+  padding: .45rem .8rem;
   background: rgba(10,33,72,.82);
   border: 1px solid rgba(127,168,216,.3);
   border-radius: var(--r-pill);
@@ -113,9 +144,129 @@
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
-.hero-tag i { color: var(--amber); }
+.hero-tag i { color: var(--amber-soft); }
 
+/* ---- Panel AKTUÁLNĚ ---- */
+.news-panel {
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh);
+  padding: 1.1rem 1.2rem 1.2rem;
+}
+.news-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: .7rem;
+  margin-bottom: .3rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.news-head h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink-text);
+}
+.news-live {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-data);
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.news-live .pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 0 rgba(163,217,60,.7);
+  animation: newsPulse 2.2s infinite;
+}
+@keyframes newsPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(163,217,60,.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(163,217,60,0); }
+  100% { box-shadow: 0 0 0 0 rgba(163,217,60,0); }
+}
+
+.news-list { list-style: none; margin: 0; padding: 0; }
+.news-item {
+  padding: .8rem 0 .8rem .9rem;
+  border-left: 3px solid var(--amber);
+  border-bottom: 1px dashed var(--line-soft);
+  margin-left: 2px;
+}
+.news-item:last-child { border-bottom: none; padding-bottom: .2rem; }
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .2rem;
+}
+.news-meta time {
+  font-family: var(--font-data);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+}
+.news-tag {
+  font-family: var(--font-data);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  padding: .15rem .45rem;
+  border-radius: var(--r-pill);
+  background: var(--sand);
+  color: var(--amber-deep);
+}
+.news-item h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 .15rem;
+  color: var(--ink-text);
+}
+.news-item p {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.news-empty {
+  padding: .9rem 0 .2rem;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+
+/* ---- Mobil ---- */
 @media (max-width: 860px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero-visual { order: -1; max-width: 460px; margin: 0 auto; }
+  .hero {
+    min-height: 0;                 /* na mobilu ať se hero nenatahuje */
+    padding-bottom: clamp(3rem, 10vw, 5rem);
+  }
+  .hero::before {
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.94) 0%,
+      rgba(255,255,255,0.90) 55%,
+      rgba(255,255,255,0.40) 88%,
+      rgba(255,255,255,0) 100%);
+  }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.2rem; }
+  .hero-side { order: 2; }         /* na mobilu text první, pak mapa + novinky */
+  .hero-visual img { max-height: none; }
+}
+
+/* ---- Banner u novinky ---- */
+.news-banner {
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  margin-bottom: .5rem;
 }

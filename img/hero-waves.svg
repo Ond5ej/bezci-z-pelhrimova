@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5FAFF"/>
+      <stop offset="0.55" stop-color="#E4F1FD"/>
+      <stop offset="1" stop-color="#C4E1FA"/>
+    </linearGradient>
+    <linearGradient id="rb1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1C6FD4"/><stop offset="1" stop-color="#2E9BE6"/>
+    </linearGradient>
+    <linearGradient id="rb2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4FA0E8"/><stop offset="1" stop-color="#7FC0F2"/>
+    </linearGradient>
+    <radialGradient id="dot" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#1C6FD4" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#1C6FD4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="ht" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="#1C6FD4"/>
+    </pattern>
+    <mask id="mTR"><rect width="1440" height="900" fill="black"/><ellipse cx="1370" cy="60" rx="320" ry="270" fill="url(#dot)"/></mask>
+    <mask id="mBR"><rect width="1440" height="900" fill="black"/><ellipse cx="1390" cy="880" rx="320" ry="240" fill="url(#dot)"/></mask>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#base)"/>
+
+  <!-- půltónové tečky v rozích -->
+  <rect width="1440" height="900" fill="url(#ht)" fill-opacity="0.4" mask="url(#mTR)"/>
+  <rect width="1440" height="900" fill="url(#ht)" fill-opacity="0.4" mask="url(#mBR)"/>
+
+  <!-- SPODNÍ vlny (nízko, ať nezasahují do obsahu) -->
+  <path d="M-60 858 C 260 822 560 900 860 858 S 1240 828 1520 860 L 1520 900 L -60 900 Z" fill="url(#rb1)"/>
+  <path d="M-60 826 C 280 792 560 878 880 834 S 1250 802 1520 832" stroke="url(#rb2)" stroke-width="40" fill="none" stroke-linecap="round"/>
+  <path d="M-60 804 C 300 772 560 856 900 812 S 1260 782 1520 810" stroke="#FFFFFF" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <path d="M-60 786 C 300 756 560 838 900 796 S 1260 766 1520 792" stroke="#8FC8F5" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- LEVÁ stuha (u okraje, nezasahuje do textu) -->
+  <path d="M-30 920 C 70 720 30 470 120 300 C 175 195 150 90 90 -10" stroke="url(#rb1)" stroke-width="50" fill="none" stroke-linecap="round" opacity="0.85"/>
+  <path d="M0 920 C 100 730 60 480 150 305 C 205 200 180 90 120 -15" stroke="#FFFFFF" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M-60 920 C 40 715 5 470 95 295 C 150 190 125 90 70 -10" stroke="url(#rb2)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- PRAVÁ horní stuha (za mapou, jemná) -->
+  <path d="M1500 20 C 1310 150 1370 330 1250 460" stroke="url(#rb2)" stroke-width="40" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <path d="M1520 40 C 1330 170 1390 350 1270 480" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.6"/>
+</svg>

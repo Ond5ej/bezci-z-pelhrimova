@@ -110,9 +110,21 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal" data-delay="2">
-        <img src="./img/hero-route.svg" alt="Mapa běžecké trasy s vyznačenými kilometry">
-        <span class="hero-tag"><i class="bi bi-people-fill"></i> Běháme spolu · Pelhřimov</span>
+      <div class="hero-side">
+        <div class="hero-visual reveal" data-delay="2">
+          <img src="./img/hero-route.svg" alt="Mapa běžecké trasy s vyznačenými kilometry">
+          <span class="hero-tag"><i class="bi bi-people-fill"></i> Běháme spolu · Pelhřimov</span>
+        </div>
+
+        <aside class="news-panel reveal" data-delay="3" aria-labelledby="news-title">
+          <div class="news-head">
+            <h2 id="news-title">Aktuálně</h2>
+            <span class="news-live"><span class="pulse"></span> novinky</span>
+          </div>
+          <ul class="news-list" id="news-list">
+            <!-- novinky vloží javascript/news.js -->
+          </ul>
+        </aside>
       </div>
     </div>
   </section>
@@ -176,6 +188,8 @@
             zobrazí se rovnou tady.</p>
         </div>
       </div>
+
+      <div class="gallery-filters" id="gallery-filters" hidden></div>
 
       <div class="gallery-grid" id="gallery-grid">
         <label class="gallery-add" id="gallery-add" role="button" tabindex="0"
@@ -314,7 +328,7 @@
 
   <!-- ===================== PATIČKA ===================== -->
   <footer class="site-footer">
-    <span class="foot-brand"><i class="bi bi-heart-fill" style="color:var(--amber)"></i> Běžci z Pelhřimova</span>
+    <span class="foot-brand"><img src="./img/logo-light.png" alt="Běžci z Pelhřimova" class="foot-logo"></span>
     <nav aria-label="Patičkové menu">
       <a href="#o-nas">O nás</a>
       <a href="#fotogalerie">Fotogalerie</a>
@@ -325,7 +339,8 @@
     <p class="fine">
       © <span id="year">2026</span> Běžci z Pelhřimova ·
       <a href="https://bezcizpelhrimova.cz">bezcizpelhrimova.cz</a> ·
-      nemusíš být závodník, stačí chuť vyběhnout
+      nemusíš být závodník, stačí chuť vyběhnout ·
+      <a href="./admin/" class="admin-link">Správa</a>
     </p>
   </footer>
 

@@ -5,6 +5,7 @@ import { initHeader } from './header.js';
 import { initMenu } from './menu.js';
 import { initReveal } from './reveal.js';
 import { initRoutes } from './routes.js';
+import { initNews } from './news.js';
 import { initGallery } from './gallery.js';
 import { initContact } from './contact.js';
 
@@ -20,9 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Trasy vykreslíme dřív, aby je stihl zachytit reveal observer
   initRoutes({ grid: '#routes-grid' });
 
+  // Novinky v úvodní sekci (Aktuálně)
+  initNews({ list: '#news-list', limit: 3 });
+
   initGallery({
     grid: '#gallery-grid',
     addTile: '#gallery-add',
+    filters: '#gallery-filters',
     fileInput: '#gallery-file',
     lightbox: '#lightbox',
   });

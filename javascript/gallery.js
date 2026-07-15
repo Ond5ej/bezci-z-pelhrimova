@@ -1,9 +1,14 @@
 /* =========================================================
-   GALERIE + LIGHTBOX + PŘIDÁVÁNÍ FOTEK
-   Nahrané fotky se ukládají do prohlížeče (localStorage) –
-   zůstanou uložené jen v tomto zařízení a prohlížeči.
+   GALERIE + ALBA + LIGHTBOX
+   ---------------------------------------------------------
+   Fotky a alba se načítají ze Supabase (spravuješ je na /admin/).
+   Když Supabase ještě není nastavené, ukážou se placeholdery
+   z gallery-data.js.
+   Tlačítko „Přidat fotku" ukládá fotku jen do prohlížeče
+   návštěvníka (soukromá nástěnka) – ostatní ji nevidí.
    ========================================================= */
 import { galleryPhotos } from './gallery-data.js';
+import { getSupabase } from './supabase.js';
 
 const LS_KEY = 'bzp_user_photos_v1';
 
@@ -11,9 +16,9 @@ export function initGallery(sel) {
   const grid = document.querySelector(sel.grid);
   const fileInput = document.querySelector(sel.fileInput);
   const addTile = document.querySelector(sel.addTile);
+  const filterBox = document.querySelector(sel.filters || '#gallery-filters');
   if (!grid) return;
 
-  // --- lightbox prvky ---
   const lb = document.querySelector(sel.lightbox);
   const lbImg = lb?.querySelector('.lb-stage img');
   const lbCap = lb?.querySelector('.lb-caption');
@@ -22,25 +27,55 @@ export function initGallery(sel) {
   const btnPrev = lb?.querySelector('.lb-prev');
   const btnNext = lb?.querySelector('.lb-next');
 
-  let photos = [];       // spojený seznam {src, alt, user?}
+  let remotePhotos = [];   // ze Supabase
+  let albums = [];
+  let activeAlbum = 'all';
+  let photos = [];         // aktuálně zobrazené
   let current = 0;
 
-  // ---- načtení uložených fotek ----
-  function loadUserPhotos() {
-    try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
-    catch { return []; }
-  }
-  function saveUserPhotos(list) {
+  /* ---- uložené fotky návštěvníka ---- */
+  const loadUserPhotos = () => {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; }
+  };
+  const saveUserPhotos = (list) => {
     try { localStorage.setItem(LS_KEY, JSON.stringify(list)); }
     catch (e) { console.warn('Nelze uložit fotky:', e); }
+  };
+
+  /* ---- co se má zobrazit ---- */
+  function currentSet() {
+    const user = loadUserPhotos().map(p => ({ ...p, user: true, album_id: null }));
+
+    // základ: fotky ze Supabase, jinak placeholdery
+    let base = remotePhotos.length
+      ? remotePhotos.map(p => ({ src: p.url, alt: p.alt || '', album_id: p.album_id, user: false }))
+      : galleryPhotos.map(p => ({ ...p, album_id: null, user: false }));
+
+    if (activeAlbum !== 'all') base = base.filter(p => p.album_id === activeAlbum);
+    return activeAlbum === 'all' ? [...base, ...user] : base;
   }
 
-  // ---- vykreslení mřížky ----
-  function render() {
-    const userPhotos = loadUserPhotos().map(p => ({ ...p, user: true }));
-    photos = [...galleryPhotos.map(p => ({ ...p, user: false })), ...userPhotos];
+  /* ---- filtr alb ---- */
+  function renderFilters() {
+    if (!filterBox || !albums.length) return;
+    filterBox.hidden = false;
+    filterBox.innerHTML = `
+      <button class="gal-chip is-active" data-album="all">Vše</button>
+      ${albums.map(a => `<button class="gal-chip" data-album="${a.id}">${a.title}</button>`).join('')}
+    `;
+    filterBox.querySelectorAll('.gal-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeAlbum = btn.dataset.album;
+        filterBox.querySelectorAll('.gal-chip')
+          .forEach(x => x.classList.toggle('is-active', x === btn));
+        render();
+      });
+    });
+  }
 
-    // odeber staré fotky, ale zachovej dlaždici „přidat"
+  /* ---- vykreslení mřížky ---- */
+  function render() {
+    photos = currentSet();
     grid.querySelectorAll('.gallery-item').forEach(el => el.remove());
 
     photos.forEach((p, i) => {
@@ -56,10 +91,12 @@ export function initGallery(sel) {
       img.loading = 'lazy';
       fig.appendChild(img);
 
-      const cap = document.createElement('figcaption');
-      cap.className = 'cap';
-      cap.textContent = p.alt || '';
-      fig.appendChild(cap);
+      if (p.alt) {
+        const cap = document.createElement('figcaption');
+        cap.className = 'cap';
+        cap.textContent = p.alt;
+        fig.appendChild(cap);
+      }
 
       if (p.user) {
         const badge = document.createElement('span');
@@ -82,13 +119,12 @@ export function initGallery(sel) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
       });
 
-      // vlož před dlaždici „přidat" (pokud existuje), jinak na konec
       if (addTile && addTile.parentNode === grid) grid.insertBefore(fig, addTile);
       else grid.appendChild(fig);
     });
   }
 
-  // ---- přidání fotky ----
+  /* ---- přidání fotky návštěvníkem (jen do prohlížeče) ---- */
   function handleFiles(fileList) {
     const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
     if (!files.length) return;
@@ -102,7 +138,6 @@ export function initGallery(sel) {
           id: 'u' + Date.now() + Math.random().toString(36).slice(2, 6),
           src: reader.result,
           alt: file.name.replace(/\.[^.]+$/, ''),
-          user: true,
         });
         if (--pending === 0) { saveUserPhotos(list); render(); }
       };
@@ -112,12 +147,11 @@ export function initGallery(sel) {
   }
 
   function removeUserPhoto(id) {
-    const list = loadUserPhotos().filter(p => p.id !== id);
-    saveUserPhotos(list);
+    saveUserPhotos(loadUserPhotos().filter(p => p.id !== id));
     render();
   }
 
-  // ---- lightbox ----
+  /* ---- lightbox ---- */
   function buildThumbs() {
     if (!lbThumbs) return;
     lbThumbs.innerHTML = '';
@@ -155,7 +189,7 @@ export function initGallery(sel) {
     if (lbImg) lbImg.removeAttribute('src');
   }
 
-  // ---- události ----
+  /* ---- události ---- */
   addTile?.addEventListener('click', () => fileInput?.click());
   addTile?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput?.click(); }
@@ -173,5 +207,26 @@ export function initGallery(sel) {
     if (e.key === 'ArrowLeft') show(current - 1);
   });
 
+  /* ---- start: nejdřív placeholdery, pak živá data ---- */
   render();
+  loadRemote();
+
+  async function loadRemote() {
+    const sb = await getSupabase();
+    if (!sb) return;
+
+    const [{ data: al }, { data: ph, error }] = await Promise.all([
+      sb.from('albums').select('id, title').order('created_at', { ascending: false }),
+      sb.from('photos').select('url, alt, album_id').order('created_at', { ascending: false }),
+    ]);
+
+    if (error) { console.warn('Fotky se nepodařilo načíst:', error.message); return; }
+
+    remotePhotos = ph || [];
+    // ukážeme jen alba, která mají aspoň jednu fotku
+    const used = new Set(remotePhotos.map(p => p.album_id));
+    albums = (al || []).filter(a => used.has(a.id));
+
+    if (remotePhotos.length) { renderFilters(); render(); }
+  }
 }

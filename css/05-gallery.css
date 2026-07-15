@@ -125,3 +125,29 @@
 
 @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 620px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+
+/* ---- Filtr alb ---- */
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.4rem;
+}
+.gal-chip {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .85rem;
+  padding: .45rem 1rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(127,168,216,.3);
+  background: rgba(255,255,255,.05);
+  color: var(--paper-soft);
+  cursor: pointer;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.gal-chip:hover { color: var(--paper-text); border-color: var(--amber); }
+.gal-chip.is-active {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--ink-text);
+}

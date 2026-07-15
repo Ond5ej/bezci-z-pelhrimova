@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrace – Běžci z Pelhřimova</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="../css/00-variables.css">
+  <link rel="stylesheet" href="./admin.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+  <script type="module" src="./admin.js"></script>
+</head>
+
+<body>
+
+  <!-- ============ NENASTAVENO ============ -->
+  <div class="setup-warn" id="setup-warn" hidden>
+    <div class="setup-card">
+      <i class="bi bi-gear-fill"></i>
+      <h1>Ještě chybí nastavení</h1>
+      <p>Otevři soubor <code>javascript/supabase.js</code> a doplň <b>Project URL</b>
+        a <b>veřejný klíč</b> ze Supabase (Settings → API).</p>
+      <p class="hint">Nezapomeň v Supabase spustit i <code>supabase-schema.sql</code>.</p>
+    </div>
+  </div>
+
+  <!-- ============ PŘIHLÁŠENÍ ============ -->
+  <div class="login-wrap" id="login-wrap" hidden>
+    <form class="login-card" id="login-form">
+      <img src="../img/logo-dark.png" alt="Běžci z Pelhřimova" class="login-logo">
+      <h1>Administrace</h1>
+      <p class="login-sub">Přihlas se, ať můžeš spravovat obsah webu.</p>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" autocomplete="username" required>
+
+      <label for="password">Heslo</label>
+      <input type="password" id="password" autocomplete="current-password" required>
+
+      <button type="submit" class="btn-a" id="login-btn">
+        <i class="bi bi-box-arrow-in-right"></i> Přihlásit se
+      </button>
+      <p class="msg" id="login-msg" role="status" aria-live="polite"></p>
+      <a href="../" class="back-link"><i class="bi bi-arrow-left"></i> Zpět na web</a>
+    </form>
+  </div>
+
+  <!-- ============ ADMINISTRACE ============ -->
+  <div class="admin" id="admin" hidden>
+
+    <header class="admin-head">
+      <a href="../" class="admin-brand">
+        <img src="../img/logo-dark.png" alt="Běžci z Pelhřimova">
+      </a>
+      <div class="admin-user">
+        <span id="who"></span>
+        <button class="btn-a btn-ghost" id="logout-btn">
+          <i class="bi bi-box-arrow-right"></i> Odhlásit
+        </button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="news"><i class="bi bi-megaphone-fill"></i> Aktuálně</button>
+      <button class="tab" data-tab="albums"><i class="bi bi-collection-fill"></i> Alba</button>
+      <button class="tab" data-tab="photos"><i class="bi bi-images"></i> Fotky</button>
+    </nav>
+
+    <main class="admin-body">
+
+      <!-- ---------- AKTUÁLNĚ ---------- -->
+      <section class="panel is-active" id="panel-news">
+        <div class="panel-grid">
+          <form class="card form" id="news-form">
+            <h2 id="news-form-title">Nová novinka</h2>
+
+            <label for="n-date">Datum</label>
+            <input type="date" id="n-date" required>
+
+            <label for="n-tag">Štítek <small>(nepovinné)</small></label>
+            <input type="text" id="n-tag" placeholder="např. VÝBĚH" maxlength="20">
+
+            <label for="n-title">Nadpis</label>
+            <input type="text" id="n-title" placeholder="Nedělní long run" required maxlength="120">
+
+            <label for="n-text">Text <small>(nepovinné)</small></label>
+            <textarea id="n-text" rows="3" placeholder="Sraz v 9:00 na náměstí…" maxlength="400"></textarea>
+
+            <label for="n-image">Banner <small>(obrázek, nepovinné)</small></label>
+            <input type="file" id="n-image" accept="image/*">
+            <div class="banner-preview" id="n-preview" hidden>
+              <img src="" alt="">
+              <button type="button" class="btn-a btn-danger btn-sm" id="n-image-remove">
+                <i class="bi bi-x-lg"></i> Odebrat banner
+              </button>
+            </div>
+
+            <label class="check">
+              <input type="checkbox" id="n-published" checked>
+              <span>Zveřejnit na webu</span>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-a" id="news-save">
+                <i class="bi bi-check-lg"></i> Uložit
+              </button>
+              <button type="button" class="btn-a btn-ghost" id="news-cancel" hidden>Zrušit úpravy</button>
+            </div>
+            <p class="msg" id="news-msg" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="card">
+            <h2>Novinky na webu</h2>
+            <div class="list" id="news-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- ALBA ---------- -->
+      <section class="panel" id="panel-albums">
+        <div class="panel-grid">
+          <form class="card form" id="album-form">
+            <h2 id="album-form-title">Nové album</h2>
+
+            <label for="a-title">Název alba</label>
+            <input type="text" id="a-title" placeholder="Nedělní výběh – červenec" required maxlength="120">
+
+            <label for="a-desc">Popis <small>(nepovinné)</small></label>
+            <textarea id="a-desc" rows="2" maxlength="300"></textarea>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-a"><i class="bi bi-plus-lg"></i> Uložit album</button>
+              <button type="button" class="btn-a btn-ghost" id="album-cancel" hidden>Zrušit úpravy</button>
+            </div>
+            <p class="msg" id="album-msg" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="card">
+            <h2>Alba</h2>
+            <div class="list" id="album-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- FOTKY ---------- -->
+      <section class="panel" id="panel-photos">
+        <div class="card">
+          <h2>Nahrát fotky</h2>
+          <div class="upload-row">
+            <div class="upload-field">
+              <label for="p-album">Do alba</label>
+              <select id="p-album"></select>
+            </div>
+            <div class="upload-field">
+              <label for="p-files">Vyber fotky <small>(můžeš i víc najednou)</small></label>
+              <input type="file" id="p-files" accept="image/*" multiple>
+            </div>
+          </div>
+          <div class="progress" id="p-progress" hidden>
+            <div class="bar"><span id="p-bar"></span></div>
+            <p class="msg" id="p-msg"></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="photos-head">
+            <h2>Fotky v albu</h2>
+            <select id="p-filter"></select>
+          </div>
+          <div class="photo-grid" id="photo-grid"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

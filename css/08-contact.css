@@ -107,7 +107,7 @@
   color: var(--paper-text);
   margin-bottom: .8rem;
 }
-.site-footer .foot-brand img { width: 34px; height: 34px; }
+.site-footer .foot-brand img { height: 40px; width: auto; }
 .site-footer nav {
   display: flex;
   flex-wrap: wrap;
@@ -152,3 +152,7 @@
   color: var(--ink-soft);
   margin-top: .5rem;
 }
+
+/* nenápadný odkaz do administrace */
+.site-footer .fine .admin-link { color: #6E86A8; }
+.site-footer .fine .admin-link:hover { color: var(--amber); }

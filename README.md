@@ -68,3 +68,33 @@ feed z Instagramu/Facebooku, sdílená Google tabulka, nebo Git-based CMS (Svelt
 Nemusíš být závodník. Stačí chuť vyběhnout. 🏃
 
 **Sítě** – odkazy v sekci Kontakt v `index.html`. Doplň přesnou adresu vašeho Facebooku.
+
+---
+
+## Administrace (/admin/)
+
+Web má vlastní administraci na **https://bezcizpelhrimova.cz/admin/** postavenou
+na Supabase (databáze + úložiště fotek + přihlášení). Spravuješ v ní:
+
+- **Aktuálně** – novinky v úvodní sekci, včetně banneru (obrázku)
+- **Alba** – složky fotek
+- **Fotky** – nahrávání a mazání fotek v albech
+
+### Nastavení (jednorázově)
+
+1. Založ si projekt zdarma na https://supabase.com
+2. **SQL Editor → New query** → vlož celý `supabase-schema.sql` → **Run**
+3. **Settings → API** → zkopíruj *Project URL* a veřejný *anon / publishable key*
+   a vlož je do `javascript/supabase.js`
+4. **Authentication → Users → Add user** → zadej e-mail a heslo správce
+   (zaškrtni *Auto Confirm User*)
+5. **Authentication → Sign In / Providers → Email** → **vypni**
+   „Allow new users to sign up" (jinak by se mohl zaregistrovat kdokoli)
+6. Commit + push → hotovo
+
+### Bezpečnost
+
+Klíč v `javascript/supabase.js` je **veřejný a je to tak správně** – je vidět
+v prohlížeči. Bezpečnost nedělá klíč, ale pravidla RLS v databázi:
+veřejnost smí jen číst, zapisovat může jen přihlášený správce.
+**Nikdy tam nedávej `service_role` klíč.**
