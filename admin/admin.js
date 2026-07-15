@@ -78,6 +78,7 @@ async function showAdmin(session) {
   await loadAlbums();
   await loadNews();
   await loadPhotos();
+  await loadSettings();
 }
 
 /* =========================================================
@@ -418,3 +419,61 @@ async function delPhoto(id, path) {
   await loadPhotos();
   await loadAlbums();
 }
+
+/* =========================================================
+   OSTATNÍ (nastavení – počty členů apod.)
+   ---------------------------------------------------------
+   Formulář se vykresluje z toho, co je v tabulce `settings`.
+   Chceš spravovat něco dalšího? Přidej řádek do tabulky –
+   tady ani na webu se nic měnit nemusí. V HTML pak stačí
+   dát prvku  data-setting="tvuj-klic".
+   ========================================================= */
+async function loadSettings() {
+  const box = $('#settings-fields');
+  const { data, error } = await sb.from('settings')
+    .select('*').order('sort_order', { ascending: true });
+
+  if (error) { box.innerHTML = `<p class="empty">Chyba: ${esc(error.message)}</p>`; return; }
+  if (!data?.length) {
+    box.innerHTML = `<p class="empty">Tabulka <code>settings</code> je prázdná –
+      spustil jsi v Supabase soubor <code>supabase-settings.sql</code>?</p>`;
+    return;
+  }
+
+  box.innerHTML = data.map(s => `
+    <label for="set-${esc(s.key)}">
+      ${esc(s.label)}
+      ${s.hint ? `<small>— ${esc(s.hint)}</small>` : ''}
+    </label>
+    <input type="text" id="set-${esc(s.key)}" data-key="${esc(s.key)}"
+           value="${esc(s.value)}" autocomplete="off">
+  `).join('');
+}
+
+$('#settings-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('#settings-save');
+  btn.disabled = true;
+  msg('#settings-msg', 'Ukládám…');
+
+  const rows = Array.from(document.querySelectorAll('#settings-fields input[data-key]'))
+    .map(i => ({ key: i.dataset.key, value: i.value.trim() }));
+
+  if (!rows.length) { btn.disabled = false; msg('#settings-msg', ''); return; }
+
+  try {
+    // upsert po jednom, ať nepřepíšeme label/hint prázdnou hodnotou
+    for (const r of rows) {
+      const { error } = await sb.from('settings')
+        .update({ value: r.value, updated_at: new Date().toISOString() })
+        .eq('key', r.key);
+      if (error) throw error;
+    }
+    msg('#settings-msg', 'Uloženo ✓ Web už ukazuje nové hodnoty.', 'ok');
+  } catch (err) {
+    console.error(err);
+    msg('#settings-msg', 'Nepovedlo se uložit: ' + (err.message || err), 'err');
+  } finally {
+    btn.disabled = false;
+  }
+});

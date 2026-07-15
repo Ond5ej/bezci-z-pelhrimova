@@ -155,7 +155,9 @@ values (current_date, 'PARTA', 'Web je nový!', 'Spustili jsme nové stránky. N
 on conflict do nothing;
 
 -- =========================================================
---  HOTOVO.
+--  HOTOVO – ale spusť ještě `supabase-settings.sql`
+--  (tabulka pro záložku „Ostatní" v administraci).
+--
 --  Ještě vytvoř správce:
 --    Authentication → Users → Add user
 --    (e-mail + heslo, zaškrtni "Auto Confirm User")

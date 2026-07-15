@@ -6,6 +6,7 @@ import { initMenu } from './menu.js';
 import { initReveal } from './reveal.js';
 import { initRoutes } from './routes.js';
 import { initNews } from './news.js';
+import { initSettings } from './settings.js';
 import { initGallery } from './gallery.js';
 import { initContact } from './contact.js';
 
@@ -23,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Novinky v úvodní sekci (Aktuálně)
   initNews({ list: '#news-list', limit: 3 });
+
+  // Počty členů apod. (data-setting v HTML)
+  initSettings();
 
   initGallery({
     grid: '#gallery-grid',

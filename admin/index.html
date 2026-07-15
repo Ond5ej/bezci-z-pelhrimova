@@ -74,6 +74,7 @@
       <button class="tab is-active" data-tab="news"><i class="bi bi-megaphone-fill"></i> Aktuálně</button>
       <button class="tab" data-tab="albums"><i class="bi bi-collection-fill"></i> Alba</button>
       <button class="tab" data-tab="photos"><i class="bi bi-images"></i> Fotky</button>
+      <button class="tab" data-tab="settings"><i class="bi bi-sliders"></i> Ostatní</button>
     </nav>
 
     <main class="admin-body">
@@ -179,6 +180,27 @@
           </div>
           <div class="photo-grid" id="photo-grid"></div>
         </div>
+      </section>
+
+      <!-- ---------- OSTATNÍ ---------- -->
+      <section class="panel" id="panel-settings">
+        <form class="card form" id="settings-form">
+          <h2>Čísla a texty na webu</h2>
+          <p class="hint" style="margin:-.4rem 0 1.4rem">
+            Změna se na webu projeví hned po uložení – nemusíš nic nahrávat.
+          </p>
+
+          <div id="settings-fields">
+            <p class="empty">Načítám…</p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-a" id="settings-save">
+              <i class="bi bi-check-lg"></i> Uložit
+            </button>
+          </div>
+          <p class="msg" id="settings-msg" role="status" aria-live="polite"></p>
+        </form>
       </section>
 
     </main>
