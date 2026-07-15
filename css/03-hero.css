@@ -36,8 +36,6 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0.95fr 1.15fr;   /* pravá část je větší */
-  /* první řádek = eyebrow přes celou šířku, druhý = text + novinky */
-  grid-template-rows: auto 1fr;
   /* stretch, ne center: panel novinek se tím roztáhne na výšku hera
      a text vlevo začíná nahoře, ne uprostřed */
   align-items: stretch;
@@ -52,26 +50,10 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: clamp(1rem, 3vh, 2.5rem);
+  padding-top: clamp(0rem, 1vh, .6rem);
 }
 
 /* ---- Text (tmavě modrý – čitelný na světlém pozadí) ---- */
-.hero-eyebrow {
-  grid-column: 1 / -1;      /* přes levou i pravou část */
-  justify-self: center;
-  margin-bottom: clamp(1rem, 2.5vh, 2rem);
-  display: inline-flex;
-  align-items: center;
-  gap: .6rem;
-  font-family: var(--font-data);
-  font-size: .82rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-  margin: 0 0 1.3rem;
-}
-.hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
-
 .hero-title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -348,7 +330,7 @@
   flex-direction: column;
   width: 100%;
   /* 72px hlavička + odsazení hera; přes tohle panel nesmí přerůst */
-  max-height: calc(100svh - 72px - clamp(8rem, 14vw, 11rem));
+  max-height: calc(100svh - 72px - clamp(5rem, 10vw, 7.5rem));
 }
 .news-head { flex: 0 0 auto; }
 
@@ -374,7 +356,7 @@
   display: block;
   align-self: flex-start;   /* jinak by ho flex-column roztáhl na celý sloupec */
   width: clamp(13rem, 26vw, 21rem);
-  margin-bottom: clamp(.6rem, 1.6vh, 1.4rem);
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
   transition: transform .3s var(--ease);
 }
 .hero-logo:hover { transform: translateY(-2px); }

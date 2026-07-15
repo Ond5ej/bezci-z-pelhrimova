@@ -123,16 +123,16 @@ body.menu-open .menu-backdrop { opacity: 1; pointer-events: auto; }
 /* ---- Sítě v pravém rohu lišty ---- */
 .nav-social {
   display: flex;
-  gap: .35rem;
+  gap: .5rem;
   /* navbar je space-between: menu drží levý roh, tohle pravý */
 }
 .nav-social a {
-  width: 34px; height: 34px;
+  width: 42px; height: 42px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  color: var(--ink-soft);
-  font-size: 1.05rem;
+  color: var(--ink);
+  font-size: 1.5rem;
   text-decoration: none;
   transition: background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
 }
