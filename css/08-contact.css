@@ -218,3 +218,17 @@
   text-transform: uppercase;
   color: var(--paper-soft);
 }
+
+/* Počítadlo návštěv v patičce */
+.site-footer .visits {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin: .5rem 0 0;
+  font-family: var(--font-data);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: #6E86A8;
+}
+.site-footer .visits i { font-size: .8rem; opacity: .7; }
+.site-footer .visits #visit-count { color: var(--paper-soft); font-weight: 700; }

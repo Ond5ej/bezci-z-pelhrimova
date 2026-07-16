@@ -331,3 +331,75 @@ input[type="file"] {
   display: block;
 }
 .route-preview .hint { margin: 0; color: #7E97BC; font-size: .78rem; }
+
+/* Náhled loga sponzora ve formuláři.
+   Šachovnice pod ním ukáže průhlednost – u log to je to hlavní,
+   co chceš vidět, než je pustíš na světlé pozadí webu. */
+.sponsor-preview:not(:empty) {
+  margin: -.4rem 0 1rem;
+  padding: .7rem;
+  border-radius: 10px;
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #E6EDF6 25%, transparent 25%, transparent 75%, #E6EDF6 75%),
+    linear-gradient(45deg, #E6EDF6 25%, transparent 25%, transparent 75%, #E6EDF6 75%);
+  background-size: 14px 14px;
+  background-position: 0 0, 7px 7px;
+}
+.sponsor-preview img {
+  height: 48px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* logo v seznamu sponzorů */
+.row-logo {
+  width: 46px;
+  height: 32px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  margin-right: .2rem;
+}
+
+/* Náhled vložené mapy ve formuláři tras.
+   Kódy /s/xxx jsou náhodné – jediný způsob, jak ověřit, že jsi vlepil
+   tu správnou trasu, je vidět ji. */
+.map-preview:not(:empty) {
+  margin: -.4rem 0 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #EEF3FA;
+}
+.map-preview iframe {
+  width: 100%;
+  height: 200px;
+  border: 0;
+  display: block;
+}
+.map-preview .map-err {
+  margin: 0;
+  padding: .7rem .8rem;
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  background: #FDECEC;
+  color: #A32020;
+  font-size: .8rem;
+  line-height: 1.45;
+  border-radius: 10px;
+}
+.map-preview .map-err i { margin-top: .1rem; flex: 0 0 auto; }
+
+/* hláška, že mapa přebila kreslený profil */
+.hint.map-wins {
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  margin: -.2rem 0 1rem;
+  padding: .6rem .75rem;
+  background: #E9F7EC;
+  color: #1D6B33;
+  border-radius: 10px;
+}

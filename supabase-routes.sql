@@ -26,6 +26,10 @@ create table if not exists public.routes (
   created_at  timestamptz not null default now()
 );
 
+-- Vložená mapa z Mapy.cz (adresa typu https://mapy.com/s/kod).
+-- Když je vyplněná, na kartě se ukáže skutečná mapa místo kreslené křivky.
+alter table public.routes add column if not exists map_embed text;
+
 create index if not exists routes_order_idx on public.routes(sort_order, created_at);
 
 

@@ -7,6 +7,8 @@ import { initReveal } from './reveal.js';
 import { initRoutes } from './routes.js';
 import { initNews } from './news.js';
 import { initSettings } from './settings.js';
+import { initCounter } from './counter.js';
+import { initSponsors } from './sponsors.js';
 import { initGallery } from './gallery.js';
 import { initContact } from './contact.js';
 
@@ -27,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Počty členů apod. (data-setting v HTML)
   initSettings();
+  initCounter({ box: '#visits', num: '#visit-count' });
+  initSponsors({ box: '#hero-sponsors', track: '#sponsors-track' });
 
   initGallery({
     grid: '#gallery-grid',

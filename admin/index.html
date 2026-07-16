@@ -75,6 +75,7 @@
       <button class="tab" data-tab="albums"><i class="bi bi-collection-fill"></i> Alba</button>
       <button class="tab" data-tab="photos"><i class="bi bi-images"></i> Fotky</button>
       <button class="tab" data-tab="routes"><i class="bi bi-signpost-split-fill"></i> Trasy</button>
+      <button class="tab" data-tab="sponsors"><i class="bi bi-award-fill"></i> Sponzoři</button>
       <button class="tab" data-tab="settings"><i class="bi bi-sliders"></i> Ostatní</button>
     </nav>
 
@@ -215,12 +216,28 @@
             <label for="r-diff-label">Text na štítku</label>
             <input type="text" id="r-diff-label" placeholder="Kopcovitá" maxlength="24">
 
-            <label for="r-profile">Profil převýšení</label>
-            <p class="hint">Čísla oddělená čárkou – kreslí se z nich křivka na kartě.
-              Nejsou to metry, jen relativní výška: napiš, kde je rovina a kde kopec
-              (třeba <code>2, 3, 5, 7, 9, 10, 8, 6, 4, 3</code>). Nejmíň dvě čísla.</p>
-            <input type="text" id="r-profile" placeholder="2, 3, 5, 7, 9, 10, 8, 6, 4, 3">
-            <div class="route-preview" id="r-preview" aria-hidden="true"></div>
+            <label for="r-map">Mapa z Mapy.cz <small>(doporučeno)</small></label>
+            <p class="hint">Na <b>mapy.com</b> naplánuj trasu → <b>Sdílet</b> →
+              záložka <b>Vložit mapu do vlastních stránek</b> → zkopíruj kód a vlep sem.
+              Adresa z prohlížeče nestačí – ta ukazuje na plánovač, ne na mapu.</p>
+            <textarea id="r-map" rows="2"
+              placeholder='&lt;iframe style="border:none" src="https://mapy.com/s/..." …&gt;'></textarea>
+            <div class="map-preview" id="r-map-preview" aria-hidden="true"></div>
+
+            <div id="r-profile-block">
+              <label for="r-profile">Profil převýšení</label>
+              <p class="hint">Kreslená křivka pro trasy bez mapy. Čísla oddělená čárkou –
+                nejsou to metry, jen relativní výška: napiš, kde je rovina a kde kopec
+                (třeba <code>2, 3, 5, 7, 9, 10, 8, 6, 4, 3</code>). Nejmíň dvě čísla.</p>
+              <input type="text" id="r-profile" placeholder="2, 3, 5, 7, 9, 10, 8, 6, 4, 3">
+              <div class="route-preview" id="r-preview" aria-hidden="true"></div>
+            </div>
+
+            <p class="hint map-wins" id="r-map-wins" hidden>
+              <i class="bi bi-check-circle-fill"></i>
+              Mapa je vyplněná, takže se na kartě ukáže ona. Kreslený profil
+              se nepoužije a vyplňovat ho nemusíš.
+            </p>
 
             <label for="r-order">Pořadí <small>(menší číslo = dřív na webu)</small></label>
             <input type="number" id="r-order" value="0" min="0" max="99">
@@ -235,6 +252,43 @@
           <div class="card">
             <h2>Trasy na webu</h2>
             <div class="list" id="route-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SPONZOŘI ---------- -->
+      <section class="panel" id="panel-sponsors">
+        <div class="panel-grid">
+          <form class="card form" id="sponsor-form">
+            <h2 id="sponsor-form-title">Nový sponzor</h2>
+
+            <label for="sp-name">Jméno</label>
+            <input type="text" id="sp-name" placeholder="Auto Racek Pelhřimov" required maxlength="80">
+
+            <label for="sp-url">Odkaz na web <small>(nepovinné)</small></label>
+            <input type="url" id="sp-url" placeholder="https://…" maxlength="300">
+
+            <label for="sp-file">Logo</label>
+            <p class="hint">Nejlépe PNG s průhledným pozadím. Na webu se zobrazí
+              na výšku 42 px, takže stačí menší obrázek – velký se jen dlouho načítá.</p>
+            <input type="file" id="sp-file" accept="image/*">
+            <div class="sponsor-preview" id="sp-preview" aria-hidden="true"></div>
+
+            <label for="sp-order">Pořadí <small>(menší číslo = dřív)</small></label>
+            <input type="number" id="sp-order" value="0" min="0" max="99">
+
+            <div class="form-actions">
+              <button type="submit" class="btn-a"><i class="bi bi-check-lg"></i> Uložit</button>
+              <button type="button" class="btn-a btn-ghost" id="sponsor-cancel" hidden>Zrušit úpravy</button>
+            </div>
+            <p class="msg" id="sponsor-msg" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="card">
+            <h2>Sponzoři na webu</h2>
+            <p class="hint">Pás se rozjede sám, až se loga přestanou vejít do řádku.
+              Při pár logách jen stojí.</p>
+            <div class="list" id="sponsor-list"></div>
           </div>
         </div>
       </section>

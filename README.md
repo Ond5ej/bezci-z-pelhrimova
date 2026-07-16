@@ -76,13 +76,27 @@ Facebook = skupina `facebook.com/groups/4313081512346383`, Instagram `@bezci_z_p
 **Administrace** – na `/admin/`. Odkaz na ni na webu záměrně není,
 zadej adresu ručně. Přístup hlídá přihlášení přes Supabase.
 
+**Sponzoři** – spravují se na `/admin/` (záložka Sponzoři). Před prvním použitím
+pusť v Supabase `supabase-sponsors.sql`. Pás v hero se rozjede sám, teprve když
+se loga přestanou vejít do řádku; při pár logách jen stojí. Bez sponzorů je celá
+sekce skrytá.
+
+**Počítadlo návštěv** – číslo v patičce. Před prvním použitím pusť v Supabase
+`supabase-counter.sql`. Je to ozdoba, ne měření: počítá načtení stránky včetně
+robotů a dá se zvenčí nafouknout. Na skutečné statistiky použij GoatCounter
+nebo Plausible.
+
 **SEO** – `robots.txt` a `sitemap.xml` v kořeni. Náhled pro sítě a Google
 je `img/og-cover.jpg` (1200×630). Musí to být JPG nebo PNG – SVG sítě
 v náhledech nezobrazí. Po změně náhledu si ho Facebook drží v mezipaměti;
 protlač ho přes developers.facebook.com/tools/debug.
 
 **Trasy** – spravují se na `/admin/` (záložka Trasy). Před prvním použitím
-pusť v Supabase `supabase-routes.sql`. Trasy v `javascript/routes.js` jsou
+pusť v Supabase `supabase-routes.sql` (jde pustit i znovu – doplní sloupec
+`map_embed` bez ztráty dat).
+Ke každé trase jde vložit mapu z Mapy.cz: na mapy.com naplánuj trasu →
+Sdílet → *Vložit mapu do vlastních stránek* → kód vlep do adminu. Adresa
+z prohlížeče nestačí, ta míří na plánovač. Kde je mapa, nahradí kreslený profil. Trasy v `javascript/routes.js` jsou
 už jen záloha pro případ, že by Supabase nebylo dostupné.
 
 **Kontaktní formulář** – odesílá přes EmailJS. Nastavení a podrobný návod

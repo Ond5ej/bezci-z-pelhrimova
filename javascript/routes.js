@@ -101,7 +101,11 @@ export function initRoutes(sel) {
         </div>
         <h3>${esc(r.name)}</h3>
         <p class="route-desc">${esc(r.description || '')}</p>
-        ${profileSVG(r.profile)}
+        ${r.map_embed
+          ? `<div class="route-map"><iframe src="${esc(r.map_embed)}"
+               title="Mapa trasy ${esc(r.name)}" loading="lazy"
+               referrerpolicy="no-referrer-when-downgrade"></iframe></div>`
+          : profileSVG(r.profile)}
         <div class="route-meta">
           <div class="m"><span class="v">${esc(r.km || '–')}</span><span class="k">km</span></div>
           <div class="m"><span class="v">${esc(r.elev || '–')}</span><span class="k">převýšení</span></div>

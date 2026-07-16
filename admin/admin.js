@@ -13,6 +13,8 @@ let albums = [];
 let editingNewsId = null;
 let editingAlbumId = null;
 let editingRouteId = null;
+let editingSponsorId = null;
+let pendingLogo = null;   // { file, preview } než se uloží
 let pendingBanner = null;   // { file } nebo { url } u úprav
 
 /* ---------- pomocné ---------- */
@@ -83,6 +85,7 @@ async function showAdmin(session) {
   await loadNews();
   await loadPhotos();
   await loadRoutes();
+  await loadSponsors();
   await loadSettings();
 }
 
@@ -435,6 +438,36 @@ async function delPhoto(id, path) {
    takže se nemůže rozejít s tím, co uvidí návštěvník.
    ========================================================= */
 
+/**
+ * Z vlepeného <iframe> nebo holého odkazu vytáhne adresu mapy a ověří ji.
+ * Vrací adresu, null (prázdné), nebo vyhodí chybu s vysvětlením.
+ *
+ * Rozhoduje CESTA, ne doména: /s/kod je sdílený obsah, kdežto
+ * /cs/turisticka?planovani-trasy je celá aplikace plánovače – tu do
+ * iframu dát nejde, Seznam přes ni hodí šedou vrstvu.
+ */
+function parseMapEmbed(raw) {
+  const text = String(raw || '').trim();
+  if (!text) return null;
+
+  // buď celý kód s src="...", nebo rovnou adresa
+  const m = text.match(/src\s*=\s*["']([^"']+)["']/i);
+  const url = m ? m[1] : text;
+
+  let u;
+  try { u = new URL(url); }
+  catch { throw new Error('Tohle nevypadá jako odkaz ani jako kód s mapou.'); }
+
+  if (!/(^|\.)mapy\.(cz|com)$/.test(u.hostname)) {
+    throw new Error('Adresa nevede na Mapy.cz.');
+  }
+  if (!/^\/s\/[A-Za-z0-9]+$/.test(u.pathname)) {
+    throw new Error('Tohle je adresa plánovače, ne sdílené mapy. V Mapy.com klikni '
+      + 'Sdílet → Vložit mapu do vlastních stránek a zkopíruj kód odtamtud.');
+  }
+  return u.toString();
+}
+
 /** "2, 3, 5" -> [2,3,5]. Ignoruje mezery a prázdné kousky. */
 function parseProfile(text) {
   return String(text || '')
@@ -455,6 +488,40 @@ function drawPreview() {
 }
 $('#r-profile')?.addEventListener('input', drawPreview);
 
+/**
+ * Ukáže mapu tak, jak bude na webu, a podle toho schová profil.
+ * Kódy typu /s/deranuvofo jsou náhodné a z ničeho nepoznáš, jestli
+ * je to ta správná trasa – jediná odpověď je vidět ji.
+ */
+function drawMapPreview() {
+  const box = $('#r-map-preview');
+  const block = $('#r-profile-block');
+  const wins = $('#r-map-wins');
+  if (!box) return;
+
+  const raw = $('#r-map').value.trim();
+  if (!raw) {
+    box.innerHTML = '';
+    if (block) block.hidden = false;
+    if (wins) wins.hidden = true;
+    return;
+  }
+
+  try {
+    const url = parseMapEmbed(raw);
+    box.innerHTML = `<iframe src="${esc(url)}" title="Náhled mapy" loading="lazy"></iframe>`;
+    // mapa je platná → profil se nepoužije, tak ať nepřekáží
+    if (block) block.hidden = true;
+    if (wins) wins.hidden = false;
+  } catch (err) {
+    box.innerHTML = `<p class="map-err"><i class="bi bi-exclamation-triangle-fill"></i>
+      ${esc(err.message)}</p>`;
+    if (block) block.hidden = false;
+    if (wins) wins.hidden = true;
+  }
+}
+$('#r-map')?.addEventListener('input', drawMapPreview);
+
 function resetRouteForm() {
   editingRouteId = null;
   $('#route-form').reset();
@@ -462,6 +529,7 @@ function resetRouteForm() {
   $('#route-form-title').textContent = 'Nová trasa';
   $('#route-cancel').hidden = true;
   drawPreview();
+  drawMapPreview();
   msg('#route-msg', '');
 }
 $('#route-cancel')?.addEventListener('click', resetRouteForm);
@@ -469,9 +537,14 @@ $('#route-cancel')?.addEventListener('click', resetRouteForm);
 $('#route-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  let mapEmbed;
+  try { mapEmbed = parseMapEmbed($('#r-map').value); }
+  catch (err) { msg('#route-msg', err.message, 'err'); return; }
+
+  // Profil je záloha pro trasy bez mapy – s mapou ho vyžadovat nemá smysl.
   const profile = parseProfile($('#r-profile').value);
-  if (profile.length < 2) {
-    msg('#route-msg', 'Profil potřebuje aspoň dvě čísla oddělená čárkou.', 'err');
+  if (!mapEmbed && profile.length < 2) {
+    msg('#route-msg', 'Vlep mapu z Mapy.cz, nebo vyplň profil (aspoň dvě čísla).', 'err');
     return;
   }
 
@@ -484,9 +557,11 @@ $('#route-form')?.addEventListener('submit', async (e) => {
     teren: $('#r-teren').value.trim() || null,
     diff: $('#r-diff').value,
     diff_label: $('#r-diff-label').value.trim() || null,
-    profile,
+    map_embed: mapEmbed,
     sort_order: Number($('#r-order').value) || 0,
   };
+  // prázdný profil nepřepisujeme – u nové trasy doplní výchozí databáze
+  if (profile.length >= 2) row.profile = profile;
 
   const { error } = editingRouteId
     ? await sb.from('routes').update(row).eq('id', editingRouteId)
@@ -520,6 +595,7 @@ async function loadRoutes() {
           ${r.km ? `<span>${esc(r.km)} km</span>` : ''}
           ${r.elev ? `<span>${esc(r.elev)}</span>` : ''}
           ${r.diff_label ? `<span class="pill">${esc(r.diff_label)}</span>` : ''}
+          ${r.map_embed ? '<span class="pill"><i class="bi bi-map"></i> mapa</span>' : ''}
         </div>
       </div>
       <div class="row-actions">
@@ -546,8 +622,10 @@ function editRoute(r) {
   $('#r-diff').value = ['easy', 'medium', 'hard'].includes(r.diff) ? r.diff : 'easy';
   $('#r-diff-label').value = r.diff_label || '';
   $('#r-profile').value = (r.profile || []).join(', ');
+  $('#r-map').value = r.map_embed || '';
   $('#r-order').value = r.sort_order ?? 0;
   drawPreview();
+  drawMapPreview();
   $('#route-form-title').textContent = 'Úprava trasy';
   $('#route-cancel').hidden = false;
   $('#route-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -558,6 +636,130 @@ async function delRoute(id) {
   const { error } = await sb.from('routes').delete().eq('id', id);
   if (error) { alert('Nepovedlo se smazat: ' + error.message); return; }
   await loadRoutes();
+}
+
+
+/* =========================================================
+   SPONZOŘI
+   ---------------------------------------------------------
+   Loga jdou do stejného úložiště jako fotky, do složky
+   "sponzori". Při mazání sponzora mažeme i soubor – jinak
+   by v úložišti zůstávaly osiřelé obrázky.
+   ========================================================= */
+
+$('#sp-file')?.addEventListener('change', (e) => {
+  const f = e.target.files?.[0];
+  const box = $('#sp-preview');
+  if (!f) { pendingLogo = null; if (box) box.innerHTML = ''; return; }
+  pendingLogo = { file: f };
+  if (box) box.innerHTML = `<img src="${URL.createObjectURL(f)}" alt="Náhled loga">`;
+});
+
+function resetSponsorForm() {
+  editingSponsorId = null;
+  pendingLogo = null;
+  $('#sponsor-form').reset();
+  $('#sp-order').value = 0;
+  $('#sp-preview').innerHTML = '';
+  $('#sponsor-form-title').textContent = 'Nový sponzor';
+  $('#sponsor-cancel').hidden = true;
+  msg('#sponsor-msg', '');
+}
+$('#sponsor-cancel')?.addEventListener('click', resetSponsorForm);
+
+$('#sponsor-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // logo je povinné jen u nového sponzora – při úpravě se smí nechat staré
+  if (!editingSponsorId && !pendingLogo) {
+    msg('#sponsor-msg', 'Vyber prosím logo.', 'err');
+    return;
+  }
+
+  msg('#sponsor-msg', 'Ukládám…');
+  try {
+    const row = {
+      name: $('#sp-name').value.trim(),
+      url: $('#sp-url').value.trim() || null,
+      sort_order: Number($('#sp-order').value) || 0,
+    };
+
+    if (pendingLogo) {
+      const up = await uploadFile(pendingLogo.file, 'sponzori');
+      row.logo_url = up.url;
+      row.logo_path = up.path;
+    }
+
+    const { error } = editingSponsorId
+      ? await sb.from('sponsors').update(row).eq('id', editingSponsorId)
+      : await sb.from('sponsors').insert(row);
+    if (error) throw error;
+
+    msg('#sponsor-msg', 'Uloženo ✓', 'ok');
+    resetSponsorForm();
+    await loadSponsors();
+  } catch (err) {
+    console.error(err);
+    msg('#sponsor-msg', 'Nepovedlo se uložit: ' + (err.message || err), 'err');
+  }
+});
+
+async function loadSponsors() {
+  const box = $('#sponsor-list');
+  if (!box) return;
+  box.innerHTML = '<p class="empty">Načítám…</p>';
+
+  const { data, error } = await sb.from('sponsors').select('*')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true });
+
+  if (error) { box.innerHTML = `<p class="empty">Chyba: ${esc(error.message)}</p>`; return; }
+  if (!data.length) { box.innerHTML = '<p class="empty">Zatím tu není žádný sponzor.</p>'; return; }
+
+  box.innerHTML = data.map(x => `
+    <div class="row">
+      <img class="row-logo" src="${esc(x.logo_url)}" alt="">
+      <div class="row-main">
+        <strong>${esc(x.name)}</strong>
+        <div class="row-meta">
+          <span class="pill">${x.sort_order}</span>
+          ${x.url ? '<span>má odkaz</span>' : '<span>bez odkazu</span>'}
+        </div>
+      </div>
+      <div class="row-actions">
+        <button class="icon-btn" data-spedit="${x.id}" title="Upravit"><i class="bi bi-pencil"></i></button>
+        <button class="icon-btn danger" data-spdel="${x.id}" title="Smazat"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+
+  box.querySelectorAll('[data-spedit]').forEach(b =>
+    b.addEventListener('click', () => editSponsor(data.find(x => x.id === b.dataset.spedit))));
+  box.querySelectorAll('[data-spdel]').forEach(b =>
+    b.addEventListener('click', () => delSponsor(data.find(x => x.id === b.dataset.spdel))));
+}
+
+function editSponsor(x) {
+  if (!x) return;
+  editingSponsorId = x.id;
+  pendingLogo = null;
+  $('#sp-name').value = x.name || '';
+  $('#sp-url').value = x.url || '';
+  $('#sp-order').value = x.sort_order ?? 0;
+  $('#sp-preview').innerHTML = `<img src="${esc(x.logo_url)}" alt="Současné logo">`;
+  $('#sponsor-form-title').textContent = 'Úprava sponzora';
+  $('#sponsor-cancel').hidden = false;
+  msg('#sponsor-msg', 'Logo nech prázdné, pokud ho měnit nechceš.');
+  $('#sponsor-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+async function delSponsor(x) {
+  if (!x || !confirm(`Opravdu smazat sponzora „${x.name}"?`)) return;
+  const { error } = await sb.from('sponsors').delete().eq('id', x.id);
+  if (error) { alert('Nepovedlo se smazat: ' + error.message); return; }
+  // uklidíme i soubor, ať v úložišti nezůstane osiřelé logo
+  if (x.logo_path) await sb.storage.from(BUCKET).remove([x.logo_path]);
+  await loadSponsors();
 }
 
 

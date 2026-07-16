@@ -126,6 +126,13 @@
           <a href="#kontakt" class="btn"><i class="bi bi-lightning-charge-fill"></i> Přidej se k nám</a>
           <a href="#fotogalerie" class="btn btn--ghost"><span class="btn-label">Mrkni na fotky</span></a>
         </div>
+        <div class="hero-sponsors" id="hero-sponsors" hidden>
+          <p class="sponsors-title">Sponzoři</p>
+          <div class="sponsors-viewport">
+            <div class="sponsors-track" id="sponsors-track"></div>
+          </div>
+        </div>
+
         <div class="hero-stats">
           <div class="hero-stat"><div class="num" data-setting="members">111</div><div class="lbl">členů party</div></div>
           <div class="hero-stat"><div class="num"><span data-setting="members_round">100</span>+</div><div class="lbl">běžců a stále rosteme</div></div>
@@ -372,6 +379,11 @@
       © <span id="year">2026</span> Běžci z Pelhřimova ·
       <a href="https://bezcizpelhrimova.cz">bezcizpelhrimova.cz</a> ·
       nemusíš být závodník, stačí chuť vyběhnout
+    </p>
+    <!-- hidden, dokud se číslo nenačte – ať v patičce nesvítí prázdné místo -->
+    <p class="visits" id="visits" hidden>
+      <i class="bi bi-eye"></i>
+      <span id="visit-count">0</span> <span class="visits-word">návštěv</span>
     </p>
   </footer>
 
