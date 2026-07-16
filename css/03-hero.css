@@ -90,12 +90,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
-  /* jediné místo, kde se zbylá výška sbírá – statistiky tím sjedou
-     dolů, ale text nad nimi zůstane pohromadě */
-  margin-top: auto;
   padding-top: clamp(1.4rem, 2.5vh, 2rem);
   border-top: 1px solid rgba(14,44,90,.16);
 }
+/* bez sponzorů se hero-sponsors neukáže a prostor by neměl kdo sebrat */
+.hero-sponsors[hidden] + .hero-stats { margin-top: auto; }
+
 .hero-stat { line-height: 1.1; }
 .hero-stat .num {
   font-family: var(--font-display);
@@ -417,7 +417,12 @@
    Sedí v mezeře mezi tlačítky a statistikami. Když sponzor
    žádný není, blok je hidden a mezera zůstane, jak byla.
    ========================================================= */
-.hero-sponsors { margin: 0 0 1.6rem; }
+/* margin-top:auto spolkne zbylou výšku, takže blok sjede dolů a sedne
+   si těsně nad čáru statistik. */
+.hero-sponsors {
+  margin-top: auto;
+  margin-bottom: 1.4rem;
+}
 
 .sponsors-title {
   margin: 0 0 .7rem;
@@ -461,18 +466,12 @@
   text-decoration: none;
 }
 .sponsor img {
-  height: 42px;
+  height: 58px;
   width: auto;
-  max-width: 130px;
+  max-width: 175px;
   object-fit: contain;
   display: block;
-  /* loga sponzorů mají kdejakou barvu – odšednutí je srovná
-     do jedné roviny, na hover se rozsvítí do původní */
-  filter: grayscale(1);
-  opacity: .62;
-  transition: filter .25s var(--ease), opacity .25s var(--ease);
 }
-.sponsor:hover img { filter: none; opacity: 1; }
 
 /* Kdo má vypnuté animace, nechce ani tenhle posun. */
 @media (prefers-reduced-motion: reduce) {
@@ -483,5 +482,5 @@
 @media (max-width: 860px) {
   .hero-sponsors { width: 100%; }
   .sponsors-title { text-align: center; }
-  .sponsor img { height: 34px; max-width: 104px; }
+  .sponsor img { height: 46px; max-width: 140px; }
 }

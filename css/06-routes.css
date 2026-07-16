@@ -60,6 +60,12 @@
   font-size: .93rem;
   color: var(--paper-soft);
   line-height: 1.55;
+  /* Karty v řádku jsou stejně vysoké, ale popisy různě dlouhé – přebytek
+     se pak hromadil vespod a mapy začínaly každá jinde. margin-bottom:auto
+     ho posune sem, nad mapu: text zůstane u nadpisu a mapa i přehled
+     sjedou k dolní hraně, takže sedí ve stejné výšce napříč kartami. */
+  margin-bottom: auto;
+  padding-bottom: 1rem;
 }
 
 /* mini profil převýšení */
@@ -67,23 +73,38 @@
 
 .route-meta {
   display: flex;
-  gap: 1.2rem;
+  /* delší povrch ("50% asfalt 50% terén") se musí mít kam zalomit,
+     jinak rozpíná kartu nebo přeteče */
+  flex-wrap: wrap;
+  gap: .9rem 1.4rem;
   padding: 1rem 1.4rem 1.4rem;
   border-top: 1px solid rgba(127,168,216,.12);
 }
-.route-meta .m { line-height: 1.15; }
+/* Bez tohohle jsou .v a .k dva řádkové spany vedle sebe a slepí se
+   do "1,3KM". Návrh počítá se stohem: hodnota, pod ní popisek. */
+.route-meta .m {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  line-height: 1.15;
+  min-width: 0;
+}
+/* popisek nahoře – drží se zpátky, jen říká, co je pod ním */
+.route-meta .m .k {
+  font-family: var(--font-data);
+  font-size: .62rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--paper-soft);
+  opacity: .75;
+  white-space: nowrap;
+}
+/* hodnota pod ním – to je ta informace */
 .route-meta .m .v {
   font-family: var(--font-data);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   color: var(--paper-text);
-}
-.route-meta .m .k {
-  font-family: var(--font-data);
-  font-size: .64rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--paper-soft);
 }
 
 @media (max-width: 900px) { .routes-grid { grid-template-columns: 1fr 1fr; } }

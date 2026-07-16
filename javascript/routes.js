@@ -16,19 +16,19 @@ const fallbackRoutes = [
   {
     name: 'Městský okruh',
     description: 'Nenáročný okruh centrem a parky. Ideální na rozběhání a pro úplné začátečníky.',
-    km: '5,2', elev: '45 m', teren: 'asfalt', diff: 'easy', diff_label: 'Pro každého',
+    km: '5,2 km', elev: '45 m', teren: 'asfalt', diff: 'easy', diff_label: 'Pro každého',
     profile: [3, 4, 3, 5, 4, 6, 4, 3, 4, 3],
   },
   {
     name: 'Křemešník',
     description: 'Táhlé stoupání lesem až k rozhledně. Odměnou je výhled na celou Vysočinu.',
-    km: '11,8', elev: '260 m', teren: 'les', diff: 'medium', diff_label: 'Kopcovitá',
+    km: '11,8 km', elev: '260 m', teren: 'les', diff: 'medium', diff_label: 'Kopcovitá',
     profile: [2, 3, 5, 7, 9, 10, 8, 6, 4, 3],
   },
   {
     name: 'Nedělní vejšlap',
     description: 'Delší pohodová trasa přes kopce a zpět. Pomalé tempo, hlavně si to užít.',
-    km: '18,0', elev: '340 m', teren: 'smíšený', diff: 'hard', diff_label: 'Delší',
+    km: '18,0 km', elev: '340 m', teren: 'smíšený', diff: 'hard', diff_label: 'Delší',
     profile: [3, 6, 4, 8, 6, 10, 7, 9, 5, 3],
   },
 ];
@@ -107,9 +107,9 @@ export function initRoutes(sel) {
                referrerpolicy="no-referrer-when-downgrade"></iframe></div>`
           : profileSVG(r.profile)}
         <div class="route-meta">
-          <div class="m"><span class="v">${esc(r.km || '–')}</span><span class="k">km</span></div>
-          <div class="m"><span class="v">${esc(r.elev || '–')}</span><span class="k">převýšení</span></div>
-          <div class="m"><span class="v">${esc(r.teren || '–')}</span><span class="k">povrch</span></div>
+          <div class="m"><span class="k">Délka</span><span class="v">${esc(r.km || '–')}</span></div>
+          <div class="m"><span class="k">Převýšení</span><span class="v">${esc(r.elev || '–')}</span></div>
+          <div class="m"><span class="k">Povrch</span><span class="v">${esc(r.teren || '–')}</span></div>
         </div>
       </article>
     `).join('');

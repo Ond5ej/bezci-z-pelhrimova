@@ -38,10 +38,12 @@
    Dokud jsou hodnoty nevyplněné, formulář funguje po staru –
    otevře návštěvníkovi jeho poštovní program (mailto).
    ========================================================= */
-export const EMAILJS_PUBLIC_KEY  = 'xGakMf7erbmCHBBEa';
+export const EMAILJS_PUBLIC_KEY  = 'TVUJ-PUBLIC-KEY';
+// služba "Běžci z Pelhřimova" (SMTP přes smtp.seznam.cz).
+// POZOR: na účtu je i služba Perfect-Look (Gmail) označená jako DEFAULT –
+// proto tu službu uvádíme natvrdo, ať se weby nepletou.
 export const EMAILJS_SERVICE_ID  = 'service_6vtzgwt';
-export const EMAILJS_TEMPLATE_ID = 'template_j4bwkn4';
-
+export const EMAILJS_TEMPLATE_ID = 'TVUJ-TEMPLATE-ID';
 
 let _emailjs = null;
 
