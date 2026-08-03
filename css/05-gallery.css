@@ -160,3 +160,16 @@
   border-color: var(--amber);
 }
 /* aktivní čip zůstává limetkový s tmavým textem – funguje na obojím */
+
+/* Popis alba – ukáže se nad fotkami po kliknutí na konkrétní album.
+   U pohledu "Vše" a u alb bez popisu zůstává skrytý. */
+.album-desc {
+  margin: 0 0 1.4rem;
+  max-width: 60ch;
+  color: var(--paper-soft);
+  line-height: 1.6;
+  font-size: .96rem;
+  padding-left: .9rem;
+  border-left: 3px solid var(--amber);
+}
+.section--paper .album-desc { color: var(--ink-soft); }

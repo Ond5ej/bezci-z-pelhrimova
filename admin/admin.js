@@ -36,7 +36,64 @@ function fmtDate(iso) {
 function today() { return new Date().toISOString().slice(0, 10); }
 
 /** Nahraje soubor do úložiště a vrátí { url, path } */
+/**
+ * Zmenší a zkomprimuje obrázek ještě v prohlížeči, než ho pošleme.
+ * Šetří to úložiště i tvůj upload – z foťáku chodí klidně 6 MB,
+ * na web stačí zlomek.
+ *
+ * MAX_SIDE = 1600 px na delší straně: pokryje i retina displeje,
+ * na lightbox víc netřeba. QUALITY 0.82 je práh, pod kterým začnou
+ * být vidět artefakty; nad ním roste jen velikost, ne kvalita.
+ *
+ * Co kompresí NEprochází: PNG s průhledností (loga sponzorů) – JPEG
+ * průhlednost neumí a udělal by z ní černou. Ta se nahrají tak, jak jsou.
+ */
+const MAX_SIDE = 1600;
+const QUALITY = 0.82;
+
+async function compressImage(file) {
+  // co není rastrový obrázek (SVG, GIF), nebo je průhledné PNG, necháme být
+  if (!file.type.startsWith('image/') || file.type === 'image/gif' || file.type === 'image/svg+xml') {
+    return file;
+  }
+
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;   // prohlížeč to neumí načíst → pošleme originál
+  }
+
+  const { width, height } = bitmap;
+  const scale = Math.min(1, MAX_SIDE / Math.max(width, height));
+
+  // malý obrázek nezvětšujeme; když je navíc lehký, nemá cenu ho přepisovat
+  if (scale === 1 && file.size < 500 * 1024) {
+    bitmap.close?.();
+    return file;
+  }
+
+  const w = Math.round(width * scale);
+  const h = Math.round(height * scale);
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close?.();
+
+  const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', QUALITY));
+  if (!blob || blob.size >= file.size) return file;   // když bychom to zvětšili, ponech originál
+
+  // název s příponou .jpg, ať sedí s obsahem
+  const base = file.name.replace(/\.[^.]+$/, '');
+  return new File([blob], `${base}.jpg`, { type: 'image/jpeg' });
+}
+
+/** Nahraje soubor do úložiště a vrátí { url, path } */
 async function uploadFile(file, folder) {
+  file = await compressImage(file);
   const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
   const path = `${folder}/${crypto.randomUUID()}.${ext}`;
   const { error } = await sb.storage.from(BUCKET).upload(path, file, {
@@ -367,7 +424,7 @@ $('#p-files').addEventListener('change', async (e) => {
   let done = 0;
 
   for (const f of files) {
-    msg('#p-msg', `Nahrávám ${done + 1} z ${files.length}…`);
+    msg('#p-msg', `Zpracovávám ${done + 1} z ${files.length}… (zmenšení + nahrání)`);
     try {
       const up = await uploadFile(f, albumId);
       const { error } = await sb.from('photos').insert({

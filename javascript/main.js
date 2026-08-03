@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery({
     grid: '#gallery-grid',
     filters: '#gallery-filters',
+    desc: '#album-desc',
     lightbox: '#lightbox',
   });
 

@@ -62,9 +62,24 @@ export function initGallery(sel) {
   let remotePhotos = [];   // ze Supabase
   let albums = [];
   let albumTitles = new Map(); // id alba -> název (pro odznak na fotce)
+  let albumDescs = new Map();  // id alba -> popis (ukáže se nad fotkami)
   let activeAlbum = 'all';
   let photos = [];         // aktuálně zobrazené
   let current = 0;
+
+  const descBox = document.querySelector(sel.desc || '#album-desc');
+
+  /** Ukáže popis vybraného alba, nebo ho schová (u "Vše" i u alba bez popisu). */
+  function showAlbumDesc() {
+    if (!descBox) return;
+    const text = activeAlbum !== 'all' ? albumDescs.get(activeAlbum) : '';
+    if (text) {
+      descBox.textContent = text;
+      descBox.hidden = false;
+    } else {
+      descBox.hidden = true;
+    }
+  }
 
   /* ---- co se má zobrazit ---- */
   function currentSet() {
@@ -94,6 +109,7 @@ export function initGallery(sel) {
         activeAlbum = btn.dataset.album;
         filterBox.querySelectorAll('.gal-chip')
           .forEach(x => x.classList.toggle('is-active', x === btn));
+        showAlbumDesc();
         render();
       });
     });
@@ -260,7 +276,7 @@ export function initGallery(sel) {
     if (!sb) return;
 
     const [{ data: al }, { data: ph, error }] = await Promise.all([
-      sb.from('albums').select('id, title').order('created_at', { ascending: false }),
+      sb.from('albums').select('id, title, description').order('created_at', { ascending: false }),
       sb.from('photos').select('url, alt, album_id').order('created_at', { ascending: false }),
     ]);
 
@@ -268,6 +284,7 @@ export function initGallery(sel) {
 
     remotePhotos = ph || [];
     albumTitles = new Map((al || []).map(a => [a.id, a.title]));
+    albumDescs = new Map((al || []).map(a => [a.id, a.description || '']));
     // ukážeme jen alba, která mají aspoň jednu fotku
     const used = new Set(remotePhotos.map(p => p.album_id));
     albums = (al || []).filter(a => used.has(a.id));
